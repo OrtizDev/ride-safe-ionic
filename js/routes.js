@@ -10,10 +10,28 @@ angular.module('app.routes', [])
     
   
 
-      .state('page1', {
+      .state('login', {
     url: '/login',
-    templateUrl: 'templates/page1.html',
-    controller: 'page1Ctrl'
+    templateUrl: 'templates/login.html',
+    controller: 'loginCtrl'
+  })
+
+  .state('gracias', {
+    url: '/thanks',
+    templateUrl: 'templates/gracias.html',
+    controller: 'graciasCtrl'
+  })
+
+  .state('page3', {
+    url: '/splash',
+    templateUrl: 'templates/page3.html',
+    controller: 'page3Ctrl'
+  })
+
+  .state('page', {
+    url: '/page5',
+    templateUrl: 'templates/page.html',
+    controller: 'pageCtrl'
   })
 
 $urlRouterProvider.otherwise('/login')
