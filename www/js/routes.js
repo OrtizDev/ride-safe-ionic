@@ -28,10 +28,16 @@ angular.module('app.routes', [])
     controller: 'page3Ctrl'
   })
 
-  .state('page', {
-    url: '/page5',
-    templateUrl: 'templates/page.html',
-    controller: 'pageCtrl'
+  .state('home', {
+    url: '/home',
+    templateUrl: 'templates/home.html',
+    controller: 'homeCtrl'
+  })
+
+  .state('manual', {
+    url: '/manual',
+    templateUrl: 'templates/manual.html',
+    controller: 'manualCtrl'
   })
 
 $urlRouterProvider.otherwise('/login')
