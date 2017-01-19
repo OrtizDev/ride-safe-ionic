@@ -40,6 +40,24 @@ angular.module('app.routes', [])
     controller: 'manualCtrl'
   })
 
+  .state('sR2Protection', {
+    url: '/sr2',
+    templateUrl: 'templates/sR2Protection.html',
+    controller: 'sR2ProtectionCtrl'
+  })
+
+  .state('descubrirRuta', {
+    url: '/discover',
+    templateUrl: 'templates/descubrirRuta.html',
+    controller: 'descubrirRutaCtrl'
+  })
+
+  .state('nuevaRuta', {
+    url: '/newRoute',
+    templateUrl: 'templates/nuevaRuta.html',
+    controller: 'nuevaRutaCtrl'
+  })
+
 $urlRouterProvider.otherwise('/login')
 
   
