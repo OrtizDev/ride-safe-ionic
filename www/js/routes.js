@@ -58,6 +58,36 @@ angular.module('app.routes', [])
     controller: 'nuevaRutaCtrl'
   })
 
+  .state('misRutas', {
+    url: '/myRoutes',
+    templateUrl: 'templates/misRutas.html',
+    controller: 'misRutasCtrl'
+  })
+
+  .state('grabarRutas', {
+    url: '/recordRoutes',
+    templateUrl: 'templates/grabarRutas.html',
+    controller: 'grabarRutasCtrl'
+  })
+
+  .state('preRutas', {
+    url: '/preRoutes',
+    templateUrl: 'templates/preRutas.html',
+    controller: 'preRutasCtrl'
+  })
+
+  .state('menu', {
+    url: '/menu',
+    templateUrl: 'templates/menu.html',
+    controller: 'menuCtrl'
+  })
+
+  .state('menuItems', {
+    url: '/menuItems',
+    templateUrl: 'templates/menuItems.html',
+    controller: 'menuItemsCtrl'
+  })
+
 $urlRouterProvider.otherwise('/login')
 
   
