@@ -1,0 +1,135 @@
+$balanced: #46B04F;
+$positive: #223D75;
+$dark: #808284;
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+@import "../www/lib/ionic/scss";
+.translucid {
+	background: transparent;
+}
+
+.border-radius-large {
+	border-radius: 8px 8px 8px 8px;
+}
+
+.underlined {
+	text-decoration: underline}
+.text-center {
+	text-align: center;
+}
+
+.no-border {
+	border: none;
+}
+
+.col-2 {
+	width: 20%;
+	display: inline-block;
+}
+
+.col-3 {
+	width: 31%;
+	display: inline-block;
+}
+
+.col-4 {
+	width: 40%;
+	display: inline-block;
+}
+
+.col-5 {
+	width: 49%;
+	display: inline-block;
+}
+
+.col-6 {
+	width: 59%;
+	display: inline-block;
+}
+
+.col-7 {
+	width: 69%;
+	display: inline-block;
+}
+
+.col-8 {
+	width: 79%;
+	display: inline-block;
+}
+
+.col-9 {
+	width: 89%;
+	display: inline-block;
+}
+
+// register inputs
+
+.input-label {
+	color: #fff;
+	font-size: 14px;
+}
+
+.register-input input {
+	color: #fff;
+	font-size: 14px;
+	border-bottom: solid #fff 1px;
+	padding: 0 !important;
+}
+
+.black-font span {
+	color: #3b3c3a !important;
+}
+
+.select-item select {
+	left: 60%;
+	padding-left: 30px;
+}
+
+// Config tabs
+
+.tab-navigation {
+	padding: 0;
+	border-bottom: solid 1px #ddd;
+}
+
+.tab-navigation li {
+	display: inline-block;
+	margin-bottom: -1px;
+}
+
+.tab-navigation li a {
+	display: inline-block;
+	border: solid 1px #ddd;
+	padding: 7px 15px;
+	text-decoration: none;
+	background: #3b3c3a;
+	color: #fff;
+	margin: 0px -2px;
+}
+
+.tab-navigation .active a {
+	// border-bottom-color: #fff;
+	border-bottom: 1px solid rgb(59, 60, 58)}
+.tab-content {
+	display: none;
+}
+
+.tab-content.active {
+	display: block;
+	height: 100%;
+	background: #3b3c3a;
+	color: #fff;
+}
+
+// This code is required for Angular Google Maps to funciton
+ui-gmap-google-map {
+	height: 100%;
+	width: 100%;
+	display: block;
+	.angular-google-map {
+		height: 100%;
+		.angular-google-map-container {
+			height: 100%;
+		}
+		
+	}
+}
