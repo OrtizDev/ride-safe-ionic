@@ -1,6 +1,7 @@
 $balanced: #46B04F;
 $positive: #223D75;
 $dark: #808284;
+$calm: #1B75BA;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "../www/lib/ionic/scss";
 .translucid {
@@ -61,7 +62,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	display: inline-block;
 }
 
-// register inputs
+// REGISTER INPUTS
 
 .input-label {
 	color: #fff;
@@ -84,7 +85,80 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	padding-left: 30px;
 }
 
-// Config tabs
+// ALERT SCREEN MENU
+
+.nav-trigger {
+	/* critical styles - hide the checkbox input */
+	  position: absolute;
+	height: 100px;
+	clip: rect(0, 0, 0, 0);
+}
+
+label[for="nav-trigger"] {
+	/* critical positioning styles */
+	  position: absolute;
+	z-index: 5;
+	right: 10px;
+	/* non-critical apperance styles */
+	  height: 30px;
+	width: 30px;
+	cursor: pointer;
+	background-image: url("data: image/svg+xml;
+	utf8,<svg xmlns='http: //www.w3.org/2000/svg' xmlns: xlink='http: //www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml: space='preserve'><rect width='30' height='6'/><rect y='24' width='30' height='6'/><rect y='12' width='30' height='6'/></svg>");
+	background-size: contain;
+}
+
+.navigation {
+	/* critical sizing and position styles */
+	  width: 120px;
+	height: 60%;
+	position: absolute;
+	top: 60px;
+	bottom: 0;
+	right: -150px;
+	z-index: 5;
+	/* non-critical appearance styles */
+	  list-style: none;
+	background: #111;
+}
+
+.nav-item {
+	/* non-critical appearance styles */
+	  width: 200px;
+	border-top: 1px solid #111;
+	border-bottom: 1px solid #000;
+}
+
+.nav-item a {
+	/* non-critical appearance styles */
+	  display: block;
+	padding: 1em;
+	background: linear-gradient(135deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 100%);
+	color: white;
+	font-size: 1.2em;
+	text-decoration: none;
+	transition: color 0.2s, background 0.5s;
+}
+
+.nav-item a: hover {
+	color: #c74438;
+	background: linear-gradient(135deg, rgba(0, 0, 0, 0) 0%, rgba(75, 20, 20, 0.65) 100%);
+}
+
+/* Make the Magic Happen */
+
+.navigation {
+	transition: left 0.2s;
+}
+
+.nav-trigger: checked + label {
+	/*   left: 215px;
+	*/}
+.nav-trigger: checked ~ .navigation {
+	right: 0px;
+	/*   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+	*/}
+// CONFIGURATION TABS
 
 .tab-navigation {
 	padding: 0;

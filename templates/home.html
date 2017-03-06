@@ -14,11 +14,30 @@
         <ui-gmap-marker coords="map.marker.coords" idkey="map.marker.id" options="map.marker.options"></ui-gmap-marker>
       </ui-gmap-google-map>
     </creator-map-component>
-    <button menu-toggle="right" style="border-radius:25px 25px 25px 25px;" class="button button-positive  icon ion-alert"></button>
+    <div>
+      <!--has a div as a parent that I need to delete to make the right side menu works-->
+      <input type="checkbox" id="nav-trigger" class="nav-trigger">
+      <label for="nav-trigger"></label>
+    </div>
+    <ul class="navigation">
+      <li class="nav-item">
+        <a href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="#">Portfolio</a>
+      </li>
+      <li class="nav-item">
+        <a href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a href="#">Blog</a>
+      </li>
+      <li class="nav-item">
+        <a href="#">Contact</a>
+      </li>
+    </ul>
     <div style="margin-right:-20px;">
       <button id="home-button12" style="left:-10px;border-radius:0px 0px 0px 0px;" class="button button-balanced button-large button-full">A rodar!</button>
     </div>
-    <button menu-toggle="right" style="border-radius:25px 25px 25px 25px;" class="button button-positive  icon ion-android-menu"></button>
-    <button menu-toggle="left" style="border-radius:25px 25px 25px 25px;" class="button button-positive  icon ion-android-menu"></button>
   </ion-content>
 </ion-view>
