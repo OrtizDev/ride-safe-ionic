@@ -116,6 +116,60 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, S2R, $state) {
 
+  $scope.$on('$ionicView.enter', function () {
+      var IC = S2R.getEstateS2R_IC();
+      var DR = S2R.getEstateS2R_DR();
+      var AR = S2R.getEstateS2R_AR();
+      var LT = S2R.getEstateS2R_LT();
+      var MC = S2R.getEstateS2R_MC();
+      if (IC == "true") {
+          $scope.pushNotiIC = { checked: true };
+          console.log("IC " + IC);
+      } else {
+          $scope.pushNotiIC = { checked: false };
+      }
+
+      if (DR == "true") {
+          $scope.pushNotiDR = { checked: true };
+          console.log("DR " + DR);
+      } else {
+          $scope.pushNotiDR = { checked: false };
+      }
+
+      if (AR == "true") {
+          $scope.pushNotiAR = { checked: true };
+          console.log("AR" + AR);
+      } else {
+          $scope.pushNotiAR = { checked: false };
+      }
+
+      if (LT == "true") {
+          $scope.pushNotiLT = { checked: true };
+          console.log("LT" + LT);
+      } else {
+          $scope.pushNotiLT = { checked: false };
+      }
+
+      if (MC == "true") {
+          $scope.pushNotiMC = { checked: true };
+          console.log("MC" + MC);
+      } else {
+          $scope.pushNotiMC = { checked: false };
+      }
+  });
+
+
+  $scope.saveNoti = function () {
+        S2R.setEstateS2R($scope.pushNotiIC.checked,
+                         $scope.pushNotiDR.checked,
+                         $scope.pushNotiAR.checked,
+                         $scope.pushNotiLT.checked,
+                         $scope.pushNotiMC.checked);
+    }
+
+    $scope.backS2R = function () {
+      $state.go('menu.home');
+  }
 
 }])
 
