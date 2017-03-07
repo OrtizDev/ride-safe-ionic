@@ -1,1 +1,50 @@
+/* Custom styles */
+
+/*
+  File contents
+-------------------------------
+  - Avenir Font
+  - Home view
+
+*/
+
+
+
+@font-face {
+  font-family: "Avenir-light";
+  src: url("../lib/ionic/fonts/avenir-light?v=2.0.1");
+  src: url("../lib/ionic/fonts/avenir-light.eot?v=2.0.1#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/avenir-light.ttf?v=2.0.1") format("truetype"), url("../lib/ionic/fonts/avenir-light.woff?v=2.0.1") format("woff"), url("../lib/ionic/fonts/avenir-light.woff") format("woff"), url("../lib/ionic/fonts/avenir-light.svg?v=2.0.1#Ionicons") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Avenir-roman";
+  src: url("../lib/ionic/fonts/avenir-roman.eot?v=2.0.1");
+  src: url("../lib/ionic/fonts/avenir-roman.eot?v=2.0.1#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/avenir-roman.ttf?v=2.0.1") format("truetype"), url("../lib/ionic/fonts/avenir-roman.woff?v=2.0.1") format("woff"), url("../lib/ionic/fonts/avenir-roman.woff") format("woff"), url("../lib/ionic/fonts/avenir-roman.svg?v=2.0.1#Ionicons") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
 /*********** HOME ************/
+.home-button {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 3;
+  min-height: 35px !important;
+  min-width: 35px !important;
+}
+
+#home-form9 {
+    position: absolute;
+    top: 85px;
+    left: 45px;
+    width: 75%;
+}
+
+#home-form9 > label {
+    border-radius: 10px;
+    border: 1px solid #3b3c3a;
+    height: 40px;
+    margin: 1px 0px;
+    padding-left: 12px !important;
+}
