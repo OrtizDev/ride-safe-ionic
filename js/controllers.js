@@ -79,18 +79,79 @@ function ($scope, $stateParams, , $state, UserSession  ) {
 
 }])
 
-.controller('userRegisterCtrl', ['$scope', '$stateParams',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('userRegisterCtrl', ['$scope', '$stateParams', '$state', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $state, $rootScope) {
+
+  $.ajax({
+      type: "GET",
+      url: "http://startbluesoft.com/rideSafeApp/v1/index.php/state",
+      dataType: 'json',
+      success: function (data) {
+          if (data.error) {
+              alert(data.message);
+          } else if (!data.error) {
+              estados = JSON.parse(data.message);
+              var toAppend = '';
+              $.each(estados, function(i, item){
+                toAppend += '<option value="'+item.id_estado+'">'+item.nombre+'</option>';
+              });
+              $('#states').append(toAppend);
+          }
+       },
+       error: function (xhr, status, error) {
+           console.log(xhr.responseText);
+           alert("No se pudieron obtener los estados");
+       }
+  });
+  $scope.typegender = [
+  {gender : 1, genderName: 'Femenino'},
+  {gender : 2, genderName: 'Masculino'}
+  ];
+  $scope.max= new Date();
+  $scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
+  $scope.minpassword = 6;
+  $scope.updateCi = function (state) {
+  $('#city').empty();
+  var parametros = {
+      "city" : state
+  };
+  $.ajax({
+      type: "POST",
+      url: "http://startbluesoft.com/rideSafeApp/v1/index.php/cities",
+      data: parametros,
+      dataType: 'json',
+      success: function (data) {
+          if (data.error) {
+              alert(data.message);
+          } else if (!data.error) {
+              estados = JSON.parse(data.message);
+              var toAppend = '';
+              $.each(estados, function(i, item){
+                toAppend += '<option value="'+item.id_municipio+'">'+item.nombre+'</option>';
+              });
+              $('#city').append(toAppend);
+          }
+       },
+       error: function (xhr, status, error) {
+           console.log(xhr.responseText);
+           alert("No se pudieron obtener las ciudades");
+       }
+  });
+}
+
+$scope.motoRegis = function () {
+   $state.go('motoRegister');
+ }
 
 
 }])
 
-.controller('motoRegisterCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('motoRegisterCtrl', ['$scope', '$stateParams', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $rootScope) {
 
 
 }])
