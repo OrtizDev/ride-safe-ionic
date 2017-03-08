@@ -186,10 +186,14 @@
       margin-right: auto;
       border-radius: 50%;
       overflow: hidden;
-      background-image: url("http://lorempixel.com/300/200/people/");
+      background-image: url("/img/usuario-bg.png");
       background-size: cover;
       background-repeat: no-repeat;
       background-position: 50% 50%;
+    }
+
+    .hidden-text {
+      display: none;
     }
 
     #menu-button17 {
@@ -198,6 +202,17 @@
 
     #menu-button16 {
       right: 0;
+    }
+
+    #picture_text {
+      font-size: 26px;
+      color: #223d75;
+      text-align: center;
+      line-height: 1;
+      height: 150px;
+      vertical-align: middle;
+      position: relative;
+      top: 25%;
     }
 
     #user_name {
