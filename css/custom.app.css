@@ -270,18 +270,35 @@
     .half-height >div {
       height: 50%;
     }
-    
+
     .gray-bg {
       background: #3b3c3a;
     }
 
     .center-img {
       height: auto !important;
-      max-height: auto !important;
-      max-width: 60px;
+      max-height: 70px !important;
+      width: auto !important;
+      max-width: auto !important;
       margin: auto;
       top: 0;
       bottom: 0;
+      left: 0;
+      right: 55%;
+    }
+
+    .alert-item > h2{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      height: auto;
+      margin: auto !important;
+      max-height: 40px;
+      font-size: 20px;
+      padding: 15px 0px;
+      font-weight: bold;
+      font-family: "Avenir-light";
+      color: #fff;
     }
 
     .bottom-border {
@@ -289,8 +306,9 @@
     }
 
     .alert-item {
-      border-bottom: 4px solid #fff;
       height: 34%;
+      border-bottom: 4px solid #fff;
+      padding-left: 160px;
     }
 
 /*********** CONFIGURATION VIEW ***********/
