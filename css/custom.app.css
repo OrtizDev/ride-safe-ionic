@@ -263,8 +263,34 @@
 
 /*********** Alert views ************/
 
+    .full-height > div{
+        height: 100%;
+    }
+
+    .half-height >div {
+      height: 50%;
+    }
+    
     .gray-bg {
       background: #3b3c3a;
+    }
+
+    .center-img {
+      height: auto !important;
+      max-height: auto !important;
+      max-width: 60px;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+    }
+
+    .bottom-border {
+      border-bottom: 4px solid #fff;
+    }
+
+    .alert-item {
+      border-bottom: 4px solid #fff;
+      height: 34%;
     }
 
 /*********** CONFIGURATION VIEW ***********/
