@@ -7,6 +7,7 @@
   - Home view
     - Right modal-menu
   - Configutation view
+  - Alert views
 
 */
 
@@ -258,6 +259,12 @@
 
     #menu-list1 .icon > img {
       width: 35px;
+    }
+
+/*********** Alert views ************/
+
+    .gray-bg {
+      background: #3b3c3a;
     }
 
 /*********** CONFIGURATION VIEW ***********/
