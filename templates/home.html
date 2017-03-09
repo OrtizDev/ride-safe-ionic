@@ -1,24 +1,70 @@
 <ion-view title="home" hide-nav-bar="true" id="page1" class="translucid">
-  <ion-content padding="true" class="manual-ios-statusbar-padding" scroll="false">
-    <button menu-toggle="left" style="border-radius:25px 25px 25px 25px;" class="button button-positive  icon ion-android-menu"></button>
+  <ion-content padding="false" class="manual-ios-statusbar-padding" scroll="false">
+    <button menu-toggle="left" style="border-radius:25px 25px 25px 25px;" class="button button-positive home-button icon ion-android-menu"></button>
     <form id="home-form9" class="list">
       <label class="item item-input" id="home-input27" name="origin">
+        <span style="width: 15%; font-size: 12px;"><i class="icon ion-record calm"></i></span>
         <input type="text" placeholder="Origen de ruta">
       </label>
       <label class="item item-input" id="home-input28" name="origin">
+        <span style="width: 15%; font-size: 16px;"><i class="icon ion-android-search"></i></span>
         <input type="text" placeholder="Destino">
       </label>
     </form>
-    <creator-map-component options="{}" marker="true" location="ciudad de mexico" zoom="12" style="display:block;position:relative;margin-left:-10px;width:calc(100% + 20px);height:50%;">
+    <creator-map-component options="{&quot;disableDefaultUI&quot;:true}" marker="true" location="ciudad de mexico" zoom="12" style="display:block;position:relative;margin-left:-10px;width:calc(100% + 20px);height:91%;">
       <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" options="map.options">
         <ui-gmap-marker coords="map.marker.coords" idkey="map.marker.id" options="map.marker.options"></ui-gmap-marker>
       </ui-gmap-google-map>
     </creator-map-component>
-    <button menu-toggle="right" style="border-radius:25px 25px 25px 25px;" class="button button-positive  icon ion-alert"></button>
+    <input type="checkbox" id="nav-trigger" class="nav-trigger">
+    <label for="nav-trigger" style="margin-top: -50px;">!</label>
+    <ul class="navigation">
+      <li class="nav-item background-odd" style="height: 10%;">
+        <p class="nav-title">¡ALERTAS!</p>
+      </li>
+      <li class="nav-item" ui-sref="traficAlert">
+        <a>
+          <div class="img-item">
+            <img src="img/kd9ajAu2RyGZ6nL6cFYr_cono.png">
+          </div>
+          <p class="title-item">Tráfico</p>
+        </a>
+      </li>
+      <li class="nav-item background-odd" ui-sref="policeAlert">
+        <a>
+          <div class="img-item">
+            <img src="img/KknK8IW8RGOIr4j5o75W_policia.png" class="img-item">
+          </div>
+          <p class="title-item">Policía</p>
+        </a>
+      </li>
+      <li class="nav-item" ui-sref="accidentAlert">
+        <a>
+          <div class="img-item">
+            <img src="img/4ozhParQtW7oP2Q9yBXZ_accidente.png" class="img-item" style="height: 20px;">
+          </div>
+          <p class="title-item">Accidente</p>
+        </a>
+      </li>
+      <li class="nav-item background-odd" ui-sref="closedAlert">
+        <a>
+          <div class="img-item">
+            <img src="img/Zf3qdVorSj2c5nP4jCWL_cierre.png" class="img-item">
+          </div>
+          <p class="title-item">Cierres</p>
+        </a>
+      </li>
+      <li class="nav-item" ui-sref="dangerAlert">
+        <a>
+          <div class="img-item">
+            <img src="img/fAqInCCS2SiuMtnPV1KK_peligro.png" class="img-item">
+          </div>
+          <p class="title-item">Peligros</p>
+        </a>
+      </li>
+    </ul>
     <div style="margin-right:-20px;">
-      <button id="home-button12" style="left:-10px;border-radius:0px 0px 0px 0px;" class="button button-balanced button-large button-full">A rodar!</button>
+      <button id="home-button12" style="left:-10px;border-radius:0px 0px 0px 0px; margin: 0px;" class="button button-balanced button-large button-full">A rodar!</button>
     </div>
-    <button menu-toggle="right" style="border-radius:25px 25px 25px 25px;" class="button button-positive  icon ion-android-menu"></button>
-    <button menu-toggle="left" style="border-radius:25px 25px 25px 25px;" class="button button-positive  icon ion-android-menu"></button>
   </ion-content>
 </ion-view>

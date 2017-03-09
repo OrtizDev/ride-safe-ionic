@@ -102,10 +102,34 @@ angular.module('app.routes', [])
     controller: 'rightMenuCtrl'
   })
 
-  .state('page', {
-    url: '/page18',
-    templateUrl: 'templates/page.html',
-    controller: 'pageCtrl'
+  .state('traficAlert', {
+    url: '/trafic-alert',
+    templateUrl: 'templates/traficAlert.html',
+    controller: 'traficAlertCtrl'
+  })
+
+  .state('policeAlert', {
+    url: '/police-alert',
+    templateUrl: 'templates/policeAlert.html',
+    controller: 'policeAlertCtrl'
+  })
+
+  .state('accidentAlert', {
+    url: '/accident-alert',
+    templateUrl: 'templates/accidentAlert.html',
+    controller: 'accidentAlertCtrl'
+  })
+
+  .state('dangerAlert', {
+    url: '/danger-alert',
+    templateUrl: 'templates/dangerAlert.html',
+    controller: 'dangerAlertCtrl'
+  })
+
+  .state('closedAlert', {
+    url: '/closed-alert',
+    templateUrl: 'templates/closedAlert.html',
+    controller: 'closedAlertCtrl'
   })
 
 $urlRouterProvider.otherwise('/left-menu/my-routes')

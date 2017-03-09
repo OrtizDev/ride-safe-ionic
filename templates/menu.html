@@ -9,15 +9,19 @@
     <ion-nav-view name="side-menu21"></ion-nav-view>
   </ion-side-menu-content>
   <ion-side-menu side="left" id="side-menu21">
-    <ion-content padding="true" style="top:0px !important;" class="side-menu-left ">
+    <ion-content padding="false" style="top:0px !important;" class="side-menu-left ">
       <div id="menu-container1">
-        <a ui-sref="page" menu-close="" id="menu-button17" class="button button-positive  icon ion-android-settings"></a>
-        <a ui-sref="menu.userManual" menu-close="" id="menu-button16" class="button button-positive  icon ion-help"></a>
-        <div style="margin: 0px; line-height: 250px; background-color: rgb(232, 235, 239); text-align: center;">
-          <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+        <a ui-sref="config" menu-close="" id="menu-button17" class="button button-positive menu-icon icon ion-android-settings"></a>
+        <a ui-sref="menu.userManual" menu-close="" id="menu-button16" class="button button-positive menu-icon icon ion-help"></a>
+        <div class="user-img-container">
+          <a ui-sref="" menu-close="" class="user_image">
+            <!-- the user image is a background style in custom.app.css -->
+            <!-- To remove the text please add the "hidden-text" class -->
+            <p id="picture_text">AÑADIR<br>UNA<br>FOTO</p>
+          </a>
         </div>
-        <div id="menu-markdown2" style="text-align:center;" class="show-list-numbers-and-dots">
-          <p style="color:#000000;">Andrea del Sol Castro Diaz</p>
+        <div id="user_name" style="text-align:center;" class="show-list-numbers-and-dots">
+          <p>Andrea del Sol Castro Diaz</p>
         </div>
         <form id="menu-form11" class="list">
           <label class="item item-input" id="menu-search2">
@@ -27,14 +31,16 @@
         </form>
       </div>
       <ion-list id="menu-list1">
-        <ion-item class="item-icon-left" id="menu-list-item1" ui-sref="menu.discover" menu-close="">
-          <i class="icon ion-image"></i>Descubrir destinos</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item2" ui-sref="menu.myRoutes" menu-close="">
-          <i class="icon ion-image"></i>Mis rutas guardadas</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item3" href-inappbrowser="page3">
-          <i class="icon ion-image"></i>Caravana</ion-item>
-        <ion-item class="item-icon-left" id="menu-list-item4" ui-sref="menu.sp2" menu-close="">
-          <i class="icon ion-image"></i>S2P (Secure 2 Protection)</ion-item>
+        <ion-item class="item-icon-left menu-list-item" id="menu-list-item1" ui-sref="menu.discover" menu-close="">
+          <i class="icon"><img src="img/descubrir-destinos.png" alt=""></i>Descubrir destinos</ion-item>
+        <ion-item class="item-icon-left  menu-list-item background-odd" id="menu-list-item2" ui-sref="menu.myRoutes" menu-close="">
+          <i class="icon"><img src="img/rutas-guardadas.png" alt=""></i>Mis rutas guardadas</ion-item>
+        <ion-item class="item-icon-left  menu-list-item" id="menu-list-item3" ui-sref="#" menu-close="">
+          <i class="icon"><img src="img/caravana.png" alt=""></i>Caravana</ion-item>
+        <ion-item class="item-icon-left  menu-list-item background-odd" id="menu-list-item4" ui-sref="menu.sp2" menu-close="">
+          <i class="icon"><img src="img/s2r.png" alt=""></i>S2P (Secure 2 Protection)</ion-item>
+        <ion-item class="item-icon-left menu-list-item" id="menu-list-item5" ui-sref="menu.login" menu-close="">
+          <i class="icon"><img src="img/salir.png" alt=""></i>Cerrar sesión</ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>
