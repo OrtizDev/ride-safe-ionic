@@ -161,7 +161,8 @@
 /*********** MENU ***********/
 
     #menu-container1 {
-      height: 44%;
+      min-height: 44%;
+      display: block;
       background: #223d75;
     }
 
@@ -173,7 +174,6 @@
     }
 
     .user-img-container {
-      height: 70%;
       padding-top: 15%;
     }
 
@@ -232,8 +232,9 @@
       padding: 0px 10px;
     }
 
-    #menu-list1 .list{
-      height: 56%;
+    #menu-list1 > div{
+      min-height: 56%;
+      height: 52vh;
     }
 
     .menu-list-item {
