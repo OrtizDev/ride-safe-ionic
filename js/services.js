@@ -42,6 +42,12 @@ angular.module('app.services', [])
     };
 }])
 
+.factory('dataUserRegister', [ function() {
+  return {
+    user: {}
+  };
+}])
+
 .service('BlankService', [function(){
 
 }]);
