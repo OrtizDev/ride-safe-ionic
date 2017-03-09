@@ -55,7 +55,7 @@
         <input type="password" placeholder="" name="repass" ng-model="authorization.repass" ng-minlength="minpassword" required>
       </label>
       <button type="submit" id="userRegister-button5" style="border-radius:8px 8px 8px 8px;" class="button button-stable  button-block">SIGUIENTE</button>
-      <button id="userRegister-button6" style="font-weight:600;text-align:right;" class="button button-light button-small button-block button-clear underlined">+ Iniciar sesión</button>
+      <button ng-click="login()" id="userRegister-button6" style="font-weight:600;text-align:right;" class="button button-light button-small button-block button-clear underlined">+ Iniciar sesión</button>
     </form>
   </ion-content>
 </ion-view>

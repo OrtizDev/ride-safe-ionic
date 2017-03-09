@@ -79,10 +79,10 @@ function ($scope, $stateParams, , $state, UserSession  ) {
 
 }])
 
-.controller('userRegisterCtrl', ['$scope', '$stateParams', '$state', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('userRegisterCtrl', ['$scope', '$stateParams', '$state', '$rootScope', 'dataUserRegister',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $state, $rootScope) {
+function ($scope, $stateParams, $state, $rootScope, dataUserRegister) {
 
   $.ajax({
       type: "GET",
@@ -106,8 +106,8 @@ function ($scope, $stateParams, $state, $rootScope) {
        }
   });
   $scope.typegender = [
-  {gender : 1, genderName: 'Femenino'},
-  {gender : 2, genderName: 'Masculino'}
+  {gender : 'F', genderName: 'Femenino'},
+  {gender : 'M', genderName: 'Masculino'}
   ];
   $scope.max= new Date();
   $scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
@@ -142,16 +142,141 @@ function ($scope, $stateParams, $state, $rootScope) {
 }
 
 $scope.motoRegis = function () {
-   $state.go('motoRegister');
+  dataUserRegister.user.name = $("input[name=username]").val();
+  dataUserRegister.user.appat = $("input[name=apat]").val();
+  dataUserRegister.user.apmat = $("input[name=amat]").val();
+  dataUserRegister.user.gender = $("select[name=gender_re]").val();
+  dataUserRegister.user.cell = $("input[name=cellphone]").val();
+  dataUserRegister.user.birth = $("input[name=bdate]").val();
+  dataUserRegister.user.cellemer = $("input[name=telEmer]").val();
+  dataUserRegister.user.city = $("select[name=city_re]").val();
+  dataUserRegister.user.email = $("input[name=emailRe]").val();
+  dataUserRegister.user.password = $("input[name=pass]").val();
+  if(angular.equals($("input[name=pass]").val(), $("input[name=repass]").val())){
+       $state.go('motoRegister');
+     } else {
+       alert("Las contraseñas no coinciden");
+     }
+ }
+
+ $scope.login = function () {
+   $state.go('login');
  }
 
 
 }])
 
-.controller('motoRegisterCtrl', ['$scope', '$stateParams', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('motoRegisterCtrl', ['$scope', '$stateParams', '$rootScope', '$state', 'dataUserRegister', 'UserSession', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $rootScope) {
+function ($scope, $stateParams, $rootScope, $state, dataUserRegister, UserSession) {
+
+  $scope.return = function () {
+    $state.go('userRegister');
+  }
+
+  $scope.ciudad = { checked : false };
+  $scope.atv = { checked : false };
+  $scope.touring = { checked : false };
+  $scope.trabajo = { checked : false };
+  $scope.circuitos = { checked : false };
+  $scope.enduro = { checked : false };
+  $scope.stunt = { checked : false };
+  $scope.carretera = { checked : false };
+  $scope.otro = { checked : false };
+
+
+  $scope.register = function () {
+
+ alert($scope.ciudad.checked);
+
+  var dataMoto = {
+    "brand" : "Volvo",
+    "model" : "V",
+    "year"  : "2015",
+    "plate" : $("input[name=plate]").val()
+  };
+  var dataUser = {
+    'name' : dataUserRegister.user.name,
+    'apPat' : dataUserRegister.user.appat,
+    'apmat' : dataUserRegister.user.apmat,
+    'email' : dataUserRegister.user.email,
+    'pass' : dataUserRegister.user.password,
+    'birthday' : dataUserRegister.user.birth,
+    'gender' : dataUserRegister.user.gender,
+    'cellphone' : dataUserRegister.user.cell,
+    'cellemergency' : dataUserRegister.user.cellemer,
+    'admin' : 0,
+    'ciudad' : $scope.ciudad.checked? 1 : 0,
+    'touring' : $scope.touring.checked? 1 : 0,
+    'circuitos' : $scope.circuitos.checked? 1 : 0,
+    'stunt' : $scope.enduro.checked? 1 : 0,
+    'atv' : $scope.atv.checked? 1 : 0,
+    'trabajo' : $scope.trabajo.checked? 1 : 0,
+    'enduro' : $scope.enduro.checked? 1 : 0,
+    'carretera' : $scope.carretera.checked? 1 : 0,
+    'otro' : $scope.otro.checked? $("#other").val() : ""
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "http://startbluesoft.com/rideSafeApp/v1/index.php/registmoto",
+    data: dataMoto,
+    dataType: 'json',
+    success: function (data) {
+        if (data.error) {
+            alert(data.message);
+        } else if (!data.error) {
+          $.ajax({
+            type: "POST",
+            url: "http://startbluesoft.com/rideSafeApp/v1/index.php/registuser",
+            data: dataUser,
+            dataType: 'json',
+            success: function (data) {
+                if(data.error) {
+                 alert("Intentalo más tarde");
+               } else if(!data.error){
+                 var parametros = {
+                     "email": dataUserRegister.user.email,
+                     "password": dataUserRegister.user.password
+                 };
+                 $.ajax({
+                     type: "POST",
+                     url: "http://startbluesoft.com/rideSafeApp/v1/index.php/userlogin",
+                     data: parametros,
+                     dataType: "json",
+                     success: function (data) {
+                         if (data.error) {
+                             $state.go('login');
+                         } else if (!data.error) {
+                             UserSession.setData(data.id);
+                             $state.go('menu.home');
+                         }
+                     },
+                     error: function (xhr, status, error) {
+                         console.log(xhr.responseText);
+                         alert("No se pudo iniciar sesi�n, int�ntalo m�s tarde");
+                     }
+                 });
+
+                 alert("Registro Exitoso");
+               }
+            },
+             error: function (xhr, status, error) {
+               console.log(xhr.responseText);
+               alert("Intentalo más tarde");
+             }
+          });
+        }
+     },
+     error: function (xhr, status, error) {
+         console.log(xhr.responseText);
+         alert("Intentalo más tarde");
+     }
+});
+
+}
+
 
 
 }])
