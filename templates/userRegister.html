@@ -1,60 +1,61 @@
 <ion-view title="user-register" hide-nav-bar="true" id="page8" style="background-color:#3B3C3A;">
   <ion-content padding="true" class="manual-ios-statusbar-padding">
     <h3 id="userRegister-heading1" style="color:#FFFFFF;text-align:center;">REGISTRO</h3>
-    <form id="userRegister-form4" class="list">
+    <form id="userRegister-form4" class="list" ng-submit="motoRegis()">
       <label class="item item-input item-floating-label no-border register-input" id="userRegister-input6" name="name">
         <span class="input-label">Nombre(s)</span>
-        <input type="text" placeholder="Nombre(s)">
+        <input type="text" placeholder="Nombre(s)" name="username" ng-model="authorization.username" required>
       </label>
       <label class="item item-input item-floating-label register-input no-border col-5" id="userRegister-input7" name="lastname1">
         <span class="input-label">Apellido paterno</span>
-        <input type="text" placeholder="Apellido paterno">
+        <input type="text" placeholder="Apellido paterno" name="apat" ng-model="authorization.apat" required>
       </label>
       <label class="item item-input item-floating-label register-input no-border col-5" id="userRegister-input8" name="lastname2">
         <span class="input-label">Apellido materno</span>
-        <input type="text" placeholder="Apellido materno">
+        <input type="text" placeholder="Apellido materno" name="amat" ng-model="authorization.amat" required>
       </label>
       <label class="item item-select black-font col-4 select-item" id="userRegister-select3" name="gender">
         <span class="input-label">Género</span>
-        <select>
-          <option>Femenino</option>
-          <option>Masculino</option>
+        <select name="gender_re" ng-model="gender" ng-options="genders.gender as genders.genderName for genders in typegender">
+          <option value="">Selecciona Genero</option>
         </select>
       </label>
       <label class="item item-input item-floating-label register-input no-border col-5" id="userRegister-input9" name="phone">
         <span class="input-label">Celular</span>
-        <input type="tel" placeholder="Celular">
+        <input type="tel" placeholder="Celular" name="cellphone" ng-model="authorization.cellphone" size="10" required>
       </label>
       <label class="item item-input item-stacked-label no-border register-input" id="userRegister-input10" name="birthdate">
         <span class="input-label">Fecha de nacimiento</span>
-        <input type="date" placeholder="Fecha de nacimiento">
+        <input type="date" placeholder="Fecha de nacimiento" name="bdate" max="{{max}}" ng-model="authorization.bdate">
       </label>
       <label class="item item-input item-floating-label no-border register-input" id="userRegister-input11" name="emergency-number">
         <span class="input-label">Telefono de emergencia</span>
-        <input type="tel" placeholder="Telefono de emergencia">
+        <input type="tel" placeholder="Telefono de emergencia" name="telEmer" ng-model="authorization.telEmer" size="10" required>
       </label>
       <label class="item item-select black-font col-4 select-item" id="userRegister-select4" name="state">
         <span class="input-label">Estado</span>
-        <select></select>
+        <select name="state_re" ng-model="state" id="states" ng-chance="updateCi(state)" required></select>
+        <<option value="">Seleccion Estado</option>
       </label>
       <label class="item item-select black-font col-4 select-item" id="userRegister-select5" name="city">
         <span class="input-label">Ciudad</span>
-        <select></select>
+        <select ng-model="city_re" id="city" required></select>
+        <<option value="">Selecciona Ciudad</option>
       </label>
       <label class="item item-input item-stacked-label no-border" id="userRegister-input12" name="mail">
         <span class="input-label">Usuario (e-mail)</span>
-        <input type="email" placeholder="">
+        <input type="email" placeholder="" name="emailRe" ng-model="authorization.emailRe" ng-pattern="emailFormat" required>
       </label>
       <label class="item item-input item-stacked-label no-border" id="userRegister-input14" name="mail">
         <span class="input-label">Contraseña</span>
-        <input type="password" placeholder="">
+        <input type="password" placeholder="" name="pass" ng-model="authorization.pass" ng-minlenhth="minpassword" required>
       </label>
       <label class="item item-input item-stacked-label no-border" id="userRegister-input15" name="mail">
         <span class="input-label">Repetir contraseña</span>
-        <input type="password" placeholder="">
+        <input type="password" placeholder="" name="repass" ng-model="authorization.repass" ng-minlength="minpassword" required>
       </label>
-      <button id="userRegister-button5" style="border-radius:8px 8px 8px 8px;" class="button button-stable  button-block">SIGUIENTE</button>
-      <button id="userRegister-button6" style="font-weight:600;text-align:right;" class="button button-light button-small button-block button-clear underlined">+ Iniciar sesión</button>
+      <button type="submit" id="userRegister-button5" style="border-radius:8px 8px 8px 8px;" class="button button-stable  button-block">SIGUIENTE</button>
+      <button ng-click="login()" id="userRegister-button6" style="font-weight:600;text-align:right;" class="button button-light button-small button-block button-clear underlined">+ Iniciar sesión</button>
     </form>
   </ion-content>
 </ion-view>
