@@ -4,6 +4,27 @@ angular.module('app.services', [])
 
 }])
 
+.factory('Address', [function(){
+  return {
+      getAddress: function (latlng, geocoder){
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                        var origin = results[0].formatted_address;
+                        console.log(results[0].formatted_address); // details address
+                        return origin;
+                } else {
+                        return 'Location not found';
+                      }
+                } else {
+                      return 'Geocoder failed due to: ' + status;
+                  }
+              });
+      }
+  };
+}])
+
+
 .factory('UserSession', [function () {
   return {
     setData: function (id) {

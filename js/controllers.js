@@ -1,10 +1,53 @@
-angular.module('app.controllers', [])
+angular.module('app.controllers', ['uiGmapgoogle-maps'])
 
-.controller('homeCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$stateParams', '$log', 'Address', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $log, Address) {
 
+  $scope.map = {
+   center: {latitude: 20.66163, longitude: -103.424501 },
+   zoom: 15,
+   options: {
+           panControl: false,
+           zoomControl: false,
+           mapTypeControl: false,
+           disableDefaultUI: true,
+           scrollwheel: false
+       }
+ };
+
+ $scope.origin = "";
+ $scope.marker = {
+     id: 0,
+     coords: {
+       latitude: 20.66163,
+       longitude: -103.424501
+     },
+     options: { draggable: true },
+     events: {
+       dragend: function (marker, eventName, args) {
+         $log.log('marker dragend');
+         var lat = marker.getPosition().lat();
+         var lon = marker.getPosition().lng();
+         $log.log(lat);
+         $log.log(lon);
+
+         var geocoder = new google.maps.Geocoder();
+         var latlng = new google.maps.LatLng(lat,lon);
+
+
+         $scope.marker.options = {
+           draggable: true,
+           labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+           labelAnchor: "100 0",
+           labelClass: "marker-labels"
+         };
+         var or = Address.getAddress(latlng, geocoder);
+         alert (or);
+       }
+     }
+   };
 
 }])
 

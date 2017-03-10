@@ -11,11 +11,11 @@
         <input type="text" placeholder="Destino">
       </label>
     </form>
-    <creator-map-component options="{&quot;disableDefaultUI&quot;:true}" marker="true" location="ciudad de mexico" zoom="12" style="display:block;position:relative;margin-left:-10px;width:calc(100% + 20px);height:91%;">
+    <div style="display:block;position:relative;margin-left:-10px;width:calc(100% + 20px);height:91%;">
       <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" options="map.options">
-        <ui-gmap-marker coords="map.marker.coords" idkey="map.marker.id" options="map.marker.options"></ui-gmap-marker>
+        <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id" ></ui-gmap-marker>
       </ui-gmap-google-map>
-    </creator-map-component>
+    </div>
     <input type="checkbox" id="nav-trigger" class="nav-trigger">
     <label for="nav-trigger" style="margin-top: -50px;">!</label>
     <ul class="navigation">
