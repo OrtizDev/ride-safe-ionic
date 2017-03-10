@@ -1,15 +1,14 @@
 <ion-view title="config" hide-nav-bar="true" hide-back-button="true">
-  <ion-content padding="false" class="manual-ios-statusbar-padding">
-    <div ng-app="">
-      <ul class="tab-navigation">
-        <li ng-class="{'active': activeTab != 2}">
-          <a href="#" ng-click="activeTab=1">Personal</a>
-        </li>
-        <li ng-class="{'active': activeTab == 2}">
-          <a href="#" ng-click="activeTab=2">Motocicleta</a>
-        </li>
-      </ul>
-
+	<ion-content padding="false" class="manual-ios-statusbar-padding">
+    <div>
+  		<ul class="tab-navigation">
+    		<li ng-class="{'active': activeTab != 2}">
+      		<a href="#" ng-click="activeTab=1">Personal</a>
+    		</li>
+    		<li ng-class="{'active': activeTab == 2}">
+      		<a href="#" ng-click="activeTab=2">Motocicleta</a>
+    		</li>
+  		</ul>
       <div class="tab-content" ng-class="{'active': activeTab != 2}">
         <h3 id="userRegister-heading1" style="color:#FFFFFF;text-align:center;">REGISTRO</h3>
         <form id="userRegister-form4" class="list">
@@ -108,5 +107,5 @@
 
       </div>
     </div>
-  </ion-content>
+	</ion-content>
 </ion-view>

@@ -6,8 +6,9 @@
   - Avenir Font
   - Home view
     - Right modal-menu
-  - Configutation view
   - Alert views
+  - Configutation view
+  - User Manual view
 
 */
 
@@ -317,8 +318,8 @@
     /*tabs configuration */
 
     .tab-navigation {
-        padding: 0;
-        border-bottom: solid 1px #ddd;
+    padding: 0;
+    border-bottom: solid 1px #ddd;
     }
 
     .tab-navigation li {
@@ -350,4 +351,26 @@
         height: 100%;
         background: #3b3c3a;
         color: #fff;
+    }
+
+/*********** USER MANUAL VIEW ***********/
+
+
+    #manual_container {
+        background: rgba(36, 96, 170, 0.80);
+        margin: 10px;
+        font-family: "Avenir";
+    }
+
+    #close_manual {
+      background: transparent;
+    }
+
+    .manual-text {
+      padding: 0px 22px 10px 22px;
+    }
+
+    .manual-text > h4 {
+      font-family: "Avenir";
+      font-size: 22px;
     }
