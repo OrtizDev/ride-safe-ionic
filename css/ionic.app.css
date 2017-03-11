@@ -9850,6 +9850,14 @@ a.button {
   color: #fff;
   font-size: 14px; }
 
+.background-blue {
+  background: #1b75ba !important;
+}
+
+.background-odd {
+  background: #223d75 !important;
+}
+
 .register-input input {
   color: #fff;
   font-size: 14px;

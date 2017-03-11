@@ -9,6 +9,7 @@
   - Alert views
   - Configutation view
   - User Manual view
+  - Discover route view
 
 */
 
@@ -98,10 +99,6 @@
       height: 18%;
       background: #1b75ba;
       border: 2px solid #fff;
-    }
-
-    .background-odd {
-      background: #223d75 !important;
     }
 
     .nav-title {
@@ -355,7 +352,6 @@
 
 /*********** USER MANUAL VIEW ***********/
 
-
     #manual_container {
         background: rgba(36, 96, 170, 0.80);
         margin: 10px;
@@ -367,10 +363,66 @@
     }
 
     .manual-text {
-      padding: 0px 22px 10px 22px;
+      padding: 0px 20px 10px 20px;
     }
 
     .manual-text > h4 {
       font-family: "Avenir";
       font-size: 22px;
+    }
+
+/*********** DISCOVER ROUTE VIEW ***********/
+
+    #title-container {
+      background: #223d75;
+      height: 15vh;
+    }
+
+    #title-container > h4 {
+      color: #fff !important;
+      font-family: "Avenir";
+      margin-bottom: 0px;
+    }
+
+    .input-box {
+      height: 50%;
+      width: 50%;
+      border: 2px solid #fff;
+    }
+
+    .input-box h5 {
+      color:#ffffff;
+      font-family:'Avenir';
+      font-size: 12px;
+      margin-top: 15% !important;
+      margin-bottom: 0px !important;
+      font-weight: bold;
+    }
+
+    .select-input {
+      direction: ltr !important;
+      width: 100%;
+      max-width: 100% !important;
+      left: 0;
+      padding-left: 15px !important;
+      padding-right: 2px !important;
+    }
+
+    .select-input option {
+      font-size: 12px;
+      font-family: "Avenir";
+    }
+
+    .item-select {
+      margin: 1px 10%;
+      border-radius: 5px;
+      padding: 10px 16px !important;
+    }
+
+    #discover_results {
+      color: #fff;
+      margin-top: 0;
+      padding-top: 10px;
+      font-family: "Avenir";
+      text-decoration: underline;
     }
