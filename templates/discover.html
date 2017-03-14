@@ -1,5 +1,5 @@
 <ion-view title="discover" hide-nav-bar="true" id="page14">
-  <ion-content padding="false" class="manual-ios-statusbar-padding">
+  <ion-content padding="false" class="manual-ios-statusbar-padding" style="margin-bottom: -5px;">
     <div id="title-container">
       <div class="spacer" style="width: 300px; height: 40%;"></div>
       <h4 id="discover-heading7" style="color:#000000;text-align:center;">DESCUBRE RUTAS</h4>
@@ -56,7 +56,7 @@
       </div>
 
     </div>
-    <div id="discover-container7" class="background-odd">
+    <div id="discover_results" class="background-odd">
       <div id="discover-markdown8" style="text-align:center;" class="show-list-numbers-and-dots underlined">
         <h5 id="discover_results">
           <strong>RESULTADOS</strong>
@@ -64,7 +64,9 @@
       </div>
       <div class="spacer" style="height: 100px;"></div>
     </div>
-    <button id="discover-button18" style="border-radius:0px 0px 0px 0px;" class="button button-dark button-large col-5">Cancelar</button>
-    <button id="discover-button19" style="border-radius:0px 0px 0px 0px;" class="button button-balanced button-large col-5">A rodar!</button>
+    <div class="bottom-buttons">
+      <button id="cancel_button" ui-sref="menu.home" style="border-radius:0px 0px 0px 0px;" class="button button-dark button-large col-5">Cancelar</button>
+      <button id="go_button" style="border-radius:0px 0px 0px 0px;" class="button button-balanced button-large col-5">A rodar!</button>
+    </div>
   </ion-content>
 </ion-view>

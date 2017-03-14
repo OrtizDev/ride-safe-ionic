@@ -10,6 +10,7 @@
   - Configutation view
   - User Manual view
   - Discover route view
+  - My routes view
 
 */
 
@@ -28,6 +29,10 @@
   src: url("../lib/ionic/fonts/avenir-roman.eot?v=2.0.1#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/avenir-roman.ttf?v=2.0.1") format("truetype"), url("../lib/ionic/fonts/avenir-roman.woff?v=2.0.1") format("woff"), url("../lib/ionic/fonts/avenir-roman.woff") format("woff"), url("../lib/ionic/fonts/avenir-roman.svg?v=2.0.1#Ionicons") format("svg");
   font-weight: normal;
   font-style: normal; }
+
+ion-content > div:first-child {
+  height: 100%;
+}
 
 /*********** HOME ************/
 .home-button {
@@ -425,4 +430,66 @@
       padding-top: 10px;
       font-family: "Avenir";
       text-decoration: underline;
+    }
+
+    #discover_results {
+      min-height: 24%;
+    }
+
+    .bottom-buttons {
+      height: 10vh;
+      margin-top: 4px;
+    }
+
+    .bottom-buttons #cancel_button {
+      height: 100%;
+      width: 50%;
+      float: left;
+    }
+
+    .bottom-buttons #go_button {
+      height: 100%;
+      width: 50%;
+      float: right;
+    }
+
+/*********** MY ROUTES VIEW ***********/
+
+    #myRoutes_container{
+      min-height: 87vh;
+      margin: 20px 20px 5px 20px;
+      padding: 20px;
+      border-radius: 5px;
+      background: rgba(35, 31, 32, 0.80);
+    }
+
+    #myRoutes-button-bar {
+      height: 10vh;
+    }
+
+    #myRoutes-button-bar button {
+      margin-bottom: 0;
+    }
+
+    .routes-list-item {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      padding: 3px 10px;
+    }
+
+    .routes-list-item.active {
+      background: #808284 !important;
+    }
+
+    .my-routes-imgs {
+      height: 50px;
+      margin: 10px 0px;
+    }
+
+    .my-routes-text {
+      color: #fff;
+      text-align: left;
+      margin-top: 10px;
     }
