@@ -378,14 +378,16 @@ ion-content > div:first-child {
 
 /*********** DISCOVER ROUTE VIEW ***********/
 
-    #title-container {
+    .title-container {
       background: #223d75;
       height: 15vh;
     }
 
-    #title-container > h4 {
+    .title-container > h4 {
       color: #fff !important;
+      text-align: center;
       font-family: "Avenir";
+      font-size: 22px;
       margin-bottom: 0px;
     }
 
@@ -492,4 +494,12 @@ ion-content > div:first-child {
       color: #fff;
       text-align: left;
       margin-top: 10px;
+    }
+
+
+/*********** S2P VIEW ***********/
+
+    .secure-checkbox {
+      background: transparent;
+      border: none;
     }
