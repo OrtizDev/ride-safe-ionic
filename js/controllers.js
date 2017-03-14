@@ -1,11 +1,13 @@
 angular.module('app.controllers', ['uiGmapgoogle-maps'])
 
-.controller('homeCtrl', ['$scope', '$stateParams', '$log', 'Address', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$stateParams', '$log', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $log, Address) {
+function ($scope, $stateParams, $log) {
 
+  $('#home-inputDestination').hide();
   $scope.map = {
+    control: {},
    center: {latitude: 20.66163, longitude: -103.424501 },
    zoom: 15,
    options: {
@@ -15,40 +17,113 @@ function ($scope, $stateParams, $log, Address) {
            disableDefaultUI: true,
            scrollwheel: false
        }
- };
+  };
 
- $scope.origin = "";
+  var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+  var directionsService = new google.maps.DirectionsService();
+
+ $scope.markerd = {
+     id: 1,
+     coords: {
+         latitude: 0,
+         longitude: 0
+     },
+     options: { draggable: true,
+                icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"},
+     events : {
+       dragend: function (markerd, eventName, args) {
+         var latd = markerd.getPosition().lat();
+         var lond = markerd.getPosition().lng();
+
+         var latlngd = new google.maps.LatLng(latd,lond);
+
+         foo(latlngd, function(locationd){
+           $('#destination').val(locationd);
+           getDirections();
+         });
+         $scope.markerd.options = {
+           draggable: true,
+           labelAnchor: "100 0",
+           icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+           labelClass: "marker-labels"
+         };
+       }
+     }
+   };
+
  $scope.marker = {
      id: 0,
      coords: {
        latitude: 20.66163,
        longitude: -103.424501
      },
-     options: { draggable: true },
+     options: { draggable: true,
+                icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
      events: {
-       dragend: function (marker, eventName, args) {
-         $log.log('marker dragend');
+       dragend: function (marker, marked, eventName, args) {
          var lat = marker.getPosition().lat();
          var lon = marker.getPosition().lng();
-         $log.log(lat);
-         $log.log(lon);
 
-         var geocoder = new google.maps.Geocoder();
+         if($('#home-inputDestination').is(':hidden')){
+            var latlngd = new google.maps.LatLng((lat - 0.002971573), lon);
+            $scope.markerd.coords.latitude = (lat - 0.002971573);
+            $scope.markerd.coords.longitude = lon;
+          }
+
          var latlng = new google.maps.LatLng(lat,lon);
 
-
+         foo(latlng, function(location){
+            $('#origin').val(location);
+            $('#home-inputDestination').show();
+            if($("#destination").val() === ''){
+              console.log("vacio");
+            } else {
+              getDirections();
+            }
+          });
          $scope.marker.options = {
            draggable: true,
-           labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
            labelAnchor: "100 0",
+           icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
            labelClass: "marker-labels"
          };
-         var or = Address.getAddress(latlng, geocoder);
-         alert (or);
        }
      }
    };
 
+ function foo(latlng, fn){
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+              if (results[0]) {
+                      fn(results[0].formatted_address);
+              } else {
+                      fn('Location not found');
+                    }
+              } else {
+                    fn('Geocoder failed due to: ' + status);
+                }
+            });
+    }
+
+ function getDirections(){
+   start  = new google.maps.LatLng($scope.marker.coords.latitude, $scope.marker.coords.longitude);
+   end = new google.maps.LatLng($scope.markerd.coords.latitude, $scope.markerd.coords.longitude);
+   var request = {
+         origin: start,
+         destination: end,
+         travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
+    directionsService.route(request, function (response, status) {
+       if (status === google.maps.DirectionsStatus.OK) {
+           directionsDisplay.setDirections(response);
+           directionsDisplay.setMap($scope.map.control.getGMap());
+        } else {
+           alert('Google route unsuccesfull!');
+        }
+    });
+ }
+ 
 }])
 
 .controller('myRoutesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
