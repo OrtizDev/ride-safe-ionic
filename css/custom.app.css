@@ -443,17 +443,74 @@ ion-content > div:first-child {
       margin-top: 4px;
     }
 
-    .bottom-buttons #cancel_button {
+    .bottom-buttons .cancel-button {
       height: 100%;
       width: 50%;
       float: left;
     }
 
-    .bottom-buttons #go_button {
+    .bottom-buttons .go-button {
       height: 100%;
       width: 50%;
       float: right;
     }
+
+/*********** S2P VIEW ***********/
+
+/*some style clases are shared with discover view ^^*/
+
+    #protection-container p {
+      color: #fff;
+      font-family: "Avenir-roman";
+    }
+
+    .config-text {
+      color: #fff;
+      text-decoration: underline;
+      font-family: "Avenir-roman";
+      font-size: 10px;
+    }
+
+    .protection-titles {
+      text-align:center;
+      padding-top: 20%;
+    }
+
+    .protection-titles p {
+      margin: 0;
+    }
+
+    .secure-checkbox {
+      background: transparent;
+      border: none;
+      position: absolute;
+      top: 0px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .secure-checkbox .toggle {
+      top: 25% !important;
+    }
+
+    .yes-tag {
+      float: left;
+      margin-left: 15%;
+      margin-top: 5%;
+    }
+
+    .no-tag {
+      float: right;
+      margin-right: 15%;
+      margin-top: 5%;
+    }
+
+    #caravan_container {
+      color: #fff;
+      font-family: "Avenir-roman";
+
+    }
+
 
 /*********** MY ROUTES VIEW ***********/
 
@@ -494,12 +551,4 @@ ion-content > div:first-child {
       color: #fff;
       text-align: left;
       margin-top: 10px;
-    }
-
-
-/*********** S2P VIEW ***********/
-
-    .secure-checkbox {
-      background: transparent;
-      border: none;
     }
