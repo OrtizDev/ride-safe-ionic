@@ -23,8 +23,9 @@
         <span class="input-label">Celular</span>
         <input type="tel" placeholder="Celular" name="cellphone" ng-model="authorization.cellphone" size="10" required>
       </label>
-      <label class="item item-input item-stacked-label no-border register-input" id="input-birdth" name="birthdate">
+      <label class="item item-input item-floating-label no-border register-input" id="input-birdth" name="birthdate">
         <span class="input-label">Fecha de nacimiento</span>
+        <p style="position: absolute; bottom: 10px; text-align: center; width: 90%; color: #fff;">Bla bla bla</p>
         <input type="date" placeholder="Fecha de nacimiento" name="bdate" max="{{max}}" ng-model="authorization.bdate">
       </label>
       <label class="item item-input item-floating-label no-border register-input" id="userRegister-input11" name="emergency-number">
@@ -53,7 +54,7 @@
         <span class="input-label">Repetir contraseña</span>
         <input type="password" placeholder="" name="repass" ng-model="authorization.repass" ng-minlength="minpassword" required>
       </label>
-      <button type="submit" id="userRegister-button5" style="border-radius:8px 8px 8px 8px;" class="button button-stable  button-block">SIGUIENTE</button>
+      <button type="submit" id="userRegister-button5" style="border-radius:8px 8px 8px 8px;" class="button button-stable button-small button-block">SIGUIENTE</button>
       <button ng-click="login()" id="userRegister-button6" style="font-weight:600;text-align:right;" class="button button-light button-small button-block button-clear underlined">+ Iniciar sesión</button>
     </form>
   </ion-content>
