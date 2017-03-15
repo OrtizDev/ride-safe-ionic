@@ -64,12 +64,58 @@ ion-content > div:first-child {
       padding: 16px !important;
     }
 
-    #input-birdth input {
-      /*color: transparent;*/
+    #userRegister-select4 , #userRegister-select5 {
+      left: 16px;
+      bottom: 3px;
+      margin-top: 30px;
+      padding: 16px !important;
+      width: 45%;
+    }
+
+    #input-birdth input , #userRegister-email input, #userRegister-pass input, #userRegister-repass input {
+      color: #fff;
       font-size: 14px;
       border-bottom: solid #fff 1px;
       padding: 0 !important;
       background: transparent;
+      border-radius: 0px;
+      text-align: center;
+    }
+
+    #userRegister-email span {
+      width: 40%;
+      display: inline-block;
+      text-align: left;
+      margin-bottom: -20px;
+    }
+
+    #userRegister-email input {
+      width: 55%;
+      display: inline-block;
+    }
+
+    #userRegister-pass span {
+      width: 30%;
+      display: inline-block;
+      text-align: left;
+      margin-bottom: -20px;
+    }
+
+    #userRegister-pass input {
+      width: 65%;
+      display: inline-block;
+    }
+
+    #userRegister-repass span {
+      width: 45%;
+      display: inline-block;
+      text-align: left;
+      margin-bottom: -20px;
+    }
+
+    #userRegister-repass input {
+      width: 50%;
+      display: inline-block;
     }
 
 /*********** HOME ************/
