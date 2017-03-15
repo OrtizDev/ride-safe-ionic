@@ -1,6 +1,6 @@
 <ion-view title="user-register" hide-nav-bar="true" id="page8" style="background-color:#3B3C3A;">
   <ion-content padding="true" class="manual-ios-statusbar-padding">
-    <h3 id="userRegister-heading1" style="color:#FFFFFF;text-align:center;">REGISTRO</h3>
+    <h3 id="userRegister-heading1" style="color:#FFFFFF;text-align:center;margin-top:10px;margin-bottom:0px;">REGISTRO</h3>
     <form id="userRegister-form4" class="list" ng-submit="motoRegis()">
       <label class="item item-input item-floating-label no-border register-input" id="userRegister-input6" name="name">
         <span class="input-label">Nombre(s)</span>
@@ -25,14 +25,14 @@
       </label>
       <label class="item item-input item-floating-label no-border register-input" id="input-birdth" name="birthdate">
         <span class="input-label">Fecha de nacimiento</span>
-        <p style="position: absolute; bottom: 10px; text-align: center; width: 90%; color: #fff;">Bla bla bla</p>
-        <input type="date" placeholder="Fecha de nacimiento" name="bdate" max="{{max}}" ng-model="authorization.bdate">
+        <p id="dateHolder" style="position: absolute; bottom: 10px; text-align: center; width: 90%; color: #fff;">Fecha de nacimiento</p>
+        <input type="date" placeholder="Fecha de nacimiento" name="bdate" max="{{max}}" ng-model="authorization.bdate" style="color: transparent !important;">
       </label>
       <label class="item item-input item-floating-label no-border register-input" id="userRegister-input11" name="emergency-number">
         <span class="input-label">Telefono de emergencia</span>
         <input type="tel" placeholder="Telefono de emergencia" name="telEmer" ng-model="authorization.telEmer" size="10" required>
       </label>
-      <label class="item item-select black-font col-4 select-item" id="userRegister-select4" name="state" style="padding: 16px;">
+      <label class="item item-select black-font col-4 select-item" id="userRegister-select4" name="state" style="padding: 16px; margin-top: 25px;">
         <select class="select-input" name="state_re" ng-model="state" id="states" ng-change="updateCi(state)" required>
           <option value="" selected="selected" disabled hidden>Estado</option>
         </select>

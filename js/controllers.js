@@ -163,6 +163,12 @@ $scope.motoRegis = function () {
    $state.go('login');
  }
 
+ $( "input[name=bdate]" ).change(function() {
+    var dateValue = $( this ).val();
+    var splitDate = dateValue.split("-");
+    $( "#dateHolder" ).text( splitDate[2] + "/" + splitDate[1] + "/" + splitDate[0]);
+  })
+  .keyup();
 
 }])
 

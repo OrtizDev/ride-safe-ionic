@@ -67,13 +67,13 @@ ion-content > div:first-child {
     #userRegister-select4 , #userRegister-select5 {
       left: 16px;
       bottom: 3px;
-      margin-top: 30px;
+      margin-top: 10px;
       padding: 16px !important;
-      width: 45%;
+      width: 90%;
     }
 
     #input-birdth input , #userRegister-email input, #userRegister-pass input, #userRegister-repass input {
-      color: transparent;
+      color: #fff;
       font-size: 14px;
       border-bottom: solid #fff 1px;
       padding: 0 !important;
