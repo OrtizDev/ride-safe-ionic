@@ -4,6 +4,7 @@
   File contents
 -------------------------------
   - Avenir Font
+  - User Register view
   - Home view
     - Right modal-menu
   - Alert views
@@ -33,6 +34,43 @@
 ion-content > div:first-child {
   height: 100%;
 }
+
+/*********** User Register view ************/
+
+    .input-label {
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      width: 100%;
+      max-width: 308px;
+    }
+
+    .register-input {
+      padding: 6px 16px !important;
+    }
+
+    .register-input input {
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+      border-bottom: solid #fff 1px;
+      padding: 0 !important;
+    }
+
+    #gender_select {
+      left: 16px;
+      bottom: 3px;
+      margin-right: 9%;
+      padding: 16px !important;
+    }
+
+    #input-birdth input {
+      /*color: transparent;*/
+      font-size: 14px;
+      border-bottom: solid #fff 1px;
+      padding: 0 !important;
+      background: transparent;
+    }
 
 /*********** HOME ************/
 .home-button {

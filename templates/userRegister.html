@@ -14,17 +14,16 @@
         <span class="input-label">Apellido materno</span>
         <input type="text" placeholder="Apellido materno" name="amat" ng-model="authorization.amat" required>
       </label>
-      <label class="item item-select black-font col-4 select-item" id="userRegister-select3" name="gender">
-        <span class="input-label">Género</span>
-        <select name="gender_re" ng-model="gender" ng-options="genders.gender as genders.genderName for genders in typegender">
-          <option value="">Selecciona Genero</option>
+      <label class="item item-select black-font col-4 select-item" id="gender_select" name="gender" style="padding: 16px;">
+        <select class="select-input" name="gender_re" ng-model="gender" ng-options="genders.gender as genders.genderName for genders in typegender">
+          <option value="" selected="selected" disabled hidden>Genero</option>
         </select>
       </label>
       <label class="item item-input item-floating-label register-input no-border col-5" id="userRegister-input9" name="phone">
         <span class="input-label">Celular</span>
         <input type="tel" placeholder="Celular" name="cellphone" ng-model="authorization.cellphone" size="10" required>
       </label>
-      <label class="item item-input item-stacked-label no-border register-input" id="userRegister-input10" name="birthdate">
+      <label class="item item-input item-stacked-label no-border register-input" id="input-birdth" name="birthdate">
         <span class="input-label">Fecha de nacimiento</span>
         <input type="date" placeholder="Fecha de nacimiento" name="bdate" max="{{max}}" ng-model="authorization.bdate">
       </label>
