@@ -4,6 +4,7 @@ angular.module('app.services', [])
 
 }])
 
+
 .factory('UserSession', [function () {
   return {
     setData: function (id) {
