@@ -21,6 +21,24 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  // Function to close the alerts menu if clicked anywhere in the view
+    $(document).click(function(evt) {
+
+      if(evt.target.id == "nav-trigger"){
+        return;
+      }
+
+      if ( $('input[name="nav-trigger"]').is(':checked') ) {
+        console.log("input checked");
+        $('input[name="nav-trigger"]').prop("checked", false);
+      }
+
+    })
+
+    $('input[name="nav-trigger"]').click(function() {
+      event.stopPropagation();
+      $('input[name="nav-trigger"]').prop('checked', true);
+    });
 
 }])
 
