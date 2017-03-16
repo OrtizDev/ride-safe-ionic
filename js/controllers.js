@@ -6,13 +6,14 @@ angular.module('app.controllers', ['uiGmapgoogle-maps'])
 function ($scope, $stateParams, $log) {
 
   $('#home-inputDestination').hide();
+  $scope.type_poi = 1;
   $scope.map = {
     control: {},
-   center: {latitude: 20.66163, longitude: -103.424501 },
-   zoom: 15,
-   options: {
+    center: {latitude: 20.66163, longitude: -103.424501 },
+    zoom: 15,
+    options: {
            panControl: false,
-           zoomControl: false,
+           zoomControl: true,
            mapTypeControl: false,
            disableDefaultUI: true,
            scrollwheel: false
@@ -22,15 +23,17 @@ function ($scope, $stateParams, $log) {
   var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
   var directionsService = new google.maps.DirectionsService();
 
- $scope.markerd = {
-     id: 1,
-     coords: {
-         latitude: 0,
-         longitude: 0
-     },
-     options: { draggable: true,
+  $scope.show = true;
+
+  $scope.markerd = {
+      id: 1,
+      coords: {
+          latitude: 0,
+          longitude: 0
+        },
+      options: { draggable: true,
                 icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"},
-     events : {
+      events : {
        dragend: function (markerd, eventName, args) {
          var latd = markerd.getPosition().lat();
          var lond = markerd.getPosition().lng();
@@ -47,11 +50,11 @@ function ($scope, $stateParams, $log) {
            icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
            labelClass: "marker-labels"
          };
-       }
-     }
-   };
+        }
+      }
+    };
 
- $scope.marker = {
+  $scope.marker = {
      id: 0,
      coords: {
        latitude: 20.66163,
@@ -76,7 +79,6 @@ function ($scope, $stateParams, $log) {
             $('#origin').val(location);
             $('#home-inputDestination').show();
             if($("#destination").val() === ''){
-              console.log("vacio");
             } else {
               getDirections();
             }
@@ -90,6 +92,10 @@ function ($scope, $stateParams, $log) {
        }
      }
    };
+
+  $scope.polylines = [];
+
+  $scope.markerg = [];
 
  function foo(latlng, fn){
       var geocoder = new google.maps.Geocoder();
@@ -106,24 +112,128 @@ function ($scope, $stateParams, $log) {
             });
     }
 
- function getDirections(){
-   start  = new google.maps.LatLng($scope.marker.coords.latitude, $scope.marker.coords.longitude);
-   end = new google.maps.LatLng($scope.markerd.coords.latitude, $scope.markerd.coords.longitude);
-   var request = {
-         origin: start,
-         destination: end,
-         travelMode: google.maps.DirectionsTravelMode.DRIVING
-    };
-    directionsService.route(request, function (response, status) {
-       if (status === google.maps.DirectionsStatus.OK) {
-           directionsDisplay.setDirections(response);
-           directionsDisplay.setMap($scope.map.control.getGMap());
-        } else {
-           alert('Google route unsuccesfull!');
-        }
+ function getRoute(start, end, poi, fn){
+    var data = {};
+    data.start = start;
+    data.end = end;
+    data.poi_in = [poi];
+    data.key = 'f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc';
+    data.weather = true;
+    $.ajax({
+      crossDomain:true,
+      type: "GET",
+      url: "https://api.sintrafico.com/route",
+      data: data,
+      success:function(e) {
+           fn (e);
+      }
     });
  }
- 
+
+ function getDirections(){
+   getRoute($scope.marker.coords.latitude +','+ $scope.marker.coords.longitude,$scope.markerd.coords.latitude +','+ $scope.markerd.coords.longitude, $scope.type_poi, function(wps){
+     console.log(wps);
+     var wp = [];
+     for(var i = 0; i < wps.routes[0].geometry.coordinates.length; i++){
+       wp.push({
+          latitude: wps.routes[0].geometry.coordinates[i][1],
+          longitude: wps.routes[0].geometry.coordinates[i][0]
+       });
+     }
+     $scope.polylines = [{
+         id: 1,
+         path: wp,
+         stroke: {
+           color: '#223D75',
+           weight: 5
+         },
+         editable: true,
+         draggable: true,
+         geodesic: true,
+         visible: true
+     }];
+     $scope.markerg = [];
+     if(wps.routes[0].pois){
+       if($scope.type_poi == 1){
+         $scope.getToll();
+       }
+       else if($scope.type_poi == 2){
+         $scope.getGas();
+       }
+       else {
+         $scope.getIncident();
+       }
+     }
+     $scope.$apply();
+   });
+ }
+
+  $scope.getToll = function() {
+    $scope.type_poi = 1;
+    getRoute($scope.marker.coords.latitude +','+ $scope.marker.coords.longitude,$scope.markerd.coords.latitude +','+ $scope.markerd.coords.longitude, $scope.type_poi, function(wps) {
+      $scope.vm.markers = [];
+      if(wps.routes[0].pois.tolls){
+        for(var i = 0; i < wps.routes[0].pois.tolls.length;i++){
+          var cost = "Costo: ";
+          wps.routes[0].pois.tolls[i].rates[0][4] ? cost=cost+wps.routes[0].pois.tolls[i].rates[0][4]:cost = cost + "-";
+              var mark = {
+                id: i,
+                latitude: wps.routes[0].pois.tolls[i].geometry.coordinates[1],
+                longitude: wps.routes[0].pois.tolls[i].geometry.coordinates[0],
+                name: wps.routes[0].pois.tolls[i].description + '<br /	>' +wps.routes[0].pois.tolls[i].address + '<br /	>' + "Costo: " + wps.routes[0].pois.tolls[i].rates[4],
+                show: false
+              };
+              $scope.vm.markers.push(mark);
+          }
+          $scope.$apply();
+        }
+      });
+    }
+
+  $scope.getGas = function() {
+    $scope.type_poi = 2;
+    getRoute($scope.marker.coords.latitude +','+ $scope.marker.coords.longitude,$scope.markerd.coords.latitude +','+ $scope.markerd.coords.longitude, $scope.type_poi, function(wps) {
+      $scope.vm.markers = [];
+      if(wps.routes[0].pois){
+        for(var i = 0; i < wps.routes[0].pois.gas_stations.length;i++){
+          var mark = {
+            id: i,
+            latitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[1],
+            longitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[0],
+            name: wps.routes[0].pois.gas_stations[i].description + '<br /	>' +wps.routes[0].pois.gas_stations[i].address + '<br /	>' +wps.routes[0].pois.gas_stations[i].status,
+            show: false
+          };
+          $scope.vm.markers.push(mark);
+        }
+        $scope.$apply();
+      }
+    });
+  }
+
+  $scope.getIncident = function () {
+    $scope.type_poi = 3;
+    getRoute($scope.marker.coords.latitude +','+ $scope.marker.coords.longitude,$scope.markerd.coords.latitude +','+ $scope.markerd.coords.longitude, $scope.type_poi, function(wps){
+      $scope.vm.markers = [];
+      if(wps.routes[0].pois){
+        for(var i = 0; i < wps.routes[0].pois.incidents.length;i++){
+            var mark = {
+              id: i,
+              latitude: wps.routes[0].pois.incidents[i].geometry.coordinates[1],
+              longitude: wps.routes[0].pois.incidents[i].geometry.coordinates[0],
+              name: wps.routes[0].pois.incidents[i].description + '<br /	>' +wps.routes[0].pois.incidents[i].address,
+              show: false
+            };
+          $scope.vm.markers.push(mark);
+        }
+        $scope.$apply();
+      }
+    });
+  }
+
+  $scope.vm = [];
+
+  $scope.vm.markers = [];
+
 }])
 
 .controller('myRoutesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
