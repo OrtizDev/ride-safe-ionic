@@ -65,8 +65,8 @@
 		        <span class="input-label">Repetir contraseña</span>
 		        <input type="password" placeholder="" name="repass" ng-model="authorization.repass" ng-minlength="minpassword" required>
 		      </label>
-		      <button type="submit" id="userRegister-button5" style="border-radius:8px 8px 8px 8px;" class="button button-stable button-small button-block">SIGUIENTE</button>
-		      <button ng-click="login()" id="userRegister-button6" style="font-weight:600;text-align:right;" class="button button-light button-small button-block button-clear underlined">+ Iniciar sesión</button>
+					<button ui-sref="menu.home" id="motoRegister-send" style="margin-left: 5%; margin-top: 30px;" class="button button-stable button-small col-4">MENU</button>
+					<button type="submit" id="motoRegister-cancel" style="margin-left: 10%; margin-top: 30px;" class="button button-balanced button-small col-4">GUARDAR</button>
 		    </form>
       </div>
 
@@ -105,8 +105,8 @@
 					<label class="item item-input item-floating-label register-input col-6 no-border" id="motoRegister_other">
 						<input type="text" placeholder="" id="other">
 					</label>
-					<button ng-click="return()" id="motoRegister-send" style="margin-left: 5%;" class="button button-stable button-small col-4">REGRESAR</button>
-					<button type="submit" id="motoRegister-cancel" style="margin-left: 10%;" class="button button-balanced button-small col-4">REGISTRARME</button>
+					<button ui-sref="menu.home" id="motoRegister-send" style="margin-left: 5%;" class="button button-stable button-small col-4">MENU</button>
+					<button type="submit" id="motoRegister-cancel" style="margin-left: 10%;" class="button button-balanced button-small col-4">GUARDAR</button>
 				</form>
       </div>
 
