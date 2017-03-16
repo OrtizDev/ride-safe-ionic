@@ -1,39 +1,41 @@
 <ion-view title="moto-register" hide-nav-bar="true" id="page10" style="background-color:#3B3C3A;">
   <ion-content padding="true" class="manual-ios-statusbar-padding">
-    <h3 id="motoRegister-heading3" style="color:#FFFFFF;text-align:center;">REGISTRA TU MOTOCICLETA</h3>
+    <h3 id="motoRegister-heading3">REGISTRA TU MOTOCICLETA</h3>
     <form id="motoRegister-form5" class="list" ng-submit="register()" name="motoRe">
-      <label class="item item-select black-font" id="motoRegister-select9" name="moto-brand">
-        <span class="input-label">Marca de motocicleta</span>
-        <select></select>
+      <label class="item item-select black-font select-item" id="motoRegister_brand" name="moto-brand">
+        <select class="select-input">
+          <option value="" selected="selected" disabled hidden>Marca de motocicleta</option>
+        </select>
       </label>
-      <label class="item item-select black-font col-5" id="motoRegister-select10">
-        <span class="input-label">Modelo</span>
-        <select></select>
+      <label class="item item-select black-font col-3 select-item" id="motoRegister_model" style="padding: 16px; margin-left: 16%;">
+        <select class="select-input">
+          <option value="" selected="selected" disabled hidden>Modelo</option>
+        </select>
       </label>
-      <label class="item item-select black-font col-5" id="motoRegister-select11">
-        <span class="input-label">Año</span>
-        <select></select>
+      <label class="item item-select black-font col-3 select-item" id="motoRegister_year" style="padding: 16px; margin-left: 5%;">
+        <select class="select-input">
+          <option value="" selected="selected" disabled hidden>Año</option>
+        </select>
       </label>
-      <label class="item item-input item-floating-label register-input no-border" id="motoRegister-input24">
+      <label class="item item-input item-floating-label register-input no-border" id="motoRegister-plates">
         <span class="input-label">Placas</span>
         <input type="number" placeholder="Placas">
       </label>
-      <h5 id="motoRegister-heading4" style="color:#fff;text-align:center;">¿Qué uso le das a tu motocicleta</h5>
-      <ion-checkbox id="motoRegister-checkbox1" ng-model="ciudad.checked" class="col-5">Ciudad</ion-checkbox>
-      <ion-checkbox id="motoRegister-checkbox2" ng-model="atv.checked" class="col-5">Atv off road</ion-checkbox>
-      <ion-checkbox id="motoRegister-checkbox3" ng-model="touring.checked" class="col-5">Touring</ion-checkbox>
-      <ion-checkbox id="motoRegister-checkbox4" ng-model="trabajo.checked" class="col-5">De trabajo</ion-checkbox>
-      <ion-checkbox id="motoRegister-checkbox5" ng-model="circuitos.checked" class="col-5">Circuitos</ion-checkbox>
-      <ion-checkbox id="motoRegister-checkbox6" ng-model="enduro.checked" class="col-5">Enduro</ion-checkbox>
-      <ion-checkbox id="motoRegister-checkbox7" ng-model="stunt.checked" class="col-5">Stunt</ion-checkbox>
-      <ion-checkbox id="motoRegister-checkbox8" ng-model="carretera.checked" class="col-5">Carretera esporádica</ion-checkbox>
-      <ion-checkbox id="motoRegister-checkbox9" ng-model="otro.checked" class="col-5">Otro ¿cual?</ion-checkbox>
-      <label class="item item-input item-floating-label register-input col-5 no-border" id="motoRegister-input25">
-        <span class="input-label">Input</span>
+      <h4 id="motoRegister-heading4">¿Qué uso le das a tu motocicleta?</h4>
+      <ion-checkbox id="motoRegister-checkbox1" ng-model="ciudad.checked" class="check-odd checkbox-slim">Ciudad</ion-checkbox>
+      <ion-checkbox id="motoRegister-checkbox2" ng-model="atv.checked" class="col-6 checkbox-slim">Atv off road</ion-checkbox>
+      <ion-checkbox id="motoRegister-checkbox3" ng-model="touring.checked" class="check-odd checkbox-slim">Touring</ion-checkbox>
+      <ion-checkbox id="motoRegister-checkbox4" ng-model="trabajo.checked" class="col-6 checkbox-slim">De trabajo</ion-checkbox>
+      <ion-checkbox id="motoRegister-checkbox5" ng-model="circuitos.checked" class="check-odd checkbox-slim">Circuitos</ion-checkbox>
+      <ion-checkbox id="motoRegister-checkbox6" ng-model="enduro.checked" class="col-6 checkbox-slim">Enduro</ion-checkbox>
+      <ion-checkbox id="motoRegister-checkbox7" ng-model="stunt.checked" class="check-odd checkbox-slim">Stunt</ion-checkbox>
+      <ion-checkbox id="motoRegister-checkbox8" ng-model="carretera.checked" class="col-6 checkbox-slim">Carretera esporádica</ion-checkbox>
+      <ion-checkbox id="motoRegister-checkbox9" ng-model="otro.checked" class="check-odd checkbox-slim">Otro, ¿Cuál?</ion-checkbox>
+      <label class="item item-input item-floating-label register-input col-6 no-border" id="motoRegister_other">
         <input type="text" placeholder="" id="other">
       </label>
-      <button ng-click="return()" id="motoRegister-button7" style="border-radius:8px 8px 8px 8px;" class="button button-stable  button-block col-5">REGRESAR</button>
-      <button type="submit" id="motoRegister-button9" style="border-radius:8px 8px 8px 8px;" class="button button-balanced  button-block col-5">REGISTRARME</button>
+      <button ng-click="return()" id="motoRegister-send" style="margin-left: 5%;" class="button button-stable button-small col-4">REGRESAR</button>
+      <button type="submit" id="motoRegister-cancel" style="margin-left: 10%;" class="button button-balanced button-small col-4">REGISTRARME</button>
     </form>
   </ion-content>
 </ion-view>

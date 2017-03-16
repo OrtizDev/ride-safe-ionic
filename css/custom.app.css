@@ -5,6 +5,7 @@
 -------------------------------
   - Avenir Font
   - User Register view
+  - Moto Register view
   - Home view
     - Right modal-menu
   - Alert views
@@ -103,6 +104,75 @@ ion-content > div:first-child {
       margin-top: 30px;
     }
 
+/*********** Moto Register view ************/
+
+    #motoRegister-heading3 {
+      font-family: "Avenir";
+      font-size: 6vw;
+      color:#FFFFFF;
+      text-align:center;
+      margin-top: 20px;
+    }
+
+    #motoRegister_brand{
+      padding: 16px;
+      border-radius: 5px;
+      border-radius: 5px;
+      width: 90%;
+      margin-left: 5%;
+    }
+
+    #motoRegister_brand, #motoRegister_model, #motoRegister_year {
+      bottom: 3px;
+      margin-top: 25px;
+      padding: 16px !important;
+    }
+
+    #motoRegister-plates {
+      width: 75%;
+      margin-left: 12.5%;
+      margin-bottom: 20px;
+    }
+
+    #motoRegister-heading4 {
+      color:#fff;
+      text-align:center;
+      font-family: 'Avenir';
+      font-size: 4.5vw;
+      padding: 10px 0px;
+    }
+
+    .checkbox-slim {
+      padding-right: 0px !important;
+      padding-left: 40px !important;
+      font-size: 3.5vw;
+      font-family: "Avenir";
+      background: transparent;
+      border: none;
+      color: #fff;
+      display: inline-block;
+    }
+
+    .check-odd {
+      width: 38%;
+    }
+
+    .checkbox-slim .checkbox {
+      padding: 7px 0px !important;
+    }
+
+    #motoRegister_other {
+      padding-top: 0px !important;
+      padding-bottom: 20px !important;
+    }
+
+    #motoRegister-send, #motoRegister-cancel {
+      font-size: 4vw;
+      border-radius:8px 8px 8px 8px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 4px;
+    }
 /*********** HOME ************/
 .home-button {
   position: absolute;
