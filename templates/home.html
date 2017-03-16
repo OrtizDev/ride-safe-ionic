@@ -1,5 +1,5 @@
 <ion-view title="home" hide-nav-bar="true" id="page1" class="translucid">
-  <ion-content padding="false" class="manual-ios-statusbar-padding" scroll="false">
+  <ion-content id="home_content" padding="false" class="manual-ios-statusbar-padding" scroll="false">
     <button menu-toggle="left" style="border-radius:25px 25px 25px 25px;" class="button button-positive home-button icon ion-android-menu"></button>
     <form id="home-form9" class="list">
       <label class="item item-input" id="home-inputOrigin" name="origin">
@@ -26,8 +26,9 @@
         </ui-gmap-markers>
         <ui-gmap-polyline ng-repeat="p in polylines" path="p.path" stroke="p.stroke" visible='p.visible' geodesic='p.geodesic'></ui-gmap-polyline>
       </ui-gmap-google-map>
+
     </div>
-    <input type="checkbox" id="nav-trigger" class="nav-trigger">
+    <input name="nav-trigger" type="checkbox" id="nav-trigger" class="nav-trigger">
     <label for="nav-trigger" style="margin-top: -50px;">!</label>
     <ul class="navigation">
       <li class="nav-item background-odd" style="height: 10%;">
