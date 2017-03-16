@@ -111,7 +111,7 @@ ion-content > div:first-child {
       font-size: 6vw;
       color:#FFFFFF;
       text-align:center;
-      margin-top: 20px;
+      padding-top: 20px;
     }
 
     #motoRegister_brand{
