@@ -10,11 +10,11 @@
       </div>
     </div>
     <ion-list id="dangerAlert-list13" class="half-height">
-      <ion-item class="item-thumbnail-left gray-bg alert-item" id="dangerAlert-list-item27">
+      <ion-item ng-click="typeTrafic(10)" class="item-thumbnail-left gray-bg alert-item" id="dangerAlert-list-item27">
         <img src="img/pvVByfgvRasq4MfKoU1w_peligro-en-la-via.png" class="center-img">
         <h2>En ruta</h2>
       </ion-item>
-      <ion-item class="item-thumbnail-left gray-bg alert-item" id="dangerAlert-list-item28">
+      <ion-item ng-click="typeTrafic(11)" class="item-thumbnail-left gray-bg alert-item" id="dangerAlert-list-item28">
         <img src="img/wJBXmEvWTdMbbYUg1Nzz_peligro-acotamiento.png" class="center-img">
         <h2>Acotamiento</h2>
       </ion-item>
@@ -24,7 +24,7 @@
       </ion-item>
     </ion-list>
     <div style="margin-right:-20px; height:13%;">
-      <button id="dangerAlert-button24" style="left:-10px;border-radius:0px 0px 0px 0px; margin:0; border:none; height:100%;" class="button button-calm button-large button-full">¡Alertar!</button>
+      <button ng-click="saveAlert()" id="dangerAlert-button24" style="left:-10px;border-radius:0px 0px 0px 0px; margin:0; border:none; height:100%;" class="button button-calm button-large button-full">¡Alertar!</button>
     </div>
   </ion-content>
 </ion-view>
