@@ -444,6 +444,10 @@ ion-content > div:first-child {
       color: #fff;
     }
 
+    .alert-item.active {
+      background: #808284 !important;
+    }
+
     .bottom-border {
       border-bottom: 4px solid #fff;
     }

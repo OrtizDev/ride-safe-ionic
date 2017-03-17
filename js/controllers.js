@@ -6,7 +6,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps'])
 function ($scope, $stateParams, $log) {
 
   $('#home-inputDestination').hide();
-  $scope.type_poi = 1;
+  $scope.type_poi = 2;
   $scope.map = {
     control: {},
     center: {latitude: 20.66163, longitude: -103.424501 },
@@ -241,6 +241,10 @@ function ($scope, $stateParams, $log) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  $(".routes-list-item").click(function () {
+    $(".routes-list-item").removeClass("active");
+    $(this).addClass("active");
+  });
 
 }])
 
@@ -639,6 +643,10 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  $(".alert-item").click(function () {
+    $(".alert-item").removeClass("active");
+    $(this).addClass("active");
+  });
 
 }])
 
@@ -647,6 +655,10 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  $(".alert-item").click(function () {
+    $(".alert-item").removeClass("active");
+    $(this).addClass("active");
+  });
 
 }])
 
@@ -655,6 +667,10 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  $(".alert-item").click(function () {
+    $(".alert-item").removeClass("active");
+    $(this).addClass("active");
+  });
 
 }])
 
@@ -663,6 +679,10 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  $(".alert-item").click(function () {
+    $(".alert-item").removeClass("active");
+    $(this).addClass("active");
+  });
 
 }])
 
