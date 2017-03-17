@@ -10,21 +10,21 @@
       </div>
     </div>
     <ion-list id="policeAlert-list11" class="half-height">
-      <ion-item class="item-thumbnail-left gray-bg alert-item" id="policeAlert-list-item21">
+      <ion-item ng-click="typeTrafic(4)" class="item-thumbnail-left gray-bg alert-item" id="policeAlert-list-item21">
         <img src="img/8nyLd6QJyAVnpvWmPgCg_policia-a-la-vista.png" class="center-img">
         <h2>A la vista</h2>
       </ion-item>
-      <ion-item class="item-thumbnail-left gray-bg alert-item" id="policeAlert-list-item22">
+      <ion-item ng-click="typeTrafic(5)" class="item-thumbnail-left gray-bg alert-item" id="policeAlert-list-item22">
         <img src="img/d6d5sVf5Q82sakkS9kKm_policia-oculto.png" class="center-img">
         <h2>Oculto</h2>
       </ion-item>
-      <ion-item class="item-thumbnail-left gray-bg alert-item" id="policeAlert-list-item23">
+      <ion-item ng-click="typeTrafic(6)" class="item-thumbnail-left gray-bg alert-item" id="policeAlert-list-item23">
         <img src="img/2G2zWh9FRgqhCocWl7AM_policia-otro-sentido.png" class="center-img">
         <h2>Otro sentido</h2>
       </ion-item>
     </ion-list>
     <div style="margin-right:-20px; height:13%;">
-      <button id="policeAlert-button15" style="left:-10px;border-radius:0px 0px 0px 0px; margin:0; border:none; height:100%;" class="button button-calm button-large button-full">¡Alertar!</button>
+      <button ng-click="saveAlert()" id="policeAlert-button15" style="left:-10px;border-radius:0px 0px 0px 0px; margin:0; border:none; height:100%;" class="button button-calm button-large button-full">¡Alertar!</button>
     </div>
   </ion-content>
 </ion-view>
