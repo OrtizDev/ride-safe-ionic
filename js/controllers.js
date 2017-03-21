@@ -181,13 +181,25 @@ function ($scope, $stateParams, $log) {
                 latitude: wps.routes[0].pois.tolls[i].geometry.coordinates[1],
                 longitude: wps.routes[0].pois.tolls[i].geometry.coordinates[0],
                 name: wps.routes[0].pois.tolls[i].description + '<br /	>' +wps.routes[0].pois.tolls[i].address + '<br /	>' + "Costo: " + wps.routes[0].pois.tolls[i].rates[4],
-                show: false
+                show: false,
+                icon : './img/pines/caseta.png'
               };
               $scope.vm.markers.push(mark);
           }
           $scope.$apply();
         }
       });
+    }
+
+  function gasType(status){
+    if (status == 'Con anomalías' || status == 'Se negó a verificación') {
+      	url = './img/pines/gas-rojo.png';
+      } else if (status == 'No verificada') {
+      		url = './img/pines/gas-naranja.png';
+      } else {
+      		url = './img/pines/gas-verde.png';
+      }
+      	return url;
     }
 
   $scope.getGas = function() {
@@ -201,7 +213,8 @@ function ($scope, $stateParams, $log) {
             latitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[1],
             longitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[0],
             name: wps.routes[0].pois.gas_stations[i].description + '<br /	>' +wps.routes[0].pois.gas_stations[i].address + '<br /	>' +wps.routes[0].pois.gas_stations[i].status,
-            show: false
+            show: false,
+            icon: gasType(wps.routes[0].pois.gas_stations[i].status)
           };
           $scope.vm.markers.push(mark);
         }
@@ -221,7 +234,8 @@ function ($scope, $stateParams, $log) {
               latitude: wps.routes[0].pois.incidents[i].geometry.coordinates[1],
               longitude: wps.routes[0].pois.incidents[i].geometry.coordinates[0],
               name: wps.routes[0].pois.incidents[i].description + '<br /	>' +wps.routes[0].pois.incidents[i].address,
-              show: false
+              show: false,
+              icon: './img/pines/accidente-grave.png'
             };
           $scope.vm.markers.push(mark);
         }
