@@ -1,5 +1,5 @@
 <ion-view title="sp2" hide-nav-bar="true" id="page16">
-  <ion-content padding="false" class="manual-ios-statusbar-padding" style="margin-bottom: -5px;">
+  <ion-content id="sp2_content" padding="false" class="manual-ios-statusbar-padding" style="margin-bottom: -5px;">
     <div class="title-container">
       <div class="spacer" style="width: 300px; height: 30%;"></div>
       <h4 id="sp2-heading9" style="color:#000000;text-align:center;">S2P</h4>
@@ -13,10 +13,8 @@
           <p>impactos y caídas</p>
         </div>
         <form id="sp2-form23" class="list form-items">
-          <p class="yes-tag">Si</p>
           <ion-toggle ng-model="pushNotiIC.checked" toggle-class="toggle-balanced" id="sp2-toggle4" class="secure-checkbox"></ion-toggle>
-          <p class="no-tag">No</p>
-          <div id="sp2-markdown16" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
+          <div id="sp2-markdown16" ng-click="openModal()" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
             <p class="config-text">Configurar</p>
           </div>
         </form>
@@ -26,9 +24,7 @@
           <p>Desvio de rutas</p>
         </div>
         <form id="sp2-form22" class="list form-items">
-          <p class="yes-tag">Si</p>
           <ion-toggle ng-model="pushNotiDR.checked" toggle-class="toggle-balanced" id="sp2-toggle3" class="secure-checkbox"></ion-toggle>
-          <p class="no-tag">No</p>
           <div id="sp2-markdown17" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
             <p class="config-text">Configurar</p>
           </div>
@@ -39,9 +35,7 @@
           <p>Avisos de riesgo</p>
         </div>
         <form id="sp2-form20" class="list form-items">
-          <p class="yes-tag">Si</p>
           <ion-toggle ng-model="pushNotiAR.checked" toggle-class="toggle-balanced" ng-checked="true" id="sp2-toggle1" class="secure-checkbox"></ion-toggle>
-          <p class="no-tag">No</p>
           <div id="sp2-markdown19" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
             <p class="config-text">Configurar</p>
           </div>
@@ -52,9 +46,7 @@
           <p>live tracking</p>
         </div>
         <form id="sp2-form21" class="list form-items">
-          <p class="yes-tag">Si</p>
           <ion-toggle ng-model="pushNotiLT.checked" toggle-class="toggle-balanced" ng-checked="true" id="sp2-toggle2" class="secure-checkbox"></ion-toggle>
-          <p class="no-tag">No</p>
           <div id="sp2-markdown18" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
             <p class="config-text">Configurar</p>
           </div>
@@ -66,9 +58,7 @@
         <p style="font-size: 20px; padding-top: 25px;">Modo caravana</p>
       </div>
       <form id="sp2-form25" class="list">
-        <p class="yes-tag" style="font-size: 20px; margin-left: 25%;">Si</p>
         <ion-toggle ng-model="pushNotiMC.checked" toggle-class="toggle-balanced" ng-checked="true" id="sp2-toggle6" class="secure-checkbox" style="padding-left: 30%;"></ion-toggle>
-        <p class="no-tag" style="font-size: 20px; margin-right: 25%;">No</p>
         <div id="sp2-markdown20" style="text-align:right; margin: 40px 20% 0px 55%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
           <p class="config-text" style="font-size: 12px;">Configurar</p>
         </div>
@@ -79,5 +69,44 @@
       <button ng-click="backS2R()" id="sp2-button26" style="border-radius:0px 0px 0px 0px;" class="button button-dark button-large col-5 cancel-button">Cancelar</button>
       <button ng-click="saveNoti()" id="sp2-button27" style="border-radius:0px 0px 0px 0px;" class="button button-balanced button-large col-5 go-button">Guardar</button>
     </div>
+    <script id="test-modal.html" type="text/ng-template">
+      <ion-modal-view style="background: transparent;">
+        <ion-content padding="true" class="manual-ios-statusbar-padding modal-1">
+      		<div class="modal-header">
+            <div style="height:20px;">
+              <button id="close-button10" ng-click="closeModal()" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+            </div>
+            <div class="spacer" style="width: 300px; height: 30%; top: 25%; left: 25%;"></div>
+            <h4 id="modal-title">IMPACTOS Y CAÍDAS</h4>
+            <div class="modal-text" class="show-list-numbers-and-dots">
+              <p>Permitir publicar en:</p>
+            </div>
+          </div>
+          <div style="margin-top: 25px;">
+            <div class="fb-icon">
+              <img class="social-icon" src="img/facebook.png">
+            </div>
+            <div class="watsapp-icon">
+              <img class="social-icon" src="img/whatsapp.png">
+            </div>
+            <div>
+              <ion-toggle toggle-class="toggle-balanced" class="left-toggle">Toggle</ion-toggle>
+              <ion-toggle toggle-class="toggle-balanced" class="right-toggle">Toggle</ion-toggle>
+            </div>
+          </div>
+          <div>
+            <div class="modal-text" class="show-list-numbers-and-dots">
+              <p>Configurar message</p>
+              <label class="item item-input" style="width: 90%; margin-left: 5%;">
+                <textarea placeholder="" style="min-height: 70px;"></textarea>
+              </label>
+            </div>
+            <div style="margin-right:-20px;">
+              <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+            </div>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+     </script>
   </ion-content>
 </ion-view>

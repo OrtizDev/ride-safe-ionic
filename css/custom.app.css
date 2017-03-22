@@ -12,6 +12,8 @@
   - Configutation view
   - User Manual view
   - Discover route view
+  - S2P view
+    - Modals
   - My routes view
 
 */
@@ -174,29 +176,30 @@ ion-content > div:first-child {
       padding: 4px;
     }
 /*********** HOME ************/
-.home-button {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  z-index: 3;
-  min-height: 35px !important;
-  min-width: 35px !important;
-}
 
-#home-form9 {
-    position: absolute;
-    top: 85px;
-    left: 45px;
-    width: 75%;
-}
+    .home-button {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 3;
+      min-height: 35px !important;
+      min-width: 35px !important;
+    }
 
-#home-form9 > label {
-    border-radius: 10px;
-    border: 1px solid #3b3c3a;
-    height: 40px;
-    margin: 1px 0px;
-    padding-left: 12px !important;
-}
+    #home-form9 {
+        position: absolute;
+        top: 85px;
+        left: 45px;
+        width: 75%;
+    }
+
+    #home-form9 > label {
+        border-radius: 10px;
+        border: 1px solid #3b3c3a;
+        height: 40px;
+        margin: 1px 0px;
+        padding-left: 12px !important;
+    }
 
 /** Right modal-menu **/
     .nav-trigger {
@@ -637,14 +640,14 @@ ion-content > div:first-child {
     }
 
     .yes-tag {
-      float: left;
-      margin-left: 15%;
+      float: right;
+      margin-right: 15%;
       margin-top: 5%;
     }
 
     .no-tag {
-      float: right;
-      margin-right: 15%;
+      float: left;
+      margin-left: 15%;
       margin-top: 5%;
     }
 
@@ -654,6 +657,71 @@ ion-content > div:first-child {
 
     }
 
+    .blur-efect {
+      filter: blur(2px);
+    }
+
+    /*********** Modals ***********/
+
+    .modal-1 {
+      height: 380px;
+      width: 80%;
+      background: rgba(16, 26, 75, 0.80);
+      top: 20%;
+      left: 10%;
+      border-radius: 25px;
+    }
+
+    #modal-title {
+      font-family:'Avenir-roman';
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      text-decoration: underline;
+    }
+
+    .modal-text {
+      font-family:'Avenir-roman';
+      color: #fff;
+      font-size: 14px;
+      text-align:center;
+    }
+
+    .left-toggle {
+      color: transparent;
+      background: transparent;
+      width: 30%;
+      margin-left: -50px;
+      left: 14%;
+      display: inline-block;
+      border: none;
+    }
+
+    .right-toggle {
+      color: transparent;
+      background: transparent;
+      width: 30%;
+      margin-left: -50px;
+      left: 40%;
+      display: inline-block;
+      border: none;
+    }
+
+    .social-icon {
+      width: 40px;
+    }
+
+    .fb-icon {
+      display: inline-block;
+      width: 49%;
+      text-align: center;
+    }
+
+    .watsapp-icon {
+      display: inline-block;
+      width: 49%;
+      text-align: center;
+    }
 
 /*********** MY ROUTES VIEW ***********/
 

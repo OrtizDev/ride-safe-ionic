@@ -553,10 +553,10 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('sp2Ctrl', ['$scope', '$stateParams', 'S2R', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('sp2Ctrl', ['$scope', '$stateParams', 'S2R', '$state', '$ionicModal',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, S2R, $state) {
+function ($scope, $stateParams, S2R, $state, $ionicModal) {
 
   $scope.$on('$ionicView.enter', function () {
       var IC = S2R.getEstateS2R_IC();
@@ -613,6 +613,34 @@ function ($scope, $stateParams, S2R, $state) {
       $state.go('menu.home');
   }
 
+  // Modal controller
+  $ionicModal.fromTemplateUrl('test-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+    $('#sp2_content').addClass("blur-efect");
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+    $('#sp2_content').removeClass("blur-efect");
+  };
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
+
 }])
 
 .controller('userManualCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -627,6 +655,7 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
+
 
 }])
 
@@ -687,6 +716,14 @@ function ($scope, $stateParams) {
 }])
 
 .controller('closedAlertCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+
+}])
+
+.controller('crashesConfigCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
