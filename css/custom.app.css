@@ -15,6 +15,7 @@
   - S2P view
     - Modals
   - My routes view
+  - On Route view
 
 */
 
@@ -762,4 +763,29 @@ ion-content > div:first-child {
       color: #fff;
       text-align: left;
       margin-top: 10px;
+    }
+
+/*********** ON ROUTE VIEW ***********/
+
+    .filter-bar {
+      height: 9vh;
+      z-index: 2;
+    }
+
+    .filter-button {
+      height: 100%;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      border-color: #fff !important;
+      border-style: solid;
+      border-width: 0px 3px 3px 0px !important;
+    }
+
+    .filter-button:nth-child(4n) {
+      border-width: 0px 0px 3px 0px !important;
+    }
+
+    .filter-button > img {
+      height: 30px;
+      margin-top: 15%;
     }
