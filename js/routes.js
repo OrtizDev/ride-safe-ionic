@@ -138,7 +138,12 @@ angular.module('app.routes', [])
     controller: 'onRouteCtrl'
   })
 
-$urlRouterProvider.otherwise('/left-menu/my-routes')
+  .state('routeReview', {
+    url: '/route-review',
+    templateUrl: 'templates/routeReview.html',
+    controller: 'routeReviewCtrl'
+  })
 
+$urlRouterProvider.otherwise('/left-menu/my-routes')
 
 });

@@ -726,11 +726,14 @@ function ($scope, $stateParams) {
     $('input[name="nav-trigger"]').click(function() {
       event.stopPropagation();
 
-      // if ( $('input[name="nav-trigger"]').is(':checked') == true) {
-      //   $('input[name="nav-trigger"]').prop("checked", false);
-      // } else {
-      //   $('input[name="nav-trigger"]').prop('checked', true);
-      // }
     });
+
+}])
+
+.controller('routeReviewCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
 
 }])
