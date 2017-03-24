@@ -7,12 +7,15 @@
   - User Register view
   - Moto Register view
   - Home view
-    - Right modal-menu
   - Alert views
   - Configutation view
   - User Manual view
   - Discover route view
+  - S2P view
+    - Modals
   - My routes view
+  - On Route view
+    - Right alert-menu
 
 */
 
@@ -174,130 +177,29 @@ ion-content > div:first-child {
       padding: 4px;
     }
 /*********** HOME ************/
-.home-button {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  z-index: 3;
-  min-height: 35px !important;
-  min-width: 35px !important;
-}
 
-#home-form9 {
-    position: absolute;
-    top: 85px;
-    left: 45px;
-    width: 75%;
-}
-
-#home-form9 > label {
-    border-radius: 10px;
-    border: 1px solid #3b3c3a;
-    height: 40px;
-    margin: 1px 0px;
-    padding-left: 12px !important;
-}
-
-/** Right modal-menu **/
-    .nav-trigger {
-      /* critical styles - hide the checkbox input */
+    .home-button {
       position: absolute;
-      clip: rect(0, 0, 0, 0);
+      top: 18px;
+      left: 18px;
+      z-index: 3;
+      min-height: 35px !important;
+      min-width: 35px !important;
     }
 
-    label[for="nav-trigger"] {
-      /* critical positioning styles */
-      position: absolute;
-      z-index: 5;
-      right: 10px;
-      /* non-critical apperance styles */
-      height: 40px;
-      width: 40px;
-      background: #223d75;
-      background-size: contain;
-      font-size: 40px;
-      font-family: serif;
-      line-height: 1;
-      text-align: center;
-      color: #fff;
-      box-shadow: 0px 0px 0px 4px rgba(185, 185, 185, 0.86);
-      border-radius: 50%;
-      cursor: pointer;
+    #home-form9 {
+        position: absolute;
+        top: 85px;
+        left: 45px;
+        width: 75%;
     }
 
-    .navigation {
-      /* critical sizing and position styles */
-      width: 140px;
-      height: 90%;
-      position: absolute;
-      top: 0px;
-      right: -150px;
-      display: none;
-      z-index: 5;
-      /* non-critical appearance styles */
-      list-style: none;
-    }
-
-    .nav-item {
-      width: 140px;
-      height: 18%;
-      background: #1b75ba;
-      border: 2px solid #fff;
-    }
-
-    .nav-title {
-      margin-top: 15%;
-      color: #fff;
-      text-align: center;
-      font-family: "Avenir-roman";
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .nav-item a {
-      height: 100%;
-      display: block;
-      color: white;
-      font-size: 12px;
-      text-decoration: none;
-      transition: color 0.2s, background 0.5s;
-      padding-top: 25%;
-      padding-left: 5%;
-    }
-
-    .img-item {
-      display: inline-block;
-      width: 35%;
-      text-align: center;
-    }
-
-    .nav-item .img-item > img {
-      height: 25px;
-      width: auto;
-      vertical-align: middle;
-    }
-
-    .nav-item .title-item {
-      display: inline-block;
-      width: 50%;
-      margin-left: 5%;
-      font-family: "Avenir-roman";
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    /* Make the Magic Happen for the left menu */
-    .navigation {
-      transition: left 0.2s;
-    }
-
-    .nav-trigger:checked + label {
-      right: 145px;
-    }
-
-    .nav-trigger:checked ~ .navigation {
-      right: 0px;
-      display: inline-block;
+    #home-form9 > label {
+        border-radius: 10px;
+        border: 1px solid #3b3c3a;
+        height: 40px;
+        margin: 1px 0px;
+        padding-left: 12px !important;
     }
 
 /*********** MENU ***********/
@@ -442,6 +344,10 @@ ion-content > div:first-child {
       font-weight: bold;
       font-family: "Avenir-light";
       color: #fff;
+    }
+
+    .alert-item.active {
+      background: #808284 !important;
     }
 
     .bottom-border {
@@ -633,14 +539,14 @@ ion-content > div:first-child {
     }
 
     .yes-tag {
-      float: left;
-      margin-left: 15%;
+      float: right;
+      margin-right: 15%;
       margin-top: 5%;
     }
 
     .no-tag {
-      float: right;
-      margin-right: 15%;
+      float: left;
+      margin-left: 15%;
       margin-top: 5%;
     }
 
@@ -650,6 +556,71 @@ ion-content > div:first-child {
 
     }
 
+    .blur-efect {
+      filter: blur(2px);
+    }
+
+    /*********** Modals ***********/
+
+    .modal-1 {
+      height: 380px;
+      width: 80%;
+      background: rgba(16, 26, 75, 0.80);
+      top: 20%;
+      left: 10%;
+      border-radius: 25px;
+    }
+
+    #modal-title {
+      font-family:'Avenir-roman';
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      text-decoration: underline;
+    }
+
+    .modal-text {
+      font-family:'Avenir-roman';
+      color: #fff;
+      font-size: 14px;
+      text-align:center;
+    }
+
+    .left-toggle {
+      color: transparent;
+      background: transparent;
+      width: 30%;
+      margin-left: -50px;
+      left: 14%;
+      display: inline-block;
+      border: none;
+    }
+
+    .right-toggle {
+      color: transparent;
+      background: transparent;
+      width: 30%;
+      margin-left: -50px;
+      left: 40%;
+      display: inline-block;
+      border: none;
+    }
+
+    .social-icon {
+      width: 40px;
+    }
+
+    .fb-icon {
+      display: inline-block;
+      width: 49%;
+      text-align: center;
+    }
+
+    .watsapp-icon {
+      display: inline-block;
+      width: 49%;
+      text-align: center;
+    }
 
 /*********** MY ROUTES VIEW ***********/
 
@@ -691,3 +662,130 @@ ion-content > div:first-child {
       text-align: left;
       margin-top: 10px;
     }
+
+/*********** ON ROUTE VIEW ***********/
+
+    .filter-bar {
+      height: 9vh;
+      z-index: 2;
+    }
+
+    .filter-button {
+      height: 100%;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      border-color: #fff !important;
+      border-style: solid;
+      border-width: 0px 3px 3px 0px !important;
+    }
+
+    .filter-button:nth-child(4n) {
+      border-width: 0px 0px 3px 0px !important;
+    }
+
+    .filter-button > img {
+      height: 30px;
+      margin-top: 15%;
+    }
+
+    /** Right alert-menu **/
+        .nav-trigger {
+          /* critical styles - hide the checkbox input */
+          position: absolute;
+          clip: rect(0, 0, 0, 0);
+        }
+
+        label[for="nav-trigger"] {
+          /* critical positioning styles */
+          position: absolute;
+          z-index: 5;
+          right: 10px;
+          /* non-critical apperance styles */
+          height: 40px;
+          width: 40px;
+          background: #223d75;
+          background-size: contain;
+          font-size: 40px;
+          font-family: serif;
+          line-height: 1;
+          text-align: center;
+          color: #fff;
+          box-shadow: 0px 0px 0px 4px rgba(185, 185, 185, 0.86);
+          border-radius: 50%;
+          cursor: pointer;
+        }
+
+        .navigation {
+          /* critical sizing and position styles */
+          width: 140px;
+          height: 77%;
+          position: absolute;
+          top: 10%;
+          right: -150px;
+          display: none;
+          z-index: 5;
+          /* non-critical appearance styles */
+          list-style: none;
+        }
+
+        .nav-item {
+          width: 140px;
+          height: 18%;
+          background: #1b75ba;
+          border: 2px solid #fff;
+        }
+
+        .nav-title {
+          margin-top: 15%;
+          color: #fff;
+          text-align: center;
+          font-family: "Avenir-roman";
+          font-size: 18px;
+          font-weight: bold;
+        }
+
+        .nav-item a {
+          height: 100%;
+          display: block;
+          color: white;
+          font-size: 12px;
+          text-decoration: none;
+          transition: color 0.2s, background 0.5s;
+          padding-top: 25%;
+          padding-left: 5%;
+        }
+
+        .img-item {
+          display: inline-block;
+          width: 35%;
+          text-align: center;
+        }
+
+        .nav-item .img-item > img {
+          height: 25px;
+          width: auto;
+          vertical-align: middle;
+        }
+
+        .nav-item .title-item {
+          display: inline-block;
+          width: 50%;
+          margin-left: 5%;
+          font-family: "Avenir-roman";
+          font-size: 14px;
+          font-weight: bold;
+        }
+
+        /* Make the Magic Happen for the left menu */
+        .navigation {
+          transition: left 0.2s;
+        }
+
+        .nav-trigger:checked + label {
+          right: 145px;
+        }
+
+        .nav-trigger:checked ~ .navigation {
+          right: 0px;
+          display: inline-block;
+        }

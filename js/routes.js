@@ -7,8 +7,8 @@ angular.module('app.routes', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-    
-  
+
+
 
       .state('menu.home', {
     url: '/home',
@@ -126,14 +126,30 @@ angular.module('app.routes', [])
     controller: 'dangerAlertCtrl'
   })
 
+  .state('weatherAlert', {
+    url: '/weather-alert',
+    templateUrl: 'templates/weatherAlert.html',
+    controller: 'weatherAlertCtrl'
+  })
+
   .state('closedAlert', {
     url: '/closed-alert',
     templateUrl: 'templates/closedAlert.html',
     controller: 'closedAlertCtrl'
   })
 
-$urlRouterProvider.otherwise('/left-menu/my-routes')
+  .state('onRoute', {
+    url: '/on-route',
+    templateUrl: 'templates/onRoute.html',
+    controller: 'onRouteCtrl'
+  })
 
-  
+  .state('routeReview', {
+    url: '/route-review',
+    templateUrl: 'templates/routeReview.html',
+    controller: 'routeReviewCtrl'
+  })
+
+$urlRouterProvider.otherwise('/left-menu/my-routes')
 
 });

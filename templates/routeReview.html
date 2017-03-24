@@ -1,0 +1,26 @@
+<ion-view title="routeReview" hide-nav-bar="true" hide-back-button="true">
+	<ion-content padding="false" class="manual-ios-statusbar-padding" style="margin-bottom: -4%;">
+		<div class="button-bar filter-bar">
+      <button class="button button-calm filter-button button-block">
+      	<img src="img/gasolina.png" alt="gas-filter">
+      </button>
+      <button class="button button-positive filter-button button-block">
+      	<img src="img/clima.png" alt="gas-filter">
+      </button>
+      <button class="button button-calm filter-button button-block">
+      	<img src="img/caseta.png" alt="gas-filter">
+      </button>
+      <button class="button button-positive filter-button button-block">
+      	<img src="img/check.png" alt="gas-filter">
+      </button>
+    </div>
+    <creator-map-component options="{&quot;disableDefaultUI&quot;:true}" marker="false" location="ciudad de mexico" zoom="12" style="display:block;position:relative;width:100%;height:calc(100vh - 19vh);">
+      <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" options="map.options">
+        <ui-gmap-marker coords="map.marker.coords" idkey="map.marker.id" options="map.marker.options"></ui-gmap-marker>
+      </ui-gmap-google-map>
+    </creator-map-component>
+    <div style="margin-right:-20px;">
+      <button ui-sref="onRoute" style="left:-10px;font-size:20px; margin:0; height:10vh;" class="button button-balanced  button-full">A rodar!</button>
+    </div>
+  </ion-content>
+</ion-view>
