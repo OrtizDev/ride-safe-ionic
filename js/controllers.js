@@ -697,6 +697,18 @@ function ($scope, $stateParams) {
 
 }])
 
+.controller('weatherAlertCtrl', ['$scope', '$stateParams',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+  $(".alert-item").click(function () {
+    $(".alert-item").removeClass("active");
+    $(this).addClass("active");
+  });
+
+}])
+
 .controller('closedAlertCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
@@ -705,10 +717,18 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('onRouteCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('routeReviewCtrl', ['$scope', '$stateParams',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
+
+
+}])
+
+.controller('onRouteCtrl', ['$scope', '$stateParams', '$ionicPopover', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, $ionicPopover) {
 
   // Function to close the alerts menu if clicked anywhere in the view
     $(document).click(function(evt) {
@@ -728,12 +748,41 @@ function ($scope, $stateParams) {
 
     });
 
-}])
+    // .fromTemplate() method
+    var template = '<ion-popover-view style="top: 25% !important;"><ion-content> Hola! </ion-content></ion-popover-view>';
 
-.controller('routeReviewCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+    $scope.popover = $ionicPopover.fromTemplate(template, {
+     scope: $scope
+    });
+
+    // .fromTemplateUrl() method
+    $ionicPopover.fromTemplateUrl('my-popover.html', {
+     scope: $scope
+    }).then(function(popover) {
+     $scope.popover = popover;
+    });
+
+
+    $scope.openPopover = function($event) {
+     $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+     $scope.popover.hide();
+    };
+    //Cleanup the popover when we're done with it!
+    $scope.$on('$destroy', function() {
+     $scope.popover.remove();
+    });
+
+
+    // Execute action on hidden popover
+    $scope.$on('popover.hidden', function() {
+     // Execute action
+    });
+    // Execute action on remove popover
+    $scope.$on('popover.removed', function() {
+     // Execute action
+    });
 
 
 }])

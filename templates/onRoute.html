@@ -69,7 +69,18 @@
     </ul>
 
     <div style="margin-right:-20px;">
-      <button style="left:-10px;font-size:20px; margin:0; height:10vh;" class="button button-assertive  button-full">Detener</button>
+      <button ng-click="openPopover($event)" style="left:-10px;font-size:20px; margin:0; height:10vh;" class="button button-assertive  button-full">Detener</button>
     </div>
+
+		<script id="my-popover.html" type="text/ng-template">
+			<ion-popover-view style="top: 25% !important;">
+				<ion-content>
+					<div style="width:80%; margin-left:5%;">
+						<h4>¿Quieres detener tu viaje?</h4>
+					</div>
+				</ion-content>
+			</ion-popover-view>
+		</script>
+
   </ion-content>
 </ion-view>
