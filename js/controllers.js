@@ -6,7 +6,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps'])
 function ($scope, $stateParams, $log) {
 
   $('#home-inputDestination').hide();
-  $scope.type_poi = 1;
+  $scope.type_poi = 2;
   $scope.map = {
     control: {},
     center: {latitude: 20.66163, longitude: -103.424501 },
@@ -241,6 +241,10 @@ function ($scope, $stateParams, $log) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  $(".routes-list-item").click(function () {
+    $(".routes-list-item").removeClass("active");
+    $(this).addClass("active");
+  });
 
 }])
 
@@ -249,24 +253,6 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
-  // Function to close the alerts menu if clicked anywhere in the view
-    $(document).click(function(evt) {
-
-      if(evt.target.id == "nav-trigger"){
-        return;
-      }
-
-      if ( $('input[name="nav-trigger"]').is(':checked') ) {
-        console.log("input checked");
-        $('input[name="nav-trigger"]').prop("checked", false);
-      }
-
-    })
-
-    $('input[name="nav-trigger"]').click(function() {
-      event.stopPropagation();
-      $('input[name="nav-trigger"]').prop('checked', true);
-    });
 
 }])
 
@@ -549,10 +535,10 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('sp2Ctrl', ['$scope', '$stateParams', 'S2R', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('sp2Ctrl', ['$scope', '$stateParams', 'S2R', '$state', '$ionicModal',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, S2R, $state) {
+function ($scope, $stateParams, S2R, $state, $ionicModal) {
 
   $scope.$on('$ionicView.enter', function () {
       var IC = S2R.getEstateS2R_IC();
@@ -609,6 +595,34 @@ function ($scope, $stateParams, S2R, $state) {
       $state.go('menu.home');
   }
 
+  // Modal controller
+  $ionicModal.fromTemplateUrl('test-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+    $('#sp2_content').addClass("blur-efect");
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+    $('#sp2_content').removeClass("blur-efect");
+  };
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
+
 }])
 
 .controller('userManualCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -623,6 +637,7 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
+
 
 }])
 
@@ -639,6 +654,10 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  $(".alert-item").click(function () {
+    $(".alert-item").removeClass("active");
+    $(this).addClass("active");
+  });
 
 }])
 
@@ -647,6 +666,10 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  $(".alert-item").click(function () {
+    $(".alert-item").removeClass("active");
+    $(this).addClass("active");
+  });
 
 }])
 
@@ -655,6 +678,10 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  $(".alert-item").click(function () {
+    $(".alert-item").removeClass("active");
+    $(this).addClass("active");
+  });
 
 }])
 
@@ -663,6 +690,22 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  $(".alert-item").click(function () {
+    $(".alert-item").removeClass("active");
+    $(this).addClass("active");
+  });
+
+}])
+
+.controller('weatherAlertCtrl', ['$scope', '$stateParams',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+  $(".alert-item").click(function () {
+    $(".alert-item").removeClass("active");
+    $(this).addClass("active");
+  });
 
 }])
 
@@ -670,6 +713,76 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
+
+
+}])
+
+.controller('routeReviewCtrl', ['$scope', '$stateParams',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+
+}])
+
+.controller('onRouteCtrl', ['$scope', '$stateParams', '$ionicPopover', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, $ionicPopover) {
+
+  // Function to close the alerts menu if clicked anywhere in the view
+    $(document).click(function(evt) {
+
+      if(evt.target.id == "nav-trigger"){
+        return;
+      }
+
+      if ( $('input[name="nav-trigger"]').is(':checked') ) {
+        $('input[name="nav-trigger"]').prop("checked", false);
+      }
+
+    })
+
+    $('input[name="nav-trigger"]').click(function() {
+      event.stopPropagation();
+
+    });
+
+    // .fromTemplate() method
+    var template = '<ion-popover-view style="top: 25% !important;"><ion-content> Hola! </ion-content></ion-popover-view>';
+
+    $scope.popover = $ionicPopover.fromTemplate(template, {
+     scope: $scope
+    });
+
+    // .fromTemplateUrl() method
+    $ionicPopover.fromTemplateUrl('my-popover.html', {
+     scope: $scope
+    }).then(function(popover) {
+     $scope.popover = popover;
+    });
+
+
+    $scope.openPopover = function($event) {
+     $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+     $scope.popover.hide();
+    };
+    //Cleanup the popover when we're done with it!
+    $scope.$on('$destroy', function() {
+     $scope.popover.remove();
+    });
+
+
+    // Execute action on hidden popover
+    $scope.$on('popover.hidden', function() {
+     // Execute action
+    });
+    // Execute action on remove popover
+    $scope.$on('popover.removed', function() {
+     // Execute action
+    });
 
 
 }])
