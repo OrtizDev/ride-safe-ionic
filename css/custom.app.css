@@ -405,6 +405,7 @@ ion-content > div:first-child {
 /*********** USER MANUAL VIEW ***********/
 
     #manual_container {
+        min-height: 95%;
         background: rgba(36, 96, 170, 0.80);
         margin: 10px;
         font-family: "Avenir";
