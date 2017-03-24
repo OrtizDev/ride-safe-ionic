@@ -126,6 +126,12 @@ angular.module('app.routes', [])
     controller: 'dangerAlertCtrl'
   })
 
+  .state('weatherAlert', {
+    url: '/weather-alert',
+    templateUrl: 'templates/weatherAlert.html',
+    controller: 'weatherAlertCtrl'
+  })
+
   .state('closedAlert', {
     url: '/closed-alert',
     templateUrl: 'templates/closedAlert.html',
