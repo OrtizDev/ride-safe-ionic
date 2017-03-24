@@ -17,6 +17,7 @@
   - On Route view
     - Right alert-menu
     - Popover alert
+  - Route details view
 
 */
 
@@ -830,3 +831,64 @@ ion-content > div:first-child {
           font-weight: bold;
           display: inline-block;
         }
+
+/*********** ROUTE DETAILS VIEW ***********/
+
+    #route-form {
+      width: 80%;
+      margin-left: 10%;
+      margin-top: 10%;
+    }
+
+    #route_name input {
+      font-size: 19px;
+    }
+
+    .light-input span {
+      display: inline-block;
+      text-align: left;
+      margin-bottom: -20px;
+    }
+
+    .light-input input {
+      display: inline-block;
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+      border-bottom: solid #fff 1px;
+      padding: 0 !important;
+      background: transparent;
+      border-radius: 0px;
+    }
+
+    #origin span, #destination span {
+      width: 20%;
+    }
+
+    #origin input, #destination input {
+      width: 75%;
+    }
+
+    #kilometers span {
+      width: 10%;
+    }
+
+    #kilometers input {
+      width: 85%;
+    }
+
+    #time span {
+      width: 45%;
+    }
+
+    #time input {
+      width: 50%;
+    }
+
+    #toll_cost span {
+      width: 50%;
+    }
+
+    #toll_cost input {
+      width: 45%;
+    }

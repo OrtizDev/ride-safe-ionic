@@ -1,0 +1,37 @@
+<ion-view title="routeDetails" hide-nav-bar="true" style="background-color:#3B3C3A;">
+  <ion-content padding="true" class="manual-ios-statusbar-padding">
+    <h3 id="route_details_title" style="color:#FFFFFF;text-align:center;margin-top:10px;margin-bottom:0px;">DETALLES DE RUTA</h3>
+    <form id="route-form" class="list">
+
+      <label class="item item-input item-floating-label no-border register-input" id="route_name">
+        <span class="input-label">Nombre de tu ruta</span>
+        <input type="text" placeholder="Nombre de la ruta" name="routeName">
+      </label>
+
+      <label class="item item-input item-stacked-label no-border light-input" id="origin">
+        <span class="input-label">Origen</span>
+        <input type="text" placeholder="" name="origin">
+      </label>
+      <label class="item item-input item-stacked-label no-border light-input" id="destination">
+        <span class="input-label">Destino</span>
+        <input type="text" placeholder=""  name="destination">
+      </label>
+      <label class="item item-input item-stacked-label no-border light-input" id="kilometers">
+        <span class="input-label">Km</span>
+        <input type="text" placeholder="" name="kilometers">
+      </label>
+      <label class="item item-input item-stacked-label no-border light-input" id="time">
+        <span class="input-label">Tiempo de viaje</span>
+        <input type="text" placeholder="" name="time">
+      </label>
+      <label class="item item-input item-stacked-label no-border light-input" id="toll_cost">
+        <span class="input-label">Costo de peaje $</span>
+        <input type="text" placeholder="" name="tollCost">
+      </label>
+      <button id="motoRegister-send" style="margin-left: 5%; min-width: 92%;" class="button button-stable button-small">Agregar imagenes</button>
+
+      <button ui-sref="menu.home" id="motoRegister-send" style="margin-left: 5%;" class="button button-stable button-small col-4">No guardar</button>
+      <button type="submit" id="motoRegister-cancel" style="margin-left: 10%;" class="button button-balanced button-small col-4">Guardar Ruta</button>
+    </form>
+  </ion-content>
+</ion-view>
