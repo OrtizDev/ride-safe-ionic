@@ -73,10 +73,14 @@
     </div>
 
 		<script id="my-popover.html" type="text/ng-template">
-			<ion-popover-view style="top: 25% !important;">
-				<ion-content>
-					<div style="width:80%; margin-left:5%;">
+			<ion-popover-view id="popover_onroute">
+				<ion-content class="popover-content">
+					<div class="text-popover">
 						<h4>¿Quieres detener tu viaje?</h4>
+					</div>
+					<div class="center-content">
+						<button class="button button-light  button-block button-outline button-popover">Si</button>
+						<button ng-click="closePopover()" class="button button-light  button-block button-outline button-popover">No</button>
 					</div>
 				</ion-content>
 			</ion-popover-view>

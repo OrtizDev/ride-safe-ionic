@@ -16,6 +16,7 @@
   - My routes view
   - On Route view
     - Right alert-menu
+    - Popover alert
 
 */
 
@@ -787,5 +788,45 @@ ion-content > div:first-child {
 
         .nav-trigger:checked ~ .navigation {
           right: 0px;
+          display: inline-block;
+        }
+
+    /** Popover alert **/
+
+        #popover_onroute {
+          height: 28%;
+          width: 75%;
+          left: 12.5% !important;
+          top: 30% !important;
+          background: transparent !important;
+        }
+
+        .popover-content {
+          background: rgba(59, 60, 58, 0.95) !important;
+          margin: 0px !important;
+          border-radius: 20px;
+        }
+
+        .text-popover {
+          text-align: center;
+          padding: 7% 22% 2%;
+        }
+
+        .text-popover > h4 {
+          color: #fff;
+          font-family: "Avenir-roman";
+          font-weight: bold;
+        }
+
+        .center-content {
+          text-align: center;
+        }
+
+        .button-popover {
+          width: 40% !important;
+          margin: 0px 2%;
+          border-radius: 0px;
+          font-family: "Avenir-roman";
+          font-weight: bold;
           display: inline-block;
         }
