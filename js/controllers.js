@@ -181,13 +181,25 @@ function ($scope, $stateParams, $log) {
                 latitude: wps.routes[0].pois.tolls[i].geometry.coordinates[1],
                 longitude: wps.routes[0].pois.tolls[i].geometry.coordinates[0],
                 name: wps.routes[0].pois.tolls[i].description + '<br /	>' +wps.routes[0].pois.tolls[i].address + '<br /	>' + "Costo: " + wps.routes[0].pois.tolls[i].rates[4],
-                show: false
+                show: false,
+                icon : './img/pines/caseta.png'
               };
               $scope.vm.markers.push(mark);
           }
           $scope.$apply();
         }
       });
+    }
+
+  function gasType(status){
+    if (status == 'Con anomalías' || status == 'Se negó a verificación') {
+      	url = './img/pines/gas-rojo.png';
+      } else if (status == 'No verificada') {
+      		url = './img/pines/gas-naranja.png';
+      } else {
+      		url = './img/pines/gas-verde.png';
+      }
+      	return url;
     }
 
   $scope.getGas = function() {
@@ -201,7 +213,8 @@ function ($scope, $stateParams, $log) {
             latitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[1],
             longitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[0],
             name: wps.routes[0].pois.gas_stations[i].description + '<br /	>' +wps.routes[0].pois.gas_stations[i].address + '<br /	>' +wps.routes[0].pois.gas_stations[i].status,
-            show: false
+            show: false,
+            icon: gasType(wps.routes[0].pois.gas_stations[i].status)
           };
           $scope.vm.markers.push(mark);
         }
@@ -221,7 +234,8 @@ function ($scope, $stateParams, $log) {
               latitude: wps.routes[0].pois.incidents[i].geometry.coordinates[1],
               longitude: wps.routes[0].pois.incidents[i].geometry.coordinates[0],
               name: wps.routes[0].pois.incidents[i].description + '<br /	>' +wps.routes[0].pois.incidents[i].address,
-              show: false
+              show: false,
+              icon: './img/pines/accidente-grave.png'
             };
           $scope.vm.markers.push(mark);
         }
@@ -649,63 +663,214 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('traficAlertCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('traficAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $state, Alert) {
 
-  $(".alert-item").click(function () {
-    $(".alert-item").removeClass("active");
-    $(this).addClass("active");
-  });
+  $scope.type_alert = 0;
+
+      $scope.saveAlert = function(){
+        if($scope.type_alert != 0){
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(function(position){
+                $scope.$apply(function(){
+                 Alert.setAlert($scope.type_alert,"1",position.coords.latitude, position.coords.longitude,"0",1, function(error){
+                      if(!error){
+                        alert("Alerta exitosa");
+                        setTimeout(function() {
+                          $state.go('menu.home');
+                        }, 1000);
+                      } else{
+                        alert("Intentalo más tarde");
+                      }
+                  });
+                });
+              });
+            }
+        } else {
+          alert("Seleccionar el tipo de alerta");
+        }
+      };
+
+
+      $scope.typeTrafic = function(item){
+        $scope.type_alert = item;
+      };
+
+      $(".alert-item").click(function () {
+        $(".alert-item").removeClass("active");
+        $(this).addClass("active");
+      });
+
 
 }])
 
-.controller('policeAlertCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('policeAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $state, Alert) {
 
-  $(".alert-item").click(function () {
-    $(".alert-item").removeClass("active");
-    $(this).addClass("active");
-  });
+  $scope.type_alert = 0;
+
+    $scope.saveAlert = function(){
+      if($scope.type_alert != 0){
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position){
+              $scope.$apply(function(){
+               Alert.setAlert($scope.type_alert,"1",position.coords.latitude, position.coords.longitude,"0",1, function(error){
+                    if(!error){
+                      alert("Alerta exitosa");
+                      setTimeout(function() {
+                        $state.go('menu.home');
+                      }, 1000);
+                    } else{
+                      alert("Intentalo más tarde");
+                    }
+                });
+              });
+            });
+          }
+      } else {
+        alert("Seleccionar el tipo de alerta");
+      }
+    };
+
+
+    $scope.typeTrafic = function(item){
+      $scope.type_alert = item;
+    };
+
+    $(".alert-item").click(function () {
+      $(".alert-item").removeClass("active");
+      $(this).addClass("active");
+    });
+
 
 }])
 
-.controller('accidentAlertCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('accidentAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $state, Alert) {
 
-  $(".alert-item").click(function () {
-    $(".alert-item").removeClass("active");
-    $(this).addClass("active");
-  });
+  $scope.type_alert = 0;
+
+    $scope.saveAlert = function(){
+      if($scope.type_alert != 0){
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position){
+              $scope.$apply(function(){
+               Alert.setAlert($scope.type_alert,"1",position.coords.latitude, position.coords.longitude,"0",1, function(error){
+                    if(!error){
+                      alert("Alerta exitosa");
+                      setTimeout(function() {
+                        $state.go('menu.home');
+                      }, 1000);
+                    } else{
+                      alert("Intentalo más tarde");
+                    }
+                });
+              });
+            });
+          }
+      } else {
+        alert("Seleccionar el tipo de alerta");
+      }
+    };
+
+
+    $scope.typeTrafic = function(item){
+      $scope.type_alert = item;
+    };
+
+    $(".alert-item").click(function () {
+      $(".alert-item").removeClass("active");
+      $(this).addClass("active");
+    });
 
 }])
 
-.controller('dangerAlertCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('dangerAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $state, Alert) {
 
-  $(".alert-item").click(function () {
-    $(".alert-item").removeClass("active");
-    $(this).addClass("active");
-  });
+  $scope.type_alert = 0;
+
+    $scope.saveAlert = function(){
+      if($scope.type_alert != 0){
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position){
+              $scope.$apply(function(){
+               Alert.setAlert($scope.type_alert,"1",position.coords.latitude, position.coords.longitude,"0",1, function(error){
+                    if(!error){
+                      alert("Alerta exitosa");
+                      setTimeout(function() {
+                        $state.go('menu.home');
+                      }, 1000);
+                    } else{
+                      alert("Intentalo más tarde");
+                    }
+                });
+              });
+            });
+          }
+      } else {
+        alert("Seleccionar el tipo de alerta");
+      }
+    };
+
+    $scope.typeTrafic = function(item){
+      $scope.type_alert = item;
+    };
+
+    $(".alert-item").click(function () {
+      $(".alert-item").removeClass("active");
+      $(this).addClass("active");
+    });
 
 }])
 
-.controller('weatherAlertCtrl', ['$scope', '$stateParams',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('weatherAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $state, Alert) {
 
-  $(".alert-item").click(function () {
-    $(".alert-item").removeClass("active");
-    $(this).addClass("active");
-  });
+    $(".alert-item").click(function () {
+      $(".alert-item").removeClass("active");
+      $(this).addClass("active");
+    });
+
+    $scope.type_alert = 0;
+
+       $scope.saveAlert = function(){
+         if($scope.type_alert != 0){
+           if (navigator.geolocation) {
+               navigator.geolocation.getCurrentPosition(function(position){
+                 $scope.$apply(function(){
+                  Alert.setAlert($scope.type_alert,"1",position.coords.latitude, position.coords.longitude,"0",1, function(error){
+                       if(!error){
+                         alert("Alerta exitosa");
+                         setTimeout(function() {
+                           $state.go('menu.home');
+                         }, 1000);
+                       } else{
+                         alert("Intentalo más tarde");
+                       }
+                   });
+                 });
+               });
+             }
+         } else {
+           alert("Seleccionar el tipo de alerta");
+         }
+       };
+
+       $scope.typeTrafic = function(item){
+         $scope.type_alert = item;
+       };
+
 
 }])
 
