@@ -16,6 +16,8 @@
   - My routes view
   - On Route view
     - Right alert-menu
+    - Popover alert
+  - Route details view
 
 */
 
@@ -403,6 +405,7 @@ ion-content > div:first-child {
 /*********** USER MANUAL VIEW ***********/
 
     #manual_container {
+        min-height: 95%;
         background: rgba(36, 96, 170, 0.80);
         margin: 10px;
         font-family: "Avenir";
@@ -626,7 +629,7 @@ ion-content > div:first-child {
 
     #myRoutes_container{
       min-height: 87vh;
-      margin: 20px 20px 5px 20px;
+      margin: 0px 20px 5px 20px;
       padding: 20px;
       border-radius: 5px;
       background: rgba(35, 31, 32, 0.80);
@@ -789,3 +792,112 @@ ion-content > div:first-child {
           right: 0px;
           display: inline-block;
         }
+
+    /** Popover alert **/
+
+        #popover_onroute {
+          height: 28%;
+          width: 75%;
+          left: 12.5% !important;
+          top: 30% !important;
+          background: transparent !important;
+        }
+
+        .popover-content {
+          background: rgba(59, 60, 58, 0.95) !important;
+          margin: 0px !important;
+          border-radius: 20px;
+        }
+
+        .text-popover {
+          text-align: center;
+          padding: 7% 22% 2%;
+        }
+
+        .text-popover > h4 {
+          color: #fff;
+          font-family: "Avenir-roman";
+          font-weight: bold;
+        }
+
+        .center-content {
+          text-align: center;
+        }
+
+        .button-popover {
+          width: 40% !important;
+          margin: 0px 2%;
+          border-radius: 0px;
+          font-family: "Avenir-roman";
+          font-weight: bold;
+          display: inline-block;
+        }
+
+/*********** ROUTE DETAILS VIEW ***********/
+
+    #route-form {
+      width: 80%;
+      margin-left: 10%;
+      margin-top: 10%;
+    }
+
+    #route_name input {
+      font-size: 19px;
+    }
+
+    .light-input span {
+      display: inline-block;
+      text-align: left;
+      margin-bottom: -20px;
+    }
+
+    .light-input input {
+      display: inline-block;
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+      border-bottom: solid #fff 1px;
+      padding: 0 !important;
+      background: transparent;
+      border-radius: 0px;
+    }
+
+    #origin span, #destination span {
+      width: 20%;
+    }
+
+    #origin input, #destination input {
+      width: 75%;
+    }
+
+    #kilometers span {
+      width: 10%;
+    }
+
+    #kilometers input {
+      width: 85%;
+    }
+
+    #time span {
+      width: 45%;
+    }
+
+    #time input {
+      width: 50%;
+    }
+
+    #toll_cost span {
+      width: 50%;
+    }
+
+    #toll_cost input {
+      width: 45%;
+    }
+
+    #not_save_route, #save_route {
+      font-size: 4vw;
+      border-radius:8px 8px 8px 8px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 4px;
+    }

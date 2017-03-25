@@ -138,18 +138,25 @@ angular.module('app.routes', [])
     controller: 'closedAlertCtrl'
   })
 
-  .state('onRoute', {
-    url: '/on-route',
-    templateUrl: 'templates/onRoute.html',
-    controller: 'onRouteCtrl'
-  })
-
   .state('routeReview', {
     url: '/route-review',
     templateUrl: 'templates/routeReview.html',
     controller: 'routeReviewCtrl'
   })
 
-$urlRouterProvider.otherwise('/left-menu/my-routes')
+  .state('onRoute', {
+    url: '/on-route',
+    templateUrl: 'templates/onRoute.html',
+    controller: 'onRouteCtrl'
+  })
+
+  .state('routeDetails', {
+    url: '/route-details',
+    templateUrl: 'templates/routeDetails.html',
+    controller: 'routeDetailsCtrl'
+  })
+
+// $urlRouterProvider.otherwise('/left-menu/my-routes')
+$urlRouterProvider.otherwise('left-menu/home')
 
 });
