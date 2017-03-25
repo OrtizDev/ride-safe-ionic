@@ -124,6 +124,7 @@ function ($scope, $stateParams, $log) {
       type: "GET",
       url: "https://api.sintrafico.com/route",
       data: data,
+      headers: { "X-Requested-With" : "f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc"},
       success:function(e) {
            fn (e);
       }
@@ -823,6 +824,10 @@ function ($scope, $stateParams, $state, Alert) {
 
     $scope.typeTrafic = function(item){
       $scope.type_alert = item;
+    };
+
+    $scope.weather = function(){
+      $state.go('weatherAlert');
     };
 
     $(".alert-item").click(function () {
