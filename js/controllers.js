@@ -832,15 +832,44 @@ function ($scope, $stateParams, $state, Alert) {
 
 }])
 
-.controller('weatherAlertCtrl', ['$scope', '$stateParams',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('weatherAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $state, Alert) {
 
     $(".alert-item").click(function () {
       $(".alert-item").removeClass("active");
       $(this).addClass("active");
     });
+
+    $scope.type_alert = 0;
+
+       $scope.saveAlert = function(){
+         if($scope.type_alert != 0){
+           if (navigator.geolocation) {
+               navigator.geolocation.getCurrentPosition(function(position){
+                 $scope.$apply(function(){
+                  Alert.setAlert($scope.type_alert,"1",position.coords.latitude, position.coords.longitude,"0",1, function(error){
+                       if(!error){
+                         alert("Alerta exitosa");
+                         setTimeout(function() {
+                           $state.go('menu.home');
+                         }, 1000);
+                       } else{
+                         alert("Intentalo más tarde");
+                       }
+                   });
+                 });
+               });
+             }
+         } else {
+           alert("Seleccionar el tipo de alerta");
+         }
+       };
+
+       $scope.typeTrafic = function(item){
+         $scope.type_alert = item;
+       };
 
 
 }])
