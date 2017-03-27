@@ -16,8 +16,8 @@
   - My routes view
   - On Route view
     - Right alert-menu
-    - Popover alert
   - Route details view
+  - Popover alerts
 
 */
 
@@ -793,46 +793,6 @@ ion-content > div:first-child {
           display: inline-block;
         }
 
-    /** Popover alert **/
-
-        #popover_onroute {
-          height: 28%;
-          width: 75%;
-          left: 12.5% !important;
-          top: 30% !important;
-          background: transparent !important;
-        }
-
-        .popover-content {
-          background: rgba(59, 60, 58, 0.95) !important;
-          margin: 0px !important;
-          border-radius: 20px;
-        }
-
-        .text-popover {
-          text-align: center;
-          padding: 7% 22% 2%;
-        }
-
-        .text-popover > h4 {
-          color: #fff;
-          font-family: "Avenir-roman";
-          font-weight: bold;
-        }
-
-        .center-content {
-          text-align: center;
-        }
-
-        .button-popover {
-          width: 40% !important;
-          margin: 0px 2%;
-          border-radius: 0px;
-          font-family: "Avenir-roman";
-          font-weight: bold;
-          display: inline-block;
-        }
-
 /*********** ROUTE DETAILS VIEW ***********/
 
     #route-form {
@@ -901,3 +861,58 @@ ion-content > div:first-child {
       margin-bottom: 20px;
       padding: 4px;
     }
+
+
+/*********** POPOVER ALERTS ***********/
+
+      #popover_onroute, #popover_routedetails {
+        height: 28%;
+        width: 75%;
+        left: 12.5% !important;
+        top: 30% !important;
+        background: transparent !important;
+        border-radius: 20px;
+      }
+
+      #popover_onroute .scroll, #popover_routedetails .scroll {
+        padding: 10% 1%;
+      }
+
+      #popover_onroute .popover-content {
+        background: rgba(59, 60, 58, 0.95) !important;
+        margin: 0px !important;
+        border-radius: 20px;
+      }
+
+      #popover_routedetails .popover-content {
+        background: #223d75 !important;
+        margin: 0px !important;
+        border-radius: 20px;
+      }
+
+      .text-popover {
+        text-align: center;
+      }
+
+      .text-popover > h4 {
+        color: #fff;
+        font-family: "Avenir-roman";
+        font-weight: bold;
+      }
+
+      #popover_routedetails .text-popover > h4 {
+        padding: 0px 5px;
+      }
+
+      .center-content {
+        text-align: center;
+      }
+
+      .button-popover {
+        width: 40% !important;
+        margin: 0px 2%;
+        border-radius: 0px;
+        font-family: "Avenir-roman";
+        font-weight: bold;
+        display: inline-block;
+      }

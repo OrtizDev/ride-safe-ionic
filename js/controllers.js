@@ -921,7 +921,7 @@ function ($scope, $stateParams, $ionicPopover) {
     });
 
     // .fromTemplateUrl() method
-    $ionicPopover.fromTemplateUrl('my-popover.html', {
+    $ionicPopover.fromTemplateUrl('stops-route-confirm.html', {
      scope: $scope
     }).then(function(popover) {
      $scope.popover = popover;
@@ -940,22 +940,47 @@ function ($scope, $stateParams, $ionicPopover) {
     });
 
 
-    // Execute action on hidden popover
-    $scope.$on('popover.hidden', function() {
-     // Execute action
-    });
-    // Execute action on remove popover
-    $scope.$on('popover.removed', function() {
-     // Execute action
-    });
-
-
 }])
 
-.controller('routeDetailsCtrl', ['$scope', '$stateParams',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('routeDetailsCtrl', ['$scope', '$stateParams', '$ionicPopover',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $ionicPopover) {
 
+  // .fromTemplate() method
+  var template = '<ion-popover-view style="top: 25% !important;"><ion-content> Hola! </ion-content></ion-popover-view>';
+
+  $scope.popover = $ionicPopover.fromTemplate(template, {
+   scope: $scope
+  });
+
+  // .fromTemplateUrl() method
+  $ionicPopover.fromTemplateUrl('saved-route-alert.html', {
+   scope: $scope
+  }).then(function(popover) {
+   $scope.popover = popover;
+  });
+
+
+  $scope.openPopover = function($event) {
+   $scope.popover.show($event);
+  };
+  $scope.closePopover = function() {
+   $scope.popover.hide();
+  };
+  //Cleanup the popover when we're done with it!
+  $scope.$on('$destroy', function() {
+   $scope.popover.remove();
+  });
+
+  //
+  // // Execute action on hidden popover
+  // $scope.$on('popover.hidden', function() {
+  //  // Execute action
+  // });
+  // // Execute action on remove popover
+  // $scope.$on('popover.removed', function() {
+  //  // Execute action
+  // });
 
 }])
