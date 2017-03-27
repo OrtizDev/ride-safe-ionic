@@ -1,12 +1,12 @@
 angular.module('app.controllers', ['uiGmapgoogle-maps'])
 
-.controller('homeCtrl', ['$scope', '$stateParams', '$log', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $log) {
+function ($scope, $stateParams, $log, $rootScope) {
 
   $('#home-inputDestination').hide();
-  $scope.type_poi = 2;
+  $scope.type_poi = 0;
   $scope.map = {
     control: {},
     center: {latitude: 20.66163, longitude: -103.424501 },
@@ -35,10 +35,10 @@ function ($scope, $stateParams, $log) {
                 icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"},
       events : {
        dragend: function (markerd, eventName, args) {
-         var latd = markerd.getPosition().lat();
-         var lond = markerd.getPosition().lng();
+         $rootScope.latd = markerd.getPosition().lat();
+         $rootScope.lond = markerd.getPosition().lng();
 
-         var latlngd = new google.maps.LatLng(latd,lond);
+         var latlngd = new google.maps.LatLng($rootScope.latd,$rootScope.lond);
 
          foo(latlngd, function(locationd){
            $('#destination').val(locationd);
@@ -64,20 +64,21 @@ function ($scope, $stateParams, $log) {
                 icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
      events: {
        dragend: function (marker, marked, eventName, args) {
-         var lat = marker.getPosition().lat();
-         var lon = marker.getPosition().lng();
+         $rootScope.lat = marker.getPosition().lat();
+         $rootScope.lon = marker.getPosition().lng();
 
          if($('#home-inputDestination').is(':hidden')){
-            var latlngd = new google.maps.LatLng((lat - 0.002971573), lon);
-            $scope.markerd.coords.latitude = (lat - 0.002971573);
-            $scope.markerd.coords.longitude = lon;
+            var latlngd = new google.maps.LatLng(($rootScope.lat - 0.002971573), $rootScope.lon);
+            $scope.markerd.coords.latitude = ($rootScope.lat - 0.002971573);
+            $scope.markerd.coords.longitude = $rootScope.lon;
           }
 
-         var latlng = new google.maps.LatLng(lat,lon);
+         var latlng = new google.maps.LatLng($rootScope.lat,$rootScope.lon);
 
          foo(latlng, function(location){
             $('#origin').val(location);
             $('#home-inputDestination').show();
+
             if($("#destination").val() === ''){
             } else {
               getDirections();
@@ -94,8 +95,6 @@ function ($scope, $stateParams, $log) {
    };
 
   $scope.polylines = [];
-
-  $scope.markerg = [];
 
  function foo(latlng, fn){
       var geocoder = new google.maps.Geocoder();
@@ -116,8 +115,8 @@ function ($scope, $stateParams, $log) {
     var data = {};
     data.start = start;
     data.end = end;
-    data.poi_in = [poi];
     data.key = 'f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc';
+    data.poi_in = [poi];
     data.weather = true;
     $.ajax({
       crossDomain:true,
@@ -133,7 +132,6 @@ function ($scope, $stateParams, $log) {
 
  function getDirections(){
    getRoute($scope.marker.coords.latitude +','+ $scope.marker.coords.longitude,$scope.markerd.coords.latitude +','+ $scope.markerd.coords.longitude, $scope.type_poi, function(wps){
-     console.log(wps);
      var wp = [];
      for(var i = 0; i < wps.routes[0].geometry.coordinates.length; i++){
        wp.push({
@@ -153,76 +151,13 @@ function ($scope, $stateParams, $log) {
          geodesic: true,
          visible: true
      }];
-     $scope.markerg = [];
+     $scope.vm.markers = [];
      if(wps.routes[0].pois){
-       if($scope.type_poi == 1){
-         $scope.getToll();
-       }
-       else if($scope.type_poi == 2){
-         $scope.getGas();
-       }
-       else {
          $scope.getIncident();
-       }
      }
      $scope.$apply();
    });
  }
-
-  $scope.getToll = function() {
-    $scope.type_poi = 1;
-    getRoute($scope.marker.coords.latitude +','+ $scope.marker.coords.longitude,$scope.markerd.coords.latitude +','+ $scope.markerd.coords.longitude, $scope.type_poi, function(wps) {
-      $scope.vm.markers = [];
-      if(wps.routes[0].pois.tolls){
-        for(var i = 0; i < wps.routes[0].pois.tolls.length;i++){
-          var cost = "Costo: ";
-          wps.routes[0].pois.tolls[i].rates[0][4] ? cost=cost+wps.routes[0].pois.tolls[i].rates[0][4]:cost = cost + "-";
-              var mark = {
-                id: i,
-                latitude: wps.routes[0].pois.tolls[i].geometry.coordinates[1],
-                longitude: wps.routes[0].pois.tolls[i].geometry.coordinates[0],
-                name: wps.routes[0].pois.tolls[i].description + '<br /	>' +wps.routes[0].pois.tolls[i].address + '<br /	>' + "Costo: " + wps.routes[0].pois.tolls[i].rates[4],
-                show: false,
-                icon : './img/pines/caseta.png'
-              };
-              $scope.vm.markers.push(mark);
-          }
-          $scope.$apply();
-        }
-      });
-    }
-
-  function gasType(status){
-    if (status == 'Con anomalías' || status == 'Se negó a verificación') {
-      	url = './img/pines/gas-rojo.png';
-      } else if (status == 'No verificada') {
-      		url = './img/pines/gas-naranja.png';
-      } else {
-      		url = './img/pines/gas-verde.png';
-      }
-      	return url;
-    }
-
-  $scope.getGas = function() {
-    $scope.type_poi = 2;
-    getRoute($scope.marker.coords.latitude +','+ $scope.marker.coords.longitude,$scope.markerd.coords.latitude +','+ $scope.markerd.coords.longitude, $scope.type_poi, function(wps) {
-      $scope.vm.markers = [];
-      if(wps.routes[0].pois){
-        for(var i = 0; i < wps.routes[0].pois.gas_stations.length;i++){
-          var mark = {
-            id: i,
-            latitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[1],
-            longitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[0],
-            name: wps.routes[0].pois.gas_stations[i].description + '<br /	>' +wps.routes[0].pois.gas_stations[i].address + '<br /	>' +wps.routes[0].pois.gas_stations[i].status,
-            show: false,
-            icon: gasType(wps.routes[0].pois.gas_stations[i].status)
-          };
-          $scope.vm.markers.push(mark);
-        }
-        $scope.$apply();
-      }
-    });
-  }
 
   $scope.getIncident = function () {
     $scope.type_poi = 3;
@@ -887,10 +822,216 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('routeReviewCtrl', ['$scope', '$stateParams',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('routeReviewCtrl', ['$scope', '$stateParams', '$rootScope', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $rootScope, $state) {
+
+  $scope.type_poi = 0;
+
+  $scope.$on('$ionicView.enter', function () {
+
+    $scope.markerr = {
+        id: 0,
+        coords: {
+          latitude: $rootScope.lat,
+          longitude: $rootScope.lon
+        },
+        options: { draggable: false,
+                    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                    }
+    };
+
+    $scope.markerdr = {
+          id: 0,
+          coords: {
+            latitude: $rootScope.latd,
+            longitude: $rootScope.lond
+          },
+          options: { draggable: false,
+                    icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                  }
+    };
+
+    getRoute( function(wps){
+      console.log(wps);
+      var wp = [];
+      for(var i = 0; i < wps.routes[0].geometry.coordinates.length; i++){
+        wp.push({
+          latitude: wps.routes[0].geometry.coordinates[i][1],
+          longitude: wps.routes[0].geometry.coordinates[i][0]
+        });
+      }
+      $scope.polylinesr = [{
+          id: 1,
+          path: wp,
+          stroke: {
+            color: '#223D75',
+            weight: 5
+          },
+          editable: true,
+          draggable: true,
+          geodesic: true,
+          visible: true
+      }];
+      //$scope.vmr.markers = [];
+      // if(wps.routes[0].pois){
+      //   if($scope.type_poi == 1){
+      //     $scope.getToll();
+      //   }
+      //   else if($scope.type_poi == 2){
+      //     $scope.getGas();
+      //   }
+      //   else {
+      //     $scope.getIncident();
+      //   }
+      // }
+      $scope.$apply();
+    });
+
+  });
+
+  function getRoute(fn){
+      var data = {};
+      data.start = $rootScope.lat+','+$rootScope.lon;
+      data.end = $rootScope.latd+','+$rootScope.lond;
+      data.poi_in = [$scope.type_poi];
+      data.weather = true;
+      $.ajax({
+        crossDomain:true,
+        type: "GET",
+        url: "https://api.sintrafico.com/route",
+        data: data,
+        headers: { "X-Requested-With" : "f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc"},
+        success:function(e) {
+            fn (e);
+          }
+        });
+  }
+
+  $scope.getGas = function() {
+    $scope.type_poi = 2;
+    getRoute(function(wps) {
+      $scope.vmr.markers = [];
+      if(wps.routes[0].pois){
+        for(var i = 0; i < wps.routes[0].pois.gas_stations.length;i++){
+          var mark = {
+            id: i,
+            latitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[1],
+            longitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[0],
+            name: wps.routes[0].pois.gas_stations[i].description + '<br /	>' +wps.routes[0].pois.gas_stations[i].address + '<br /	>' +wps.routes[0].pois.gas_stations[i].status,
+            show: false,
+            icon: gasType(wps.routes[0].pois.gas_stations[i].status)
+          };
+          $scope.vmr.markers.push(mark);
+        }
+        $scope.$apply();
+      }
+    });
+  }
+
+  $scope.getIncident = function () {
+    $scope.type_poi = 3;
+    getRoute( function(wps){
+      $scope.vmr.markers = [];
+      if(wps.routes[0].pois){
+        for(var i = 0; i < wps.routes[0].pois.incidents.length;i++){
+            var mark = {
+              id: i,
+              latitude: wps.routes[0].pois.incidents[i].geometry.coordinates[1],
+              longitude: wps.routes[0].pois.incidents[i].geometry.coordinates[0],
+              name: wps.routes[0].pois.incidents[i].description + '<br /	>' +wps.routes[0].pois.incidents[i].address,
+              show: false,
+              icon: './img/pines/accidente-grave.png'
+            };
+          $scope.vmr.markers.push(mark);
+        }
+        $scope.$apply();
+      }
+    });
+  }
+
+  $scope.getToll = function () {
+    $scope.type_poi = 1;
+    getRoute(function(wps) {
+      console.log(wps);
+      $scope.vmr.markers = [];
+      if(wps.routes[0].pois.tolls){
+        for(var i = 0; i < wps.routes[0].pois.tolls.length;i++){
+          var cost = "Costo: ";
+          wps.routes[0].pois.tolls[i].rates[0][4] ? cost=cost+wps.routes[0].pois.tolls[i].rates[0][4] : cost = cost + "-";
+              var mark = {
+                id: i,
+                latitude: wps.routes[0].pois.tolls[i].geometry.coordinates[1],
+                longitude: wps.routes[0].pois.tolls[i].geometry.coordinates[0],
+                name: wps.routes[0].pois.tolls[i].description + '<br /	>' +wps.routes[0].pois.tolls[i].address + '<br /	>' + "Costo: " + wps.routes[0].pois.tolls[i].rates[4],
+                show: false,
+                icon : './img/pines/caseta.png'
+              };
+              $scope.vmr.markers.push(mark);
+          }
+          $scope.$apply();
+        }
+      });
+    }
+
+  $scope.getWeather = function () {
+    getRoute(function(wps) {
+      $scope.vmr.markers = [];
+      if(wps.routes[0].legs){
+        console.log(wps.routes[0].legs[0].steps);
+        for(var i = 1; i < wps.routes[0].legs[0].steps.length;i++){
+          //console.log(wps.routes[0].legs[0].steps[i].weather.main.temp);
+          if(wps.routes[0].legs[0].steps[i].weather){
+            var mark = {
+              id: i,
+              latitude: wps.routes[0].legs[0].steps[i].geometry.coordinates[0][1] ,
+              longitude: wps.routes[0].legs[0].steps[i].geometry.coordinates[0][0],
+              name:"Temperatura: "+ (wps.routes[0].legs[0].steps[i].weather.main.temp - 273.15)+"°C"+'<br />'+"Clima: "+wps.routes[0].legs[0].steps[i].weather.weather[0].description,
+              show: false,
+              icon: './img/pines/soleado.png'
+            };
+            $scope.vmr.markers.push(mark);
+          }
+        }
+        $scope.$apply();
+      }
+    });
+  }
+
+  $scope.mapr = {
+    control: {},
+    center: {latitude: $rootScope.lat, longitude: $rootScope.lon },
+    zoom: 15,
+    options: {
+           panControl: false,
+           zoomControl: true,
+           mapTypeControl: false,
+           disableDefaultUI: true,
+           scrollwheel: false
+       }
+  };
+
+  $scope.vmr = [];
+
+  $scope.vmr.markers = [];
+
+  function gasType(status){
+    if (status == 'Con anomalías' || status == 'Se negó a verificación') {
+      	url = './img/pines/gas-rojo.png';
+      } else if (status == 'No verificada') {
+      		url = './img/pines/gas-naranja.png';
+      } else {
+      		url = './img/pines/gas-verde.png';
+      }
+      	return url;
+  }
+
+  $scope.back = function() {
+      $state.go('menu.home');
+  };
+
+  $scope.polylinesr = [];
 
 
 }])
