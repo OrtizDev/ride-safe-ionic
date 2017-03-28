@@ -565,11 +565,20 @@ ion-content > div:first-child {
 
     /*********** Modals ***********/
 
-    .modal-1 {
+    .modal-1, .modal-5 {
       height: 380px;
       width: 80%;
       background: rgba(16, 26, 75, 0.80);
       top: 20%;
+      left: 10%;
+      border-radius: 25px;
+    }
+
+    .modal-2, .modal-3, .modal-4 {
+      height: 450px;
+      width: 80%;
+      background: rgba(16, 26, 75, 0.80);
+      top: 10%;
       left: 10%;
       border-radius: 25px;
     }
@@ -587,6 +596,17 @@ ion-content > div:first-child {
       color: #fff;
       font-size: 14px;
       text-align:center;
+    }
+
+    .centered-toggle {
+      color: transparent;
+      background: transparent;
+      width: 100%;
+      margin-left: -50%;
+      margin-top: -15px;
+      left: 15%;
+      display: inline-block;
+      border: none;
     }
 
     .left-toggle {
@@ -623,6 +643,15 @@ ion-content > div:first-child {
       display: inline-block;
       width: 49%;
       text-align: center;
+    }
+
+    .pick-km-text {
+      color: #fff;
+      font-family: "Avenir-roman";
+      margin-left: 5%;
+      text-align: right;
+      width: 40%;
+      display: inline-block;
     }
 
 /*********** MY ROUTES VIEW ***********/

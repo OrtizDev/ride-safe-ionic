@@ -14,7 +14,7 @@
         </div>
         <form id="sp2-form23" class="list form-items">
           <ion-toggle ng-model="pushNotiIC.checked" toggle-class="toggle-balanced" id="sp2-toggle4" class="secure-checkbox"></ion-toggle>
-          <div id="sp2-markdown16" ng-click="openModal()" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
+          <div id="sp2-markdown16" ng-click="openModal(1)" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
             <p class="config-text">Configurar</p>
           </div>
         </form>
@@ -25,7 +25,7 @@
         </div>
         <form id="sp2-form22" class="list form-items">
           <ion-toggle ng-model="pushNotiDR.checked" toggle-class="toggle-balanced" id="sp2-toggle3" class="secure-checkbox"></ion-toggle>
-          <div id="sp2-markdown17" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
+          <div id="sp2-markdown17" ng-click="openModal(2)" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
             <p class="config-text">Configurar</p>
           </div>
         </form>
@@ -36,7 +36,7 @@
         </div>
         <form id="sp2-form20" class="list form-items">
           <ion-toggle ng-model="pushNotiAR.checked" toggle-class="toggle-balanced" ng-checked="true" id="sp2-toggle1" class="secure-checkbox"></ion-toggle>
-          <div id="sp2-markdown19" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
+          <div id="sp2-markdown19" ng-click="openModal(3)" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
             <p class="config-text">Configurar</p>
           </div>
         </form>
@@ -47,7 +47,7 @@
         </div>
         <form id="sp2-form21" class="list form-items">
           <ion-toggle ng-model="pushNotiLT.checked" toggle-class="toggle-balanced" ng-checked="true" id="sp2-toggle2" class="secure-checkbox"></ion-toggle>
-          <div id="sp2-markdown18" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
+          <div id="sp2-markdown18" ng-click="openModal(4)" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
             <p class="config-text">Configurar</p>
           </div>
         </form>
@@ -60,6 +60,8 @@
       <form id="sp2-form25" class="list">
         <ion-toggle ng-model="pushNotiMC.checked" toggle-class="toggle-balanced" ng-checked="true" id="sp2-toggle6" class="secure-checkbox" style="padding-left: 30%;"></ion-toggle>
         <div id="sp2-markdown20" style="text-align:right; margin: 40px 20% 0px 55%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
+          <!-- To trigger the modal, please add the following parameter in the before div with id = sp2-markdown20 -->
+          <!-- ng-click="openModal(5)"-->
           <p class="config-text" style="font-size: 12px;">Configurar</p>
         </div>
       </form>
@@ -69,12 +71,13 @@
       <button ng-click="backS2R()" id="sp2-button26" style="border-radius:0px 0px 0px 0px;" class="button button-dark button-large col-5 cancel-button">Cancelar</button>
       <button ng-click="saveNoti()" id="sp2-button27" style="border-radius:0px 0px 0px 0px;" class="button button-balanced button-large col-5 go-button">Guardar</button>
     </div>
-    <script id="test-modal.html" type="text/ng-template">
+
+    <script id="modal-1.html" type="text/ng-template">
       <ion-modal-view style="background: transparent;">
         <ion-content padding="true" class="manual-ios-statusbar-padding modal-1">
       		<div class="modal-header">
             <div style="height:20px;">
-              <button id="close-button10" ng-click="closeModal()" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+              <button id="close-button10" ng-click="closeModal(1)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
             </div>
             <div class="spacer" style="width: 300px; height: 30%; top: 25%; left: 25%;"></div>
             <h4 id="modal-title">IMPACTOS Y CAÍDAS</h4>
@@ -108,5 +111,244 @@
         </ion-content>
       </ion-modal-view>
      </script>
+
+     <script id="modal-2.html" type="text/ng-template">
+       <ion-modal-view style="background: transparent;">
+         <ion-content padding="true" class="manual-ios-statusbar-padding modal-2">
+       		<div class="modal-header">
+             <div style="height:20px;">
+               <button id="close-button10" ng-click="closeModal(2)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+             </div>
+             <div class="spacer" style="width: 300px; height: 30%; top: 25%; left: 25%;"></div>
+             <h4 id="modal-title">DESVÍO DE RUTA</h4>
+             <div class="modal-text" class="show-list-numbers-and-dots">
+               <p>Permitir publicar en:</p>
+             </div>
+           </div>
+           <div>
+             <div class="fb-icon">
+               <img class="social-icon" src="img/facebook.png">
+             </div>
+             <div class="watsapp-icon">
+               <img class="social-icon" src="img/whatsapp.png">
+             </div>
+             <div>
+               <ion-toggle toggle-class="toggle-balanced" class="left-toggle">Toggle</ion-toggle>
+               <ion-toggle toggle-class="toggle-balanced" class="right-toggle">Toggle</ion-toggle>
+             </div>
+           </div>
+           <div style="margin: 15px 0px;">
+             <div class="pick-km-text">
+               <p>Después de cuántos km</p>
+             </div>
+             <label class="item item-select black-font col-3 select-item" id="gender_select" name="gender" style="padding: 16px; margin:0px;">
+               <select class="select-input" name="kilometers">
+                 <option value="" selected="selected">1</option>
+                 <option value="" selected="selected">2</option>
+                 <option value="" selected="selected">3</option>
+                 <option value="" selected="selected">4</option>
+                 <option value="" selected="selected">5</option>
+                 <option value="" selected="selected">6</option>
+                 <option value="" selected="selected">7</option>
+                 <option value="" selected="selected">8</option>
+                 <option value="" selected="selected">9</option>
+                 <option value="" selected="selected">10</option>
+                 <option value="" selected="selected">11</option>
+                 <option value="" selected="selected">12</option>
+                 <option value="" selected="selected">13</option>
+                 <option value="" selected="selected">14</option>
+                 <option value="" selected="selected">15</option>
+                 <option value="" selected="selected">16</option>
+                 <option value="" selected="selected">17</option>
+                 <option value="" selected="selected">18</option>
+                 <option value="" selected="selected">19</option>
+                 <option value="" selected="selected">20</option>
+                 <option value="" selected="selected">21</option>
+                 <option value="" selected="selected">22</option>
+                 <option value="" selected="selected">23</option>
+                 <option value="" selected="selected">24</option>
+                 <option value="" selected="selected">25</option>
+               </select>
+             </label>
+           </div>
+           <div>
+             <div class="modal-text" class="show-list-numbers-and-dots">
+               <p>Configurar message</p>
+               <label class="item item-input" style="width: 90%; margin-left: 5%;">
+                 <textarea placeholder="" style="min-height: 70px;"></textarea>
+               </label>
+             </div>
+             <div style="margin-right:-20px;">
+               <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+             </div>
+           </div>
+         </ion-content>
+       </ion-modal-view>
+      </script>
+
+      <script id="modal-3.html" type="text/ng-template">
+        <ion-modal-view style="background: transparent;">
+          <ion-content padding="true" class="manual-ios-statusbar-padding modal-3">
+        		<div class="modal-header">
+              <div style="height:20px;">
+                <button id="close-button10" ng-click="closeModal(3)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+              </div>
+              <div class="spacer" style="width: 300px; height: 30%; top: 25%; left: 25%;"></div>
+              <h4 id="modal-title">AVISOS DE RIESGO</h4>
+            </div>
+            <div style="margin: 15px 0px;">
+              <div class="pick-km-text">
+                <p>Después de cuántos km</p>
+              </div>
+              <label class="item item-select black-font col-3 select-item" id="gender_select" name="gender" style="padding: 16px; margin:0px;">
+                <select class="select-input" name="kilometers">
+                  <option value="" selected="selected">1</option>
+                  <option value="" selected="selected">2</option>
+                  <option value="" selected="selected">3</option>
+                  <option value="" selected="selected">4</option>
+                  <option value="" selected="selected">5</option>
+                  <option value="" selected="selected">6</option>
+                  <option value="" selected="selected">7</option>
+                  <option value="" selected="selected">8</option>
+                  <option value="" selected="selected">9</option>
+                  <option value="" selected="selected">10</option>
+                  <option value="" selected="selected">11</option>
+                  <option value="" selected="selected">12</option>
+                  <option value="" selected="selected">13</option>
+                  <option value="" selected="selected">14</option>
+                  <option value="" selected="selected">15</option>
+                  <option value="" selected="selected">16</option>
+                  <option value="" selected="selected">17</option>
+                  <option value="" selected="selected">18</option>
+                  <option value="" selected="selected">19</option>
+                  <option value="" selected="selected">20</option>
+                  <option value="" selected="selected">21</option>
+                  <option value="" selected="selected">22</option>
+                  <option value="" selected="selected">23</option>
+                  <option value="" selected="selected">24</option>
+                  <option value="" selected="selected">25</option>
+                </select>
+              </label>
+            </div>
+            <div>
+              <div>
+                <div class="modal-text" style="margin: 0px 15px;">
+                  <p>Avisar de aproximación a zona de accidentes frecuentes</p>
+                </div>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle">Toggle</ion-toggle>
+              </div>
+              <div>
+                <div class="modal-text" style="margin: 0px 15px;">
+                  <p>Avisar de aproximacion a zona de robos frecuentes</p>
+                </div>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle">Toggle</ion-toggle>
+              </div>
+              <div>
+                <div class="modal-text" style="margin: 0px 15px;">
+                  <p>Aviso de exceso de velocidad</p>
+                </div>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle">Toggle</ion-toggle>
+              </div>
+            </div>
+            <div>
+              <div style="margin-right:-20px;">
+                <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+              </div>
+            </div>
+          </ion-content>
+        </ion-modal-view>
+       </script>
+
+       <script id="modal-4.html" type="text/ng-template">
+         <ion-modal-view style="background: transparent;">
+           <ion-content padding="true" class="manual-ios-statusbar-padding modal-4">
+         		<div class="modal-header">
+               <div style="height:20px;">
+                 <button id="close-button10" ng-click="closeModal(4)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+               </div>
+               <div class="spacer" style="width: 300px; height: 30%; top: 25%; left: 25%;"></div>
+               <h4 id="modal-title">LIVE TRACKING</h4>
+             </div>
+             <div style="margin: 15px 0px;">
+               <div class="pick-km-text">
+                 <p>Después de cuántos km</p>
+               </div>
+               <label class="item item-select black-font col-3 select-item" id="gender_select" name="gender" style="padding: 16px; margin:0px;">
+                 <select class="select-input" name="kilometers">
+                   <option value="" selected="selected">1</option>
+                   <option value="" selected="selected">2</option>
+                   <option value="" selected="selected">3</option>
+                   <option value="" selected="selected">4</option>
+                   <option value="" selected="selected">5</option>
+                   <option value="" selected="selected">6</option>
+                   <option value="" selected="selected">7</option>
+                   <option value="" selected="selected">8</option>
+                   <option value="" selected="selected">9</option>
+                   <option value="" selected="selected">10</option>
+                   <option value="" selected="selected">11</option>
+                   <option value="" selected="selected">12</option>
+                   <option value="" selected="selected">13</option>
+                   <option value="" selected="selected">14</option>
+                   <option value="" selected="selected">15</option>
+                   <option value="" selected="selected">16</option>
+                   <option value="" selected="selected">17</option>
+                   <option value="" selected="selected">18</option>
+                   <option value="" selected="selected">19</option>
+                   <option value="" selected="selected">20</option>
+                   <option value="" selected="selected">21</option>
+                   <option value="" selected="selected">22</option>
+                   <option value="" selected="selected">23</option>
+                   <option value="" selected="selected">24</option>
+                   <option value="" selected="selected">25</option>
+                 </select>
+               </label>
+             </div>
+             <div style="margin-top: 25px;">
+               <div class="modal-text" class="show-list-numbers-and-dots">
+                 <p>Permitir publicar en:</p>
+               </div>
+               <div class="fb-icon">
+                 <img class="social-icon" src="img/facebook.png">
+               </div>
+               <div class="watsapp-icon">
+                 <img class="social-icon" src="img/whatsapp.png">
+               </div>
+               <div>
+                 <ion-toggle toggle-class="toggle-balanced" class="left-toggle">Toggle</ion-toggle>
+                 <ion-toggle toggle-class="toggle-balanced" class="right-toggle">Toggle</ion-toggle>
+               </div>
+             </div>
+             <div>
+               <div class="modal-text" class="show-list-numbers-and-dots">
+                 <p>Configurar message</p>
+                 <label class="item item-input" style="width: 90%; margin-left: 5%;">
+                   <textarea placeholder="" style="min-height: 70px;"></textarea>
+                 </label>
+               </div>
+               <div style="margin-right:-20px;">
+                 <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+               </div>
+             </div>
+           </ion-content>
+         </ion-modal-view>
+        </script>
+
+        <script id="modal-5.html" type="text/ng-template">
+          <ion-modal-view style="background: transparent;">
+            <ion-content padding="true" class="manual-ios-statusbar-padding modal-5">
+          		<div class="modal-header">
+                <div style="height:20px;">
+                  <button id="close-button10" ng-click="closeModal(5)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+                </div>
+                <div class="spacer" style="width: 300px; height: 30%; top: 25%; left: 25%;"></div>
+                <h4 id="modal-title">CARAVANA</h4>
+                <div class="modal-text" class="show-list-numbers-and-dots">
+                  <p>SE DESCONOCE EL CONTENIDO</p>
+                </div>
+              </div>
+            </ion-content>
+          </ion-modal-view>
+         </script>
+
   </ion-content>
 </ion-view>

@@ -610,32 +610,110 @@ function ($scope, $stateParams, S2R, $state, $ionicModal) {
   }
 
   // Modal controller
-  $ionicModal.fromTemplateUrl('test-modal.html', {
+  $ionicModal.fromTemplateUrl('modal-1.html', {
+    id: '1',
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
-    $scope.modal = modal;
+    $scope.modal1 = modal;
   });
-  $scope.openModal = function() {
-    $scope.modal.show();
+
+  $ionicModal.fromTemplateUrl('modal-2.html', {
+    id: '2',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal2 = modal;
+  });
+  
+  $ionicModal.fromTemplateUrl('modal-3.html', {
+    id: '3',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal3 = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('modal-4.html', {
+    id: '4',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal4 = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('modal-5.html', {
+    id: '5',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal5 = modal;
+  });
+
+  $scope.openModal = function(index) {
+    switch (index) {
+      case 1:
+        $scope.modal1.show();
+        break;
+      case 2:
+        $scope.modal2.show();
+        break;
+      case 3:
+        $scope.modal3.show();
+        break;
+      case 4:
+        $scope.modal4.show();
+        break;
+      case 5:
+        $scope.modal5.show();
+        break;
+    }
     $('#sp2_content').addClass("blur-efect");
   };
-  $scope.closeModal = function() {
-    $scope.modal.hide();
+
+  $scope.closeModal = function(index) {
+    switch (index) {
+      case 1:
+        $scope.modal1.hide();
+        break;
+      case 2:
+        $scope.modal2.hide();
+        break;
+      case 3:
+        $scope.modal3.hide();
+        break;
+      case 4:
+        $scope.modal4.hide();
+        break;
+      case 5:
+        $scope.modal5.hide();
+        break;
+    }
     $('#sp2_content').removeClass("blur-efect");
   };
+
+
   //Cleanup the modal when we're done with it!
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
+  $scope.$on('$destroy', function(index) {
+    switch (index) {
+      case 1:
+        $scope.modal1.remove();
+        break;
+      case 2:
+        $scope.modal2.remove();
+        break;
+      case 3:
+        $scope.modal3.remove();
+        break;
+      case 4:
+        $scope.modal4.remove();
+        break;
+      case 5:
+        $scope.modal5.remove();
+        break;
+    }
   });
-  // Execute action on hide modal
-  $scope.$on('modal.hidden', function() {
-    // Execute action
-  });
-  // Execute action on remove modal
-  $scope.$on('modal.removed', function() {
-    // Execute action
-  });
+
 
 }])
 
