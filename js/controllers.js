@@ -5,6 +5,40 @@ angular.module('app.controllers', ['uiGmapgoogle-maps'])
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $log, $rootScope) {
 
+  $scope.blurred = function() {
+    if($("#origin").val() != ''){
+      getCoordinates($("#origin").val(), function(coord){
+        $scope.marker.coords.latitude = coord[0].geometry.location.lat();
+        $scope.marker.coords.longitude = coord[0].geometry.location.lng();
+
+        if($('#home-inputDestination').is(':hidden')){
+          $('#home-inputDestination').show();
+           var latlngd = new google.maps.LatLng((coord[0].geometry.location.lat() - 0.002971573), coord[0].geometry.location.lng());
+           $scope.markerd.coords.latitude = (coord[0].geometry.location.lat() - 0.002971573);
+           $scope.markerd.coords.longitude = coord[0].geometry.location.lng();
+         }
+
+         if($("#destination").val() != ''){
+           getDirections();
+         }
+      });
+    } else {
+      console.log("vacio");
+    }
+  }
+
+  $scope.blurredd = function() {
+    if($("#destination").val() != ''){
+      getCoordinates($("#destination").val(), function(coord){
+        $scope.markerd.coords.latitude = coord[0].geometry.location.lat();
+        $scope.markerd.coords.longitude = coord[0].geometry.location.lng();
+        getDirections();
+      });
+    } else {
+      console.log("vacio");
+    }
+  }
+
   $('#home-inputDestination').hide();
   $scope.type_poi = 0;
   $scope.map = {
@@ -22,8 +56,6 @@ function ($scope, $stateParams, $log, $rootScope) {
 
   var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
   var directionsService = new google.maps.DirectionsService();
-
-  $scope.show = true;
 
   $scope.markerd = {
       id: 1,
@@ -157,6 +189,18 @@ function ($scope, $stateParams, $log, $rootScope) {
      }
      $scope.$apply();
    });
+ }
+
+ function getCoordinates(address, fn){
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode( { address :address}, function(results, status){
+     if(status == google.maps.GeocoderStatus.OK){
+       fn (results);
+     } else {
+       fn('Location not found');
+       alert('Geocode was not successful for the following reason: ' + status);
+     }
+  });
  }
 
   $scope.getIncident = function () {
@@ -831,6 +875,19 @@ function ($scope, $stateParams, $rootScope, $state) {
 
   $scope.$on('$ionicView.enter', function () {
 
+    $scope.mapr = {
+      control: {},
+      center: {latitude: $rootScope.lat, longitude: $rootScope.lon },
+      zoom: 15,
+      options: {
+             panControl: false,
+             zoomControl: true,
+             mapTypeControl: false,
+             disableDefaultUI: true,
+             scrollwheel: false
+         }
+    };
+
     $scope.markerr = {
         id: 0,
         coords: {
@@ -999,19 +1056,6 @@ function ($scope, $stateParams, $rootScope, $state) {
     });
   }
 
-  $scope.mapr = {
-    control: {},
-    center: {latitude: $rootScope.lat, longitude: $rootScope.lon },
-    zoom: 15,
-    options: {
-           panControl: false,
-           zoomControl: true,
-           mapTypeControl: false,
-           disableDefaultUI: true,
-           scrollwheel: false
-       }
-  };
-
   $scope.vmr = [];
 
   $scope.vmr.markers = [];
@@ -1036,10 +1080,96 @@ function ($scope, $stateParams, $rootScope, $state) {
 
 }])
 
-.controller('onRouteCtrl', ['$scope', '$stateParams', '$ionicPopover', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('onRouteCtrl', ['$scope', '$stateParams', '$ionicPopover', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicPopover) {
+function ($scope, $stateParams, $ionicPopover, $rootScope) {
+
+  $scope.$on('$ionicView.enter', function (){
+    $scope.mapo = {
+      control: {},
+      center: {latitude: $rootScope.lat, longitude: $rootScope.lon },
+      zoom: 15,
+      options: {
+             panControl: false,
+             zoomControl: true,
+             mapTypeControl: false,
+             disableDefaultUI: true,
+             scrollwheel: false
+         }
+    };
+
+    $scope.markero = {
+        id: 0,
+        coords: {
+          latitude: $rootScope.lat,
+          longitude: $rootScope.lon
+        },
+        options: { draggable: false,
+                    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                    }
+    };
+
+    $scope.markerdo = {
+          id: 0,
+          coords: {
+            latitude: $rootScope.latd,
+            longitude: $rootScope.lond
+          },
+          options: { draggable: false,
+                    icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                  }
+    };
+
+    getRoute( function(wps){
+      var wp = [];
+      for(var i = 0; i < wps.routes[0].geometry.coordinates.length; i++){
+        wp.push({
+          latitude: wps.routes[0].geometry.coordinates[i][1],
+          longitude: wps.routes[0].geometry.coordinates[i][0]
+        });
+      }
+      $scope.polylineso = [{
+          id: 1,
+          path: wp,
+          stroke: {
+            color: '#223D75',
+            weight: 5
+          },
+          editable: true,
+          draggable: true,
+          geodesic: true,
+          visible: true
+      }];
+      $scope.$apply();
+    });
+
+  });
+
+  function getRoute(fn){
+      var data = {};
+      data.start = $rootScope.lat+','+$rootScope.lon;
+      data.end = $rootScope.latd+','+$rootScope.lond;
+      data.poi_in = [$scope.type_poi];
+      data.weather = true;
+      $.ajax({
+        crossDomain:true,
+        type: "GET",
+        url: "https://api.sintrafico.com/route",
+        data: data,
+        headers: { "X-Requested-With" : "f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc"},
+        success:function(e) {
+            fn (e);
+          }
+        });
+  }
+
+  $scope.vmo = [];
+
+  $scope.vmo.markers = [];
+
+  $scope.polylineso = [];
+
 
   // Function to close the alerts menu if clicked anywhere in the view
     $(document).click(function(evt) {
