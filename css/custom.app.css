@@ -494,16 +494,30 @@ ion-content > div:first-child {
       padding: 10px 16px !important;
     }
 
-    #discover_results {
+    #discover_results_title {
       color: #fff;
-      margin-top: 0;
-      padding-top: 10px;
       font-family: "Avenir";
       text-decoration: underline;
     }
 
     #discover_results {
       min-height: 24%;
+      height: 24%;
+      margin-top: 0;
+      padding-top: 10px;
+    }
+
+    .results-list-item {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      padding: 3px 10px;
+      text-decoration: none;
+    }
+
+    .results-list-item.active {
+      background: #808284 !important;
     }
 
     .bottom-buttons {

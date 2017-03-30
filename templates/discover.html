@@ -55,14 +55,23 @@
       </div>
 
     </div>
-    <div id="discover_results" class="background-odd">
-      <div id="discover-markdown8" style="text-align:center;" class="show-list-numbers-and-dots underlined">
-        <h5 id="discover_results">
+    <ion-scroll direction="y" id="discover_results" class="background-odd">
+      <div id="discover-markdown8" style="text-align:center; text-decoration: none;" class="show-list-numbers-and-dots underlined">
+        <h5 id="discover_results_title">
           <strong>RESULTADOS</strong>
-        </p>
+        </h5>
+        <ion-list id="discover-list">
+          <ion-item id="discover-list-item11" class="results-list-item active">Ruta de las calaveras</ion-item>
+          <ion-item id="discover-list-item12" class="results-list-item">La garnacha pueblera</ion-item>
+          <ion-item id="discover-list-item11" class="results-list-item">Ruta de las calaveras</ion-item>
+          <ion-item id="discover-list-item12" class="results-list-item">GDL a Tolantongo</ion-item>
+          <ion-item id="discover-list-item11" class="results-list-item">Tortas de pueblos mágicos</ion-item>
+          <ion-item id="discover-list-item12" class="results-list-item">Mariposas monarca</ion-item>
+          <ion-item id="discover-list-item11" class="results-list-item">Selva chiapas</ion-item>
+          <ion-item id="discover-list-item12" class="results-list-item">Aventura en la montaña</ion-item>
+        </ion-list>
       </div>
-      <div class="spacer" style="height: 100px;"></div>
-    </div>
+    </ion-scroll>
     <div class="bottom-buttons">
       <button ui-sref="menu.home" style="border-radius:0px 0px 0px 0px;" class="button button-dark button-large col-5 cancel-button">Cancelar</button>
       <button style="border-radius:0px 0px 0px 0px;" class="button button-balanced button-large col-5 go-button">A rodar!</button>
