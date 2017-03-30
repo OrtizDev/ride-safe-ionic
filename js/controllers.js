@@ -335,19 +335,23 @@ function ($scope, $stateParams, $state, $rootScope, dataUserRegister) {
            alert("No se pudieron obtener los estados");
        }
   });
+
   $scope.typegender = [
   {gender : 'F', genderName: 'Femenino'},
   {gender : 'M', genderName: 'Masculino'}
   ];
+
   $scope.max= new Date();
   $scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
   $scope.minpassword = 6;
+
   $scope.updateCi = function (state) {
-  $('#city').empty();
-  var parametros = {
-      "city" : state
-  };
-  $.ajax({
+   $('#city').empty();
+   var parametros = {
+       "city" : state
+   };
+
+   $.ajax({
       type: "POST",
       url: "http://startbluesoft.com/rideSafeApp/v1/index.php/cities",
       data: parametros,
@@ -368,35 +372,35 @@ function ($scope, $stateParams, $state, $rootScope, dataUserRegister) {
            console.log(xhr.responseText);
            alert("No se pudieron obtener las ciudades");
        }
-  });
-}
+   });
+  }
 
-$scope.motoRegis = function () {
-  dataUserRegister.user.name = $("input[name=username]").val();
-  dataUserRegister.user.appat = $("input[name=apat]").val();
-  dataUserRegister.user.apmat = $("input[name=amat]").val();
-  dataUserRegister.user.gender = $("select[name=gender_re]").val();
-  dataUserRegister.user.cell = $("input[name=cellphone]").val();
-  dataUserRegister.user.birth = $("input[name=bdate]").val();
-  dataUserRegister.user.cellemer = $("input[name=telEmer]").val();
-  dataUserRegister.user.city = $("select[name=city_re]").val();
-  dataUserRegister.user.email = $("input[name=emailRe]").val();
-  dataUserRegister.user.password = $("input[name=pass]").val();
-  if(angular.equals($("input[name=pass]").val(), $("input[name=repass]").val())){
-       $state.go('motoRegister');
-     } else {
-       alert("Las contraseñas no coinciden");
+  $scope.motoRegis = function () {
+    dataUserRegister.user.name = $("input[name=username]").val();
+    dataUserRegister.user.appat = $("input[name=apat]").val();
+    dataUserRegister.user.apmat = $("input[name=amat]").val();
+    dataUserRegister.user.gender = $("select[name=gender_re]").val();
+    dataUserRegister.user.cell = $("input[name=cellphone]").val();
+    dataUserRegister.user.birth = $("input[name=bdate]").val();
+    dataUserRegister.user.cellemer = $("input[name=telEmer]").val();
+    dataUserRegister.user.city = $("select[name=city_re]").val();
+    dataUserRegister.user.email = $("input[name=emailRe]").val();
+    dataUserRegister.user.password = $("input[name=pass]").val();
+    if(angular.equals($("input[name=pass]").val(), $("input[name=repass]").val())){
+        $state.go('motoRegister');
+      } else {
+        alert("Las contraseñas no coinciden");
      }
- }
+  }
 
- $scope.login = function () {
-   $state.go('login');
- }
+  $scope.login = function () {
+    $state.go('login');
+  }
 
- $( "input[name=bdate]" ).change(function() {
-    var dateValue = $( this ).val();
-    var splitDate = dateValue.split("-");
-    $( "#dateHolder" ).text( splitDate[2] + "/" + splitDate[1] + "/" + splitDate[0]);
+  $( "input[name=bdate]" ).change(function() {
+      var dateValue = $( this ).val();
+      var splitDate = dateValue.split("-");
+      $( "#dateHolder" ).text( splitDate[2] + "/" + splitDate[1] + "/" + splitDate[0]);
   })
   .keyup();
 
@@ -411,6 +415,65 @@ function ($scope, $stateParams, $rootScope, $state, dataUserRegister, UserSessio
     $state.go('userRegister');
   }
 
+  $.ajax({
+      type: "GET",
+      url: "http://startbluesoft.com/rideSafeApp/v1/index.php/brand",
+      dataType: 'json',
+      success: function (data) {
+          if (data.error) {
+              alert(data.message);
+          } else if (!data.error) {
+              estados = JSON.parse(data.message);
+              var toAppend = '';
+              $.each(estados, function(i, item){
+                toAppend += '<option value="'+item.id_marca_moto+'">'+item.nombre+'</option>';
+              });
+              $('#brands').append(toAppend);
+              var date = new Date();
+              var year = date.getFullYear();
+              var y = '';
+              for(i=1995; i <= year;i++){
+                y += '<option value="'+i+'">'+i+'</option>';
+              }
+              $('#year').append(y);
+          }
+       },
+       error: function (xhr, status, error) {
+           console.log(xhr.responseText);
+           alert("No se pudieron obtener las marcas");
+       }
+  });
+
+  $scope.updateMod = function (model) {
+   $('#models').empty();
+   var parametros = {
+       "brand" : model
+   };
+
+   $.ajax({
+      type: "POST",
+      url: "http://startbluesoft.com/rideSafeApp/v1/index.php/models",
+      data: parametros,
+      dataType: 'json',
+      success: function (data) {
+          if (data.error) {
+              alert(data.message);
+          } else if (!data.error) {
+              estados = JSON.parse(data.message);
+              var toAppend = '';
+              $.each(estados, function(i, item){
+                toAppend += '<option value="'+item.id_modelo+'">'+item.nombre+'</option>';
+              });
+              $('#models').append(toAppend);
+          }
+       },
+       error: function (xhr, status, error) {
+           console.log(xhr.responseText);
+           alert("No se pudieron obtener los modelos");
+       }
+   });
+   }
+
   $scope.ciudad = { checked : false };
   $scope.atv = { checked : false };
   $scope.touring = { checked : false };
@@ -421,99 +484,88 @@ function ($scope, $stateParams, $rootScope, $state, dataUserRegister, UserSessio
   $scope.carretera = { checked : false };
   $scope.otro = { checked : false };
 
-
   $scope.register = function () {
+    if($("select[id=brands").val() != null){
+      if($("select[id=models").val() != null){
+        if($("select[id=year").val() != null){
+            if($("input[id=plate]").val() != ""){
 
- alert($scope.ciudad.checked);
+              var dataMoto = {
+                "brand" : $("select[id=brands").val(),
+                "model" : $("select[id=models").val(),
+                "year"  : $("select[id=year").val(),
+                "plate" : $("input[id=plate]").val()
+              };
 
-  var dataMoto = {
-    "brand" : "Volvo",
-    "model" : "V",
-    "year"  : "2015",
-    "plate" : $("input[name=plate]").val()
-  };
-  var dataUser = {
-    'name' : dataUserRegister.user.name,
-    'apPat' : dataUserRegister.user.appat,
-    'apmat' : dataUserRegister.user.apmat,
-    'email' : dataUserRegister.user.email,
-    'pass' : dataUserRegister.user.password,
-    'birthday' : dataUserRegister.user.birth,
-    'gender' : dataUserRegister.user.gender,
-    'cellphone' : dataUserRegister.user.cell,
-    'cellemergency' : dataUserRegister.user.cellemer,
-    'admin' : 0,
-    'ciudad' : $scope.ciudad.checked? 1 : 0,
-    'touring' : $scope.touring.checked? 1 : 0,
-    'circuitos' : $scope.circuitos.checked? 1 : 0,
-    'stunt' : $scope.enduro.checked? 1 : 0,
-    'atv' : $scope.atv.checked? 1 : 0,
-    'trabajo' : $scope.trabajo.checked? 1 : 0,
-    'enduro' : $scope.enduro.checked? 1 : 0,
-    'carretera' : $scope.carretera.checked? 1 : 0,
-    'otro' : $scope.otro.checked? $("#other").val() : ""
-  };
+              var dataUser = {
+                'name' : dataUserRegister.user.name,
+                'apPat' : dataUserRegister.user.appat,
+                'apmat' : dataUserRegister.user.apmat,
+                'email' : dataUserRegister.user.email,
+                'pass' : dataUserRegister.user.password,
+                'birthday' : dataUserRegister.user.birth,
+                'gender' : dataUserRegister.user.gender,
+                'cellphone' : dataUserRegister.user.cell,
+                'cellemergency' : dataUserRegister.user.cellemer,
+                'admin' : 0,
+                'ciudad' : $scope.ciudad.checked? 1 : 0,
+                'touring' : $scope.touring.checked? 1 : 0,
+                'circuitos' : $scope.circuitos.checked? 1 : 0,
+                'stunt' : $scope.enduro.checked? 1 : 0,
+                'atv' : $scope.atv.checked? 1 : 0,
+                'trabajo' : $scope.trabajo.checked? 1 : 0,
+                'enduro' : $scope.enduro.checked? 1 : 0,
+                'carretera' : $scope.carretera.checked? 1 : 0,
+                'otro' : $scope.otro.checked? $("#other").val() : ""
+              };
 
-  $.ajax({
-    type: "POST",
-    url: "http://startbluesoft.com/rideSafeApp/v1/index.php/registmoto",
-    data: dataMoto,
-    dataType: 'json',
-    success: function (data) {
-        if (data.error) {
-            alert(data.message);
-        } else if (!data.error) {
-          $.ajax({
-            type: "POST",
-            url: "http://startbluesoft.com/rideSafeApp/v1/index.php/registuser",
-            data: dataUser,
-            dataType: 'json',
-            success: function (data) {
-                if(data.error) {
-                 alert("Intentalo más tarde");
-               } else if(!data.error){
-                 var parametros = {
-                     "email": dataUserRegister.user.email,
-                     "password": dataUserRegister.user.password
-                 };
-                 $.ajax({
-                     type: "POST",
-                     url: "http://startbluesoft.com/rideSafeApp/v1/index.php/userlogin",
-                     data: parametros,
-                     dataType: "json",
-                     success: function (data) {
-                         if (data.error) {
-                             $state.go('login');
-                         } else if (!data.error) {
-                             UserSession.setData(data.id);
-                             $state.go('menu.home');
+              $.ajax({
+                type: "POST",
+                url: "http://startbluesoft.com/rideSafeApp/v1/index.php/registmoto",
+                data: dataMoto,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error) {
+                        alert(data.message);
+                      } else if (!data.error) {
+                        $.ajax({
+                          type: "POST",
+                          url: "http://startbluesoft.com/rideSafeApp/v1/index.php/registuser",
+                          data: dataUser,
+                          dataType: 'json',
+                          success: function (data) {
+                            if(data.error) {
+                              alert("Intentalo más tarde");
+                            } else if(!data.error){
+                              $state.go('thanks');
                          }
-                     },
-                     error: function (xhr, status, error) {
+                      },
+                       error: function (xhr, status, error) {
                          console.log(xhr.responseText);
-                         alert("No se pudo iniciar sesi�n, int�ntalo m�s tarde");
-                     }
-                 });
-
-                 alert("Registro Exitoso");
+                         alert("Fallo Registro, intentalo más tarde");
+                       }
+                    });
+                  }
+               },
+               error: function (xhr, status, error) {
+                   console.log(xhr.responseText);
+                   alert("Intentalo más tarde");
                }
-            },
-             error: function (xhr, status, error) {
-               console.log(xhr.responseText);
-               alert("Intentalo más tarde");
-             }
-          });
+             });
+            }else {
+              alert("Por favor, ingresa la matricula de tu moto");
+            }
+        } else {
+          alert("Por favor, elige un año");
         }
-     },
-     error: function (xhr, status, error) {
-         console.log(xhr.responseText);
-         alert("Intentalo más tarde");
-     }
-});
+      } else {
+        alert("Por favor, elige un modelo");
+      }
+    }else  {
+      alert("Por favor, elige una marca");
+    }
 
-}
-
-
+  }
 
 }])
 
@@ -529,6 +581,51 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
+
+  $.ajax({
+      type: "GET",
+      url: "http://startbluesoft.com/rideSafeApp/v1/index.php/state",
+      dataType: 'json',
+      success: function (data) {
+          if (data.error) {
+              alert(data.message);
+          } else if (!data.error) {
+              estados = JSON.parse(data.message);
+              var toAppend = '';
+              $.each(estados, function(i, item){
+                toAppend += '<option value="'+item.id_estado+'">'+item.nombre+'</option>';
+              });
+              $('#states').append(toAppend);
+          }
+       },
+       error: function (xhr, status, error) {
+           console.log(xhr.responseText);
+           alert("No se pudieron obtener los estados");
+       }
+  });
+
+  $.ajax({
+      type: "GET",
+      url: "http://startbluesoft.com/rideSafeApp/v1/index.php/thematic",
+      dataType: 'json',
+      success: function (data) {
+          if (data.error) {
+              alert(data.message);
+          } else if (!data.error) {
+              estados = JSON.parse(data.message);
+              var toAppend = '';
+              $.each(estados, function(i, item){
+                toAppend += '<option value="'+item.id_tematica+'">'+item.nombre+'</option>';
+              });
+              $('#thematics').append(toAppend);
+          }
+       },
+       error: function (xhr, status, error) {
+           console.log(xhr.responseText);
+           alert("No se pudieron obtener los estados");
+       }
+  });
+
 
 
 }])
