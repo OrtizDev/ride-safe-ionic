@@ -14,11 +14,23 @@
       	<img src="img/check.png" alt="gas-filter">
       </button>
     </div>
-    <creator-map-component options="{&quot;disableDefaultUI&quot;:true}" marker="false" location="ciudad de mexico" zoom="12" style="display:block;position:relative;width:100%;height:calc(100vh - 19vh);">
-      <ui-gmap-google-map ng-if="map.center" center="map.center" zoom="map.zoom" options="map.options">
-        <ui-gmap-marker coords="map.marker.coords" idkey="map.marker.id" options="map.marker.options"></ui-gmap-marker>
-      </ui-gmap-google-map>
-    </creator-map-component>
+
+		<div style="display:block;position:relative;width:100%;height:calc(100vh - 19vh);">
+			<ui-gmap-google-map control="mapo.control" ng-if="mapo.center" center="mapo.center" zoom="mapo.zoom" options="mapo.options">
+				<ui-gmap-marker coords="markero.coords" options="markero.options" events="markero.events" idkey="markero.id" ></ui-gmap-marker>
+				<ui-gmap-marker coords="markerdo.coords" options="markerdo.options" events="markerdo.events" idkey="markerdo.id" ></ui-gmap-marker>
+				<ui-gmap-markers models="vmo.markers" coords="'self'" icon="'icon'">
+					<ui-gmap-windows show="show">
+						<div>
+							<div>
+								<label class="markerToolTipLabel" ng-non-bindable>{{name}}</label>
+							</div>
+						</div>
+					</ui-gmap-windows>
+				</ui-gmap-markers>
+				<ui-gmap-polyline ng-repeat="po in polylineso" path="po.path" stroke="po.stroke" visible='po.visible' geodesic='po.geodesic'></ui-gmap-polyline>
+			</ui-gmap-google-map>
+		</div>
 
 		<input name="nav-trigger" type="checkbox" id="nav-trigger" class="nav-trigger">
     <label for="nav-trigger" style="margin-top: -50px;">!</label>

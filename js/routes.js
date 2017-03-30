@@ -156,7 +156,6 @@ angular.module('app.routes', [])
     controller: 'routeDetailsCtrl'
   })
 
-
 $urlRouterProvider.otherwise('login')
 
 });
