@@ -31,7 +31,21 @@
       <button id="motoRegister-send" style="margin-left: 5%; min-width: 92%;" class="button button-stable button-small col-4">Agregar imagenes</button>
 
       <button ui-sref="menu.home" id="not_save_route" style="margin-left: 5%;" class="button button-stable button-small col-4">No guardar</button>
-      <button type="submit" id="save_route" style="margin-left: 10%;" class="button button-balanced button-small col-4">Guardar Ruta</button>
+      <button ng-click="openPopover($event)" type="submit" id="save_route" style="margin-left: 10%;" class="button button-balanced button-small col-4">Guardar Ruta</button>
     </form>
+
+    <script id="saved-route-alert.html" type="text/ng-template">
+      <ion-popover-view id="popover_routedetails">
+        <ion-content class="popover-content">
+          <div class="text-popover">
+            <h4>Ruta guardada exitosamente</h4>
+          </div>
+          <div class="center-content">
+            <button ng-click="closePopover()" class="button button-light  button-block button-outline button-popover">Ok</button>
+          </div>
+        </ion-content>
+      </ion-popover-view>
+    </script>
+
   </ion-content>
 </ion-view>

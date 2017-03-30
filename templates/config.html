@@ -1,17 +1,21 @@
 <ion-view title="config" hide-nav-bar="true" hide-back-button="true">
-	<ion-content padding="false" class="manual-ios-statusbar-padding">
-    <div>
-  		<ul class="tab-navigation">
-    		<li ng-class="{'active': activeTab != 2}">
-      		<a href="#" ng-click="activeTab=1">Personal</a>
-    		</li>
-    		<li ng-class="{'active': activeTab == 2}">
-      		<a href="#" ng-click="activeTab=2">Motocicleta</a>
-    		</li>
-  		</ul>
+	<ion-content padding="false" class="manual-ios-statusbar-padding" style="height: 100%;">
+		<div class="tabs-top no-top-pos tab-navigation">
+			<li ng-class="{'actived': activeTab != 2}">
+				<a class="tab-item" ng-click="activeTab=1" style="border-right: 1px #3b3c3a solid;">
+					Usuario
+				</a>
+			</li>
+			<li ng-class="{'actived': activeTab == 2}">
+				<a class="tab-item" ng-click="activeTab=2">
+					Motocicleta
+				</a>
+			</li>
+		</div>
+		<div>
 
-      <div class="tab-content" ng-class="{'active': activeTab != 2}">
-				<h3 id="userRegister-heading1" style="color:#FFFFFF;text-align:center;padding-top:10px;margin-bottom:0px;">REGISTRO</h3>
+      <div id="user-tag-content" class="tab-content" ng-class="{'actived': activeTab != 2}"> <!-- ng-class="{'active': activeTab != 2}" -->
+				<h3 id="userRegister-heading1" style="color:#FFFFFF;text-align:center;padding-top:10px;margin-bottom:0px;">USUARIO</h3>
 		    <form id="userRegister-form4" class="list" ng-submit="motoRegis()">
 		      <label class="item item-input item-floating-label no-border register-input" id="userRegister-input6" name="name">
 		        <span class="input-label">Nombre(s)</span>
@@ -70,8 +74,8 @@
 		    </form>
       </div>
 
-      <div class="tab-content" ng-class="{'active': activeTab == 2}">
-				<h3 id="motoRegister-heading3">REGISTRA TU MOTOCICLETA</h3>
+      <div id="moto-tag-content" class="tab-content" ng-class="{'actived': activeTab == 2}" > <!-- ng-class="{'active': activeTab == 2}" -->
+				<h3 id="motoRegister-heading3">MOTOCICLETA</h3>
 				<form id="motoRegister-form5" class="list" ng-submit="register()" name="motoRe">
 					<label class="item item-select black-font select-item" id="motoRegister_brand" name="moto-brand">
 						<select class="select-input">

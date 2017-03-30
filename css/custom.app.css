@@ -16,8 +16,8 @@
   - My routes view
   - On Route view
     - Right alert-menu
-    - Popover alert
   - Route details view
+  - Popover alerts
 
 */
 
@@ -42,6 +42,14 @@ ion-content > div:first-child {
 }
 
 /*********** User Register view ************/
+
+    #userRegister-heading1 {
+      font-family: "Avenir";
+      font-size: 6vw;
+      color:#FFFFFF;
+      text-align:center;
+      padding-top: 20px;
+    }
 
     .input-label {
       color: #fff;
@@ -367,8 +375,9 @@ ion-content > div:first-child {
     /*tabs configuration */
 
     .tab-navigation {
-    padding: 0;
-    border-bottom: solid 1px #ddd;
+      padding: 0;
+      border-bottom: solid 1px #ddd;
+      height: 42px !important;
     }
 
     .tab-navigation li {
@@ -379,15 +388,16 @@ ion-content > div:first-child {
     .tab-navigation li a {
         display: inline-block;
         border: solid 1px #ddd;
-        padding: 7px 15px;
+        padding: 10px 15px;
         text-decoration: none;
-        background: #3b3c3a;
+        background: #3b3c3a !important;
         color: #fff;
         margin: 0px -2px;
+        opacity: 1 !important;
     }
 
-    .tab-navigation .active a {
-        // border-bottom-color: #fff;
+    .tab-navigation .actived a {
+        border-bottom-color: #fff;
         border-bottom: 1px solid rgb(59, 60, 58)
     }
 
@@ -395,11 +405,21 @@ ion-content > div:first-child {
         display: none;
     }
 
-    .tab-content.active {
-        display: block;
+    .tab-content.actived {
+        display: inline-block;
         height: 100%;
-        background: #3b3c3a;
+        background: #3b3c3a !important;
         color: #fff;
+        padding-top: 20px;
+    }
+
+    .tab-item {
+      font-family: "Avenir-roman";
+      font-size: 20px;
+    }
+
+    .no-top-pos {
+      top: 0px !important;
     }
 
 /*********** USER MANUAL VIEW ***********/
@@ -565,11 +585,20 @@ ion-content > div:first-child {
 
     /*********** Modals ***********/
 
-    .modal-1 {
+    .modal-1, .modal-5 {
       height: 380px;
       width: 80%;
       background: rgba(16, 26, 75, 0.80);
       top: 20%;
+      left: 10%;
+      border-radius: 25px;
+    }
+
+    .modal-2, .modal-3, .modal-4 {
+      height: 450px;
+      width: 80%;
+      background: rgba(16, 26, 75, 0.80);
+      top: 10%;
       left: 10%;
       border-radius: 25px;
     }
@@ -587,6 +616,17 @@ ion-content > div:first-child {
       color: #fff;
       font-size: 14px;
       text-align:center;
+    }
+
+    .centered-toggle {
+      color: transparent;
+      background: transparent;
+      width: 100%;
+      margin-left: -50%;
+      margin-top: -15px;
+      left: 15%;
+      display: inline-block;
+      border: none;
     }
 
     .left-toggle {
@@ -623,6 +663,15 @@ ion-content > div:first-child {
       display: inline-block;
       width: 49%;
       text-align: center;
+    }
+
+    .pick-km-text {
+      color: #fff;
+      font-family: "Avenir-roman";
+      margin-left: 5%;
+      text-align: right;
+      width: 40%;
+      display: inline-block;
     }
 
 /*********** MY ROUTES VIEW ***********/
@@ -793,46 +842,6 @@ ion-content > div:first-child {
           display: inline-block;
         }
 
-    /** Popover alert **/
-
-        #popover_onroute {
-          height: 28%;
-          width: 75%;
-          left: 12.5% !important;
-          top: 30% !important;
-          background: transparent !important;
-        }
-
-        .popover-content {
-          background: rgba(59, 60, 58, 0.95) !important;
-          margin: 0px !important;
-          border-radius: 20px;
-        }
-
-        .text-popover {
-          text-align: center;
-          padding: 7% 22% 2%;
-        }
-
-        .text-popover > h4 {
-          color: #fff;
-          font-family: "Avenir-roman";
-          font-weight: bold;
-        }
-
-        .center-content {
-          text-align: center;
-        }
-
-        .button-popover {
-          width: 40% !important;
-          margin: 0px 2%;
-          border-radius: 0px;
-          font-family: "Avenir-roman";
-          font-weight: bold;
-          display: inline-block;
-        }
-
 /*********** ROUTE DETAILS VIEW ***********/
 
     #route-form {
@@ -901,3 +910,58 @@ ion-content > div:first-child {
       margin-bottom: 20px;
       padding: 4px;
     }
+
+
+/*********** POPOVER ALERTS ***********/
+
+      #popover_onroute, #popover_routedetails {
+        height: 28%;
+        width: 75%;
+        left: 12.5% !important;
+        top: 30% !important;
+        background: transparent !important;
+        border-radius: 20px;
+      }
+
+      #popover_onroute .scroll, #popover_routedetails .scroll {
+        padding: 10% 1%;
+      }
+
+      #popover_onroute .popover-content {
+        background: rgba(59, 60, 58, 0.95) !important;
+        margin: 0px !important;
+        border-radius: 20px;
+      }
+
+      #popover_routedetails .popover-content {
+        background: #223d75 !important;
+        margin: 0px !important;
+        border-radius: 20px;
+      }
+
+      .text-popover {
+        text-align: center;
+      }
+
+      .text-popover > h4 {
+        color: #fff;
+        font-family: "Avenir-roman";
+        font-weight: bold;
+      }
+
+      #popover_routedetails .text-popover > h4 {
+        padding: 0px 5px;
+      }
+
+      .center-content {
+        text-align: center;
+      }
+
+      .button-popover {
+        width: 40% !important;
+        margin: 0px 2%;
+        border-radius: 0px;
+        font-family: "Avenir-roman";
+        font-weight: bold;
+        display: inline-block;
+      }

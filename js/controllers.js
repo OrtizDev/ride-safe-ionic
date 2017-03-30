@@ -718,32 +718,110 @@ function ($scope, $stateParams, S2R, $state, $ionicModal) {
   }
 
   // Modal controller
-  $ionicModal.fromTemplateUrl('test-modal.html', {
+  $ionicModal.fromTemplateUrl('modal-1.html', {
+    id: '1',
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
-    $scope.modal = modal;
+    $scope.modal1 = modal;
   });
-  $scope.openModal = function() {
-    $scope.modal.show();
+
+  $ionicModal.fromTemplateUrl('modal-2.html', {
+    id: '2',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal2 = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('modal-3.html', {
+    id: '3',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal3 = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('modal-4.html', {
+    id: '4',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal4 = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('modal-5.html', {
+    id: '5',
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal5 = modal;
+  });
+
+  $scope.openModal = function(index) {
+    switch (index) {
+      case 1:
+        $scope.modal1.show();
+        break;
+      case 2:
+        $scope.modal2.show();
+        break;
+      case 3:
+        $scope.modal3.show();
+        break;
+      case 4:
+        $scope.modal4.show();
+        break;
+      case 5:
+        $scope.modal5.show();
+        break;
+    }
     $('#sp2_content').addClass("blur-efect");
   };
-  $scope.closeModal = function() {
-    $scope.modal.hide();
+
+  $scope.closeModal = function(index) {
+    switch (index) {
+      case 1:
+        $scope.modal1.hide();
+        break;
+      case 2:
+        $scope.modal2.hide();
+        break;
+      case 3:
+        $scope.modal3.hide();
+        break;
+      case 4:
+        $scope.modal4.hide();
+        break;
+      case 5:
+        $scope.modal5.hide();
+        break;
+    }
     $('#sp2_content').removeClass("blur-efect");
   };
+
+
   //Cleanup the modal when we're done with it!
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
+  $scope.$on('$destroy', function(index) {
+    switch (index) {
+      case 1:
+        $scope.modal1.remove();
+        break;
+      case 2:
+        $scope.modal2.remove();
+        break;
+      case 3:
+        $scope.modal3.remove();
+        break;
+      case 4:
+        $scope.modal4.remove();
+        break;
+      case 5:
+        $scope.modal5.remove();
+        break;
+    }
   });
-  // Execute action on hide modal
-  $scope.$on('modal.hidden', function() {
-    // Execute action
-  });
-  // Execute action on remove modal
-  $scope.$on('modal.removed', function() {
-    // Execute action
-  });
+
 
 }])
 
@@ -1325,7 +1403,7 @@ function ($scope, $stateParams, $ionicPopover, $rootScope) {
     });
 
     // .fromTemplateUrl() method
-    $ionicPopover.fromTemplateUrl('my-popover.html', {
+    $ionicPopover.fromTemplateUrl('stops-route-confirm.html', {
      scope: $scope
     }).then(function(popover) {
      $scope.popover = popover;
@@ -1344,22 +1422,47 @@ function ($scope, $stateParams, $ionicPopover, $rootScope) {
     });
 
 
-    // Execute action on hidden popover
-    $scope.$on('popover.hidden', function() {
-     // Execute action
-    });
-    // Execute action on remove popover
-    $scope.$on('popover.removed', function() {
-     // Execute action
-    });
-
-
 }])
 
-.controller('routeDetailsCtrl', ['$scope', '$stateParams',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('routeDetailsCtrl', ['$scope', '$stateParams', '$ionicPopover',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $ionicPopover) {
 
+  // .fromTemplate() method
+  var template = '<ion-popover-view style="top: 25% !important;"><ion-content> Hola! </ion-content></ion-popover-view>';
+
+  $scope.popover = $ionicPopover.fromTemplate(template, {
+   scope: $scope
+  });
+
+  // .fromTemplateUrl() method
+  $ionicPopover.fromTemplateUrl('saved-route-alert.html', {
+   scope: $scope
+  }).then(function(popover) {
+   $scope.popover = popover;
+  });
+
+
+  $scope.openPopover = function($event) {
+   $scope.popover.show($event);
+  };
+  $scope.closePopover = function() {
+   $scope.popover.hide();
+  };
+  //Cleanup the popover when we're done with it!
+  $scope.$on('$destroy', function() {
+   $scope.popover.remove();
+  });
+
+  //
+  // // Execute action on hidden popover
+  // $scope.$on('popover.hidden', function() {
+  //  // Execute action
+  // });
+  // // Execute action on remove popover
+  // $scope.$on('popover.removed', function() {
+  //  // Execute action
+  // });
 
 }])
