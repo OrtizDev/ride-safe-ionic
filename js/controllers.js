@@ -653,7 +653,10 @@ function ($scope, $stateParams) {
        }
   });
 
-
+  $(".results-list-item").click(function () {
+    $(".results-list-item").removeClass("active");
+    $(this).addClass("active");
+  });
 
 }])
 
