@@ -569,11 +569,38 @@ function ($scope, $stateParams, $rootScope, $state, dataUserRegister, UserSessio
 
 }])
 
-.controller('thanksCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('thanksCtrl', ['$scope', '$stateParams', 'dataUserRegister', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, dataUserRegister, $state) {
 
+    $scope.$on('$ionicView.enter', function () {
+      setTimeout(function() {
+        var parametros = {
+             "email": dataUserRegister.user.email,
+             "password": dataUserRegister.user.password
+           };
+           $.ajax({
+             type: "POST",
+             url: "http://startbluesoft.com/rideSafeApp/v1/index.php/userlogin",
+             data: parametros,
+             dataType: "json",
+             success: function (data) {
+                 if (data.error) {
+                     $state.go('login');
+                   } else if (!data.error) {
+                     UserSession.setData(data.id);
+                     $state.go('menu.home');
+                   }
+             },
+             error: function (xhr, status, error) {
+                 console.log(xhr.responseText);
+                 alert("No se pudo iniciar sesi�n, int�ntalo m�s tarde");
+                 $state.go('login');
+               }
+        });
+      }, 2500);
+    });
 
 }])
 
