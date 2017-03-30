@@ -625,7 +625,7 @@ function ($scope, $stateParams, S2R, $state, $ionicModal) {
   }).then(function(modal) {
     $scope.modal2 = modal;
   });
-  
+
   $ionicModal.fromTemplateUrl('modal-3.html', {
     id: '3',
     scope: $scope,

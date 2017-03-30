@@ -43,6 +43,14 @@ ion-content > div:first-child {
 
 /*********** User Register view ************/
 
+    #userRegister-heading1 {
+      font-family: "Avenir";
+      font-size: 6vw;
+      color:#FFFFFF;
+      text-align:center;
+      padding-top: 20px;
+    }
+
     .input-label {
       color: #fff;
       font-size: 14px;
@@ -367,8 +375,9 @@ ion-content > div:first-child {
     /*tabs configuration */
 
     .tab-navigation {
-    padding: 0;
-    border-bottom: solid 1px #ddd;
+      padding: 0;
+      border-bottom: solid 1px #ddd;
+      height: 42px !important;
     }
 
     .tab-navigation li {
@@ -379,15 +388,16 @@ ion-content > div:first-child {
     .tab-navigation li a {
         display: inline-block;
         border: solid 1px #ddd;
-        padding: 7px 15px;
+        padding: 10px 15px;
         text-decoration: none;
-        background: #3b3c3a;
+        background: #3b3c3a !important;
         color: #fff;
         margin: 0px -2px;
+        opacity: 1 !important;
     }
 
-    .tab-navigation .active a {
-        // border-bottom-color: #fff;
+    .tab-navigation .actived a {
+        border-bottom-color: #fff;
         border-bottom: 1px solid rgb(59, 60, 58)
     }
 
@@ -395,11 +405,21 @@ ion-content > div:first-child {
         display: none;
     }
 
-    .tab-content.active {
-        display: block;
+    .tab-content.actived {
+        display: inline-block;
         height: 100%;
-        background: #3b3c3a;
+        background: #3b3c3a !important;
         color: #fff;
+        padding-top: 20px;
+    }
+
+    .tab-item {
+      font-family: "Avenir-roman";
+      font-size: 20px;
+    }
+
+    .no-top-pos {
+      top: 0px !important;
     }
 
 /*********** USER MANUAL VIEW ***********/
