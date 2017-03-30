@@ -157,6 +157,6 @@ angular.module('app.routes', [])
   })
 
 // $urlRouterProvider.otherwise('/left-menu/my-routes')
-$urlRouterProvider.otherwise('left-menu/home')
+$urlRouterProvider.otherwise('login')
 
 });
