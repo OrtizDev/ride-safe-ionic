@@ -12,6 +12,9 @@ angular.module('app.services', [])
     },
     getData: function() {
       return window.localStorage['user-id'];
+    },
+    clearUserData: function() {
+      window.localStorage.removeItem('user-id');
     }
   };
 }])

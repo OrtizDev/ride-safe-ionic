@@ -1,12 +1,46 @@
 angular.module('app.controllers', ['uiGmapgoogle-maps'])
 
-.controller('homeCtrl', ['$scope', '$stateParams', '$log', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $log) {
+function ($scope, $stateParams, $log, $rootScope) {
+
+  $scope.blurred = function() {
+    if($("#origin").val() != ''){
+      getCoordinates($("#origin").val(), function(coord){
+        $scope.marker.coords.latitude = coord[0].geometry.location.lat();
+        $scope.marker.coords.longitude = coord[0].geometry.location.lng();
+
+        if($('#home-inputDestination').is(':hidden')){
+          $('#home-inputDestination').show();
+           var latlngd = new google.maps.LatLng((coord[0].geometry.location.lat() - 0.002971573), coord[0].geometry.location.lng());
+           $scope.markerd.coords.latitude = (coord[0].geometry.location.lat() - 0.002971573);
+           $scope.markerd.coords.longitude = coord[0].geometry.location.lng();
+         }
+
+         if($("#destination").val() != ''){
+           getDirections();
+         }
+      });
+    } else {
+      console.log("vacio");
+    }
+  }
+
+  $scope.blurredd = function() {
+    if($("#destination").val() != ''){
+      getCoordinates($("#destination").val(), function(coord){
+        $scope.markerd.coords.latitude = coord[0].geometry.location.lat();
+        $scope.markerd.coords.longitude = coord[0].geometry.location.lng();
+        getDirections();
+      });
+    } else {
+      console.log("vacio");
+    }
+  }
 
   $('#home-inputDestination').hide();
-  $scope.type_poi = 2;
+  $scope.type_poi = 0;
   $scope.map = {
     control: {},
     center: {latitude: 20.66163, longitude: -103.424501 },
@@ -23,8 +57,6 @@ function ($scope, $stateParams, $log) {
   var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
   var directionsService = new google.maps.DirectionsService();
 
-  $scope.show = true;
-
   $scope.markerd = {
       id: 1,
       coords: {
@@ -35,10 +67,10 @@ function ($scope, $stateParams, $log) {
                 icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"},
       events : {
        dragend: function (markerd, eventName, args) {
-         var latd = markerd.getPosition().lat();
-         var lond = markerd.getPosition().lng();
+         $rootScope.latd = markerd.getPosition().lat();
+         $rootScope.lond = markerd.getPosition().lng();
 
-         var latlngd = new google.maps.LatLng(latd,lond);
+         var latlngd = new google.maps.LatLng($rootScope.latd,$rootScope.lond);
 
          foo(latlngd, function(locationd){
            $('#destination').val(locationd);
@@ -64,20 +96,21 @@ function ($scope, $stateParams, $log) {
                 icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
      events: {
        dragend: function (marker, marked, eventName, args) {
-         var lat = marker.getPosition().lat();
-         var lon = marker.getPosition().lng();
+         $rootScope.lat = marker.getPosition().lat();
+         $rootScope.lon = marker.getPosition().lng();
 
          if($('#home-inputDestination').is(':hidden')){
-            var latlngd = new google.maps.LatLng((lat - 0.002971573), lon);
-            $scope.markerd.coords.latitude = (lat - 0.002971573);
-            $scope.markerd.coords.longitude = lon;
+            var latlngd = new google.maps.LatLng(($rootScope.lat - 0.002971573), $rootScope.lon);
+            $scope.markerd.coords.latitude = ($rootScope.lat - 0.002971573);
+            $scope.markerd.coords.longitude = $rootScope.lon;
           }
 
-         var latlng = new google.maps.LatLng(lat,lon);
+         var latlng = new google.maps.LatLng($rootScope.lat,$rootScope.lon);
 
          foo(latlng, function(location){
             $('#origin').val(location);
             $('#home-inputDestination').show();
+
             if($("#destination").val() === ''){
             } else {
               getDirections();
@@ -94,8 +127,6 @@ function ($scope, $stateParams, $log) {
    };
 
   $scope.polylines = [];
-
-  $scope.markerg = [];
 
  function foo(latlng, fn){
       var geocoder = new google.maps.Geocoder();
@@ -116,14 +147,15 @@ function ($scope, $stateParams, $log) {
     var data = {};
     data.start = start;
     data.end = end;
-    data.poi_in = [poi];
     data.key = 'f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc';
+    data.poi_in = [poi];
     data.weather = true;
     $.ajax({
       crossDomain:true,
       type: "GET",
       url: "https://api.sintrafico.com/route",
       data: data,
+      headers: { "X-Requested-With" : "f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc"},
       success:function(e) {
            fn (e);
       }
@@ -132,7 +164,6 @@ function ($scope, $stateParams, $log) {
 
  function getDirections(){
    getRoute($scope.marker.coords.latitude +','+ $scope.marker.coords.longitude,$scope.markerd.coords.latitude +','+ $scope.markerd.coords.longitude, $scope.type_poi, function(wps){
-     console.log(wps);
      var wp = [];
      for(var i = 0; i < wps.routes[0].geometry.coordinates.length; i++){
        wp.push({
@@ -152,76 +183,25 @@ function ($scope, $stateParams, $log) {
          geodesic: true,
          visible: true
      }];
-     $scope.markerg = [];
+     $scope.vm.markers = [];
      if(wps.routes[0].pois){
-       if($scope.type_poi == 1){
-         $scope.getToll();
-       }
-       else if($scope.type_poi == 2){
-         $scope.getGas();
-       }
-       else {
          $scope.getIncident();
-       }
      }
      $scope.$apply();
    });
  }
 
-  $scope.getToll = function() {
-    $scope.type_poi = 1;
-    getRoute($scope.marker.coords.latitude +','+ $scope.marker.coords.longitude,$scope.markerd.coords.latitude +','+ $scope.markerd.coords.longitude, $scope.type_poi, function(wps) {
-      $scope.vm.markers = [];
-      if(wps.routes[0].pois.tolls){
-        for(var i = 0; i < wps.routes[0].pois.tolls.length;i++){
-          var cost = "Costo: ";
-          wps.routes[0].pois.tolls[i].rates[0][4] ? cost=cost+wps.routes[0].pois.tolls[i].rates[0][4]:cost = cost + "-";
-              var mark = {
-                id: i,
-                latitude: wps.routes[0].pois.tolls[i].geometry.coordinates[1],
-                longitude: wps.routes[0].pois.tolls[i].geometry.coordinates[0],
-                name: wps.routes[0].pois.tolls[i].description + '<br /	>' +wps.routes[0].pois.tolls[i].address + '<br /	>' + "Costo: " + wps.routes[0].pois.tolls[i].rates[4],
-                show: false,
-                icon : './img/pines/caseta.png'
-              };
-              $scope.vm.markers.push(mark);
-          }
-          $scope.$apply();
-        }
-      });
-    }
-
-  function gasType(status){
-    if (status == 'Con anomalías' || status == 'Se negó a verificación') {
-      	url = './img/pines/gas-rojo.png';
-      } else if (status == 'No verificada') {
-      		url = './img/pines/gas-naranja.png';
-      } else {
-      		url = './img/pines/gas-verde.png';
-      }
-      	return url;
-    }
-
-  $scope.getGas = function() {
-    $scope.type_poi = 2;
-    getRoute($scope.marker.coords.latitude +','+ $scope.marker.coords.longitude,$scope.markerd.coords.latitude +','+ $scope.markerd.coords.longitude, $scope.type_poi, function(wps) {
-      $scope.vm.markers = [];
-      if(wps.routes[0].pois){
-        for(var i = 0; i < wps.routes[0].pois.gas_stations.length;i++){
-          var mark = {
-            id: i,
-            latitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[1],
-            longitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[0],
-            name: wps.routes[0].pois.gas_stations[i].description + '<br /	>' +wps.routes[0].pois.gas_stations[i].address + '<br /	>' +wps.routes[0].pois.gas_stations[i].status,
-            show: false,
-            icon: gasType(wps.routes[0].pois.gas_stations[i].status)
-          };
-          $scope.vm.markers.push(mark);
-        }
-        $scope.$apply();
-      }
-    });
-  }
+ function getCoordinates(address, fn){
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode( { address :address}, function(results, status){
+     if(status == google.maps.GeocoderStatus.OK){
+       fn (results);
+     } else {
+       fn('Location not found');
+       alert('Geocode was not successful for the following reason: ' + status);
+     }
+  });
+ }
 
   $scope.getIncident = function () {
     $scope.type_poi = 3;
@@ -262,11 +242,15 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('menuCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('menuCtrl', ['$scope', '$stateParams', '$state', 'UserSession',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $state, UserSession) {
 
+  $scope.logout = function() {
+    UserSession.clearUserData();
+    $state.go('login');
+  }
 
 }])
 
@@ -351,19 +335,23 @@ function ($scope, $stateParams, $state, $rootScope, dataUserRegister) {
            alert("No se pudieron obtener los estados");
        }
   });
+
   $scope.typegender = [
   {gender : 'F', genderName: 'Femenino'},
   {gender : 'M', genderName: 'Masculino'}
   ];
+
   $scope.max= new Date();
   $scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
   $scope.minpassword = 6;
+
   $scope.updateCi = function (state) {
-  $('#city').empty();
-  var parametros = {
-      "city" : state
-  };
-  $.ajax({
+   $('#city').empty();
+   var parametros = {
+       "city" : state
+   };
+
+   $.ajax({
       type: "POST",
       url: "http://startbluesoft.com/rideSafeApp/v1/index.php/cities",
       data: parametros,
@@ -384,35 +372,35 @@ function ($scope, $stateParams, $state, $rootScope, dataUserRegister) {
            console.log(xhr.responseText);
            alert("No se pudieron obtener las ciudades");
        }
-  });
-}
+   });
+  }
 
-$scope.motoRegis = function () {
-  dataUserRegister.user.name = $("input[name=username]").val();
-  dataUserRegister.user.appat = $("input[name=apat]").val();
-  dataUserRegister.user.apmat = $("input[name=amat]").val();
-  dataUserRegister.user.gender = $("select[name=gender_re]").val();
-  dataUserRegister.user.cell = $("input[name=cellphone]").val();
-  dataUserRegister.user.birth = $("input[name=bdate]").val();
-  dataUserRegister.user.cellemer = $("input[name=telEmer]").val();
-  dataUserRegister.user.city = $("select[name=city_re]").val();
-  dataUserRegister.user.email = $("input[name=emailRe]").val();
-  dataUserRegister.user.password = $("input[name=pass]").val();
-  if(angular.equals($("input[name=pass]").val(), $("input[name=repass]").val())){
-       $state.go('motoRegister');
-     } else {
-       alert("Las contraseñas no coinciden");
+  $scope.motoRegis = function () {
+    dataUserRegister.user.name = $("input[name=username]").val();
+    dataUserRegister.user.appat = $("input[name=apat]").val();
+    dataUserRegister.user.apmat = $("input[name=amat]").val();
+    dataUserRegister.user.gender = $("select[name=gender_re]").val();
+    dataUserRegister.user.cell = $("input[name=cellphone]").val();
+    dataUserRegister.user.birth = $("input[name=bdate]").val();
+    dataUserRegister.user.cellemer = $("input[name=telEmer]").val();
+    dataUserRegister.user.city = $("select[name=city_re]").val();
+    dataUserRegister.user.email = $("input[name=emailRe]").val();
+    dataUserRegister.user.password = $("input[name=pass]").val();
+    if(angular.equals($("input[name=pass]").val(), $("input[name=repass]").val())){
+        $state.go('motoRegister');
+      } else {
+        alert("Las contraseñas no coinciden");
      }
- }
+  }
 
- $scope.login = function () {
-   $state.go('login');
- }
+  $scope.login = function () {
+    $state.go('login');
+  }
 
- $( "input[name=bdate]" ).change(function() {
-    var dateValue = $( this ).val();
-    var splitDate = dateValue.split("-");
-    $( "#dateHolder" ).text( splitDate[2] + "/" + splitDate[1] + "/" + splitDate[0]);
+  $( "input[name=bdate]" ).change(function() {
+      var dateValue = $( this ).val();
+      var splitDate = dateValue.split("-");
+      $( "#dateHolder" ).text( splitDate[2] + "/" + splitDate[1] + "/" + splitDate[0]);
   })
   .keyup();
 
@@ -427,6 +415,65 @@ function ($scope, $stateParams, $rootScope, $state, dataUserRegister, UserSessio
     $state.go('userRegister');
   }
 
+  $.ajax({
+      type: "GET",
+      url: "http://startbluesoft.com/rideSafeApp/v1/index.php/brand",
+      dataType: 'json',
+      success: function (data) {
+          if (data.error) {
+              alert(data.message);
+          } else if (!data.error) {
+              estados = JSON.parse(data.message);
+              var toAppend = '';
+              $.each(estados, function(i, item){
+                toAppend += '<option value="'+item.id_marca_moto+'">'+item.nombre+'</option>';
+              });
+              $('#brands').append(toAppend);
+              var date = new Date();
+              var year = date.getFullYear();
+              var y = '';
+              for(i=1995; i <= year;i++){
+                y += '<option value="'+i+'">'+i+'</option>';
+              }
+              $('#year').append(y);
+          }
+       },
+       error: function (xhr, status, error) {
+           console.log(xhr.responseText);
+           alert("No se pudieron obtener las marcas");
+       }
+  });
+
+  $scope.updateMod = function (model) {
+   $('#models').empty();
+   var parametros = {
+       "brand" : model
+   };
+
+   $.ajax({
+      type: "POST",
+      url: "http://startbluesoft.com/rideSafeApp/v1/index.php/models",
+      data: parametros,
+      dataType: 'json',
+      success: function (data) {
+          if (data.error) {
+              alert(data.message);
+          } else if (!data.error) {
+              estados = JSON.parse(data.message);
+              var toAppend = '';
+              $.each(estados, function(i, item){
+                toAppend += '<option value="'+item.id_modelo+'">'+item.nombre+'</option>';
+              });
+              $('#models').append(toAppend);
+          }
+       },
+       error: function (xhr, status, error) {
+           console.log(xhr.responseText);
+           alert("No se pudieron obtener los modelos");
+       }
+   });
+   }
+
   $scope.ciudad = { checked : false };
   $scope.atv = { checked : false };
   $scope.touring = { checked : false };
@@ -437,107 +484,123 @@ function ($scope, $stateParams, $rootScope, $state, dataUserRegister, UserSessio
   $scope.carretera = { checked : false };
   $scope.otro = { checked : false };
 
-
   $scope.register = function () {
+    if($("select[id=brands").val() != null){
+      if($("select[id=models").val() != null){
+        if($("select[id=year").val() != null){
+            if($("input[id=plate]").val() != ""){
 
- alert($scope.ciudad.checked);
+              var dataMoto = {
+                "brand" : $("select[id=brands").val(),
+                "model" : $("select[id=models").val(),
+                "year"  : $("select[id=year").val(),
+                "plate" : $("input[id=plate]").val()
+              };
 
-  var dataMoto = {
-    "brand" : "Volvo",
-    "model" : "V",
-    "year"  : "2015",
-    "plate" : $("input[name=plate]").val()
-  };
-  var dataUser = {
-    'name' : dataUserRegister.user.name,
-    'apPat' : dataUserRegister.user.appat,
-    'apmat' : dataUserRegister.user.apmat,
-    'email' : dataUserRegister.user.email,
-    'pass' : dataUserRegister.user.password,
-    'birthday' : dataUserRegister.user.birth,
-    'gender' : dataUserRegister.user.gender,
-    'cellphone' : dataUserRegister.user.cell,
-    'cellemergency' : dataUserRegister.user.cellemer,
-    'admin' : 0,
-    'ciudad' : $scope.ciudad.checked? 1 : 0,
-    'touring' : $scope.touring.checked? 1 : 0,
-    'circuitos' : $scope.circuitos.checked? 1 : 0,
-    'stunt' : $scope.enduro.checked? 1 : 0,
-    'atv' : $scope.atv.checked? 1 : 0,
-    'trabajo' : $scope.trabajo.checked? 1 : 0,
-    'enduro' : $scope.enduro.checked? 1 : 0,
-    'carretera' : $scope.carretera.checked? 1 : 0,
-    'otro' : $scope.otro.checked? $("#other").val() : ""
-  };
+              var dataUser = {
+                'name' : dataUserRegister.user.name,
+                'apPat' : dataUserRegister.user.appat,
+                'apmat' : dataUserRegister.user.apmat,
+                'email' : dataUserRegister.user.email,
+                'pass' : dataUserRegister.user.password,
+                'birthday' : dataUserRegister.user.birth,
+                'gender' : dataUserRegister.user.gender,
+                'cellphone' : dataUserRegister.user.cell,
+                'cellemergency' : dataUserRegister.user.cellemer,
+                'admin' : 0,
+                'ciudad' : $scope.ciudad.checked? 1 : 0,
+                'touring' : $scope.touring.checked? 1 : 0,
+                'circuitos' : $scope.circuitos.checked? 1 : 0,
+                'stunt' : $scope.enduro.checked? 1 : 0,
+                'atv' : $scope.atv.checked? 1 : 0,
+                'trabajo' : $scope.trabajo.checked? 1 : 0,
+                'enduro' : $scope.enduro.checked? 1 : 0,
+                'carretera' : $scope.carretera.checked? 1 : 0,
+                'otro' : $scope.otro.checked? $("#other").val() : ""
+              };
 
-  $.ajax({
-    type: "POST",
-    url: "http://startbluesoft.com/rideSafeApp/v1/index.php/registmoto",
-    data: dataMoto,
-    dataType: 'json',
-    success: function (data) {
-        if (data.error) {
-            alert(data.message);
-        } else if (!data.error) {
-          $.ajax({
-            type: "POST",
-            url: "http://startbluesoft.com/rideSafeApp/v1/index.php/registuser",
-            data: dataUser,
-            dataType: 'json',
-            success: function (data) {
-                if(data.error) {
-                 alert("Intentalo más tarde");
-               } else if(!data.error){
-                 var parametros = {
-                     "email": dataUserRegister.user.email,
-                     "password": dataUserRegister.user.password
-                 };
-                 $.ajax({
-                     type: "POST",
-                     url: "http://startbluesoft.com/rideSafeApp/v1/index.php/userlogin",
-                     data: parametros,
-                     dataType: "json",
-                     success: function (data) {
-                         if (data.error) {
-                             $state.go('login');
-                         } else if (!data.error) {
-                             UserSession.setData(data.id);
-                             $state.go('menu.home');
+              $.ajax({
+                type: "POST",
+                url: "http://startbluesoft.com/rideSafeApp/v1/index.php/registmoto",
+                data: dataMoto,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.error) {
+                        alert(data.message);
+                      } else if (!data.error) {
+                        $.ajax({
+                          type: "POST",
+                          url: "http://startbluesoft.com/rideSafeApp/v1/index.php/registuser",
+                          data: dataUser,
+                          dataType: 'json',
+                          success: function (data) {
+                            if(data.error) {
+                              alert("Intentalo más tarde");
+                            } else if(!data.error){
+                              $state.go('thanks');
                          }
-                     },
-                     error: function (xhr, status, error) {
+                      },
+                       error: function (xhr, status, error) {
                          console.log(xhr.responseText);
-                         alert("No se pudo iniciar sesi�n, int�ntalo m�s tarde");
-                     }
-                 });
-
-                 alert("Registro Exitoso");
+                         alert("Fallo Registro, intentalo más tarde");
+                       }
+                    });
+                  }
+               },
+               error: function (xhr, status, error) {
+                   console.log(xhr.responseText);
+                   alert("Intentalo más tarde");
                }
-            },
-             error: function (xhr, status, error) {
-               console.log(xhr.responseText);
-               alert("Intentalo más tarde");
-             }
-          });
+             });
+            }else {
+              alert("Por favor, ingresa la matricula de tu moto");
+            }
+        } else {
+          alert("Por favor, elige un año");
         }
-     },
-     error: function (xhr, status, error) {
-         console.log(xhr.responseText);
-         alert("Intentalo más tarde");
-     }
-});
+      } else {
+        alert("Por favor, elige un modelo");
+      }
+    }else  {
+      alert("Por favor, elige una marca");
+    }
 
-}
-
-
+  }
 
 }])
 
-.controller('thanksCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('thanksCtrl', ['$scope', '$stateParams', 'dataUserRegister', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, dataUserRegister, $state) {
 
+    $scope.$on('$ionicView.enter', function () {
+      setTimeout(function() {
+        var parametros = {
+             "email": dataUserRegister.user.email,
+             "password": dataUserRegister.user.password
+           };
+           $.ajax({
+             type: "POST",
+             url: "http://startbluesoft.com/rideSafeApp/v1/index.php/userlogin",
+             data: parametros,
+             dataType: "json",
+             success: function (data) {
+                 if (data.error) {
+                     $state.go('login');
+                   } else if (!data.error) {
+                     UserSession.setData(data.id);
+                     $state.go('menu.home');
+                   }
+             },
+             error: function (xhr, status, error) {
+                 console.log(xhr.responseText);
+                 alert("No se pudo iniciar sesi�n, int�ntalo m�s tarde");
+                 $state.go('login');
+               }
+        });
+      }, 2500);
+    });
 
 }])
 
@@ -545,6 +608,51 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
+
+  $.ajax({
+      type: "GET",
+      url: "http://startbluesoft.com/rideSafeApp/v1/index.php/state",
+      dataType: 'json',
+      success: function (data) {
+          if (data.error) {
+              alert(data.message);
+          } else if (!data.error) {
+              estados = JSON.parse(data.message);
+              var toAppend = '';
+              $.each(estados, function(i, item){
+                toAppend += '<option value="'+item.id_estado+'">'+item.nombre+'</option>';
+              });
+              $('#states').append(toAppend);
+          }
+       },
+       error: function (xhr, status, error) {
+           console.log(xhr.responseText);
+           alert("No se pudieron obtener los estados");
+       }
+  });
+
+  $.ajax({
+      type: "GET",
+      url: "http://startbluesoft.com/rideSafeApp/v1/index.php/thematic",
+      dataType: 'json',
+      success: function (data) {
+          if (data.error) {
+              alert(data.message);
+          } else if (!data.error) {
+              estados = JSON.parse(data.message);
+              var toAppend = '';
+              $.each(estados, function(i, item){
+                toAppend += '<option value="'+item.id_tematica+'">'+item.nombre+'</option>';
+              });
+              $('#thematics').append(toAppend);
+          }
+       },
+       error: function (xhr, status, error) {
+           console.log(xhr.responseText);
+           alert("No se pudieron obtener los estados");
+       }
+  });
+
 
 
 }])
@@ -825,6 +933,10 @@ function ($scope, $stateParams, $state, Alert) {
       $scope.type_alert = item;
     };
 
+    $scope.weather = function(){
+      $state.go('weatherAlert');
+    };
+
     $(".alert-item").click(function () {
       $(".alert-item").removeClass("active");
       $(this).addClass("active");
@@ -882,18 +994,310 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('routeReviewCtrl', ['$scope', '$stateParams',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('routeReviewCtrl', ['$scope', '$stateParams', '$rootScope', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $rootScope, $state) {
+
+  $scope.type_poi = 0;
+
+  $scope.$on('$ionicView.enter', function () {
+
+    $scope.mapr = {
+      control: {},
+      center: {latitude: $rootScope.lat, longitude: $rootScope.lon },
+      zoom: 15,
+      options: {
+             panControl: false,
+             zoomControl: true,
+             mapTypeControl: false,
+             disableDefaultUI: true,
+             scrollwheel: false
+         }
+    };
+
+    $scope.markerr = {
+        id: 0,
+        coords: {
+          latitude: $rootScope.lat,
+          longitude: $rootScope.lon
+        },
+        options: { draggable: false,
+                    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                    }
+    };
+
+    $scope.markerdr = {
+          id: 0,
+          coords: {
+            latitude: $rootScope.latd,
+            longitude: $rootScope.lond
+          },
+          options: { draggable: false,
+                    icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                  }
+    };
+
+    getRoute( function(wps){
+      console.log(wps);
+      var wp = [];
+      for(var i = 0; i < wps.routes[0].geometry.coordinates.length; i++){
+        wp.push({
+          latitude: wps.routes[0].geometry.coordinates[i][1],
+          longitude: wps.routes[0].geometry.coordinates[i][0]
+        });
+      }
+      $scope.polylinesr = [{
+          id: 1,
+          path: wp,
+          stroke: {
+            color: '#223D75',
+            weight: 5
+          },
+          editable: true,
+          draggable: true,
+          geodesic: true,
+          visible: true
+      }];
+      //$scope.vmr.markers = [];
+      // if(wps.routes[0].pois){
+      //   if($scope.type_poi == 1){
+      //     $scope.getToll();
+      //   }
+      //   else if($scope.type_poi == 2){
+      //     $scope.getGas();
+      //   }
+      //   else {
+      //     $scope.getIncident();
+      //   }
+      // }
+      $scope.$apply();
+    });
+
+  });
+
+  function getRoute(fn){
+      var data = {};
+      data.start = $rootScope.lat+','+$rootScope.lon;
+      data.end = $rootScope.latd+','+$rootScope.lond;
+      data.poi_in = [$scope.type_poi];
+      data.weather = true;
+      $.ajax({
+        crossDomain:true,
+        type: "GET",
+        url: "https://api.sintrafico.com/route",
+        data: data,
+        headers: { "X-Requested-With" : "f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc"},
+        success:function(e) {
+            fn (e);
+          }
+        });
+  }
+
+  $scope.getGas = function() {
+    $scope.type_poi = 2;
+    getRoute(function(wps) {
+      $scope.vmr.markers = [];
+      if(wps.routes[0].pois){
+        for(var i = 0; i < wps.routes[0].pois.gas_stations.length;i++){
+          var mark = {
+            id: i,
+            latitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[1],
+            longitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[0],
+            name: wps.routes[0].pois.gas_stations[i].description + '<br /	>' +wps.routes[0].pois.gas_stations[i].address + '<br /	>' +wps.routes[0].pois.gas_stations[i].status,
+            show: false,
+            icon: gasType(wps.routes[0].pois.gas_stations[i].status)
+          };
+          $scope.vmr.markers.push(mark);
+        }
+        $scope.$apply();
+      }
+    });
+  }
+
+  $scope.getIncident = function () {
+    $scope.type_poi = 3;
+    getRoute( function(wps){
+      $scope.vmr.markers = [];
+      if(wps.routes[0].pois){
+        for(var i = 0; i < wps.routes[0].pois.incidents.length;i++){
+            var mark = {
+              id: i,
+              latitude: wps.routes[0].pois.incidents[i].geometry.coordinates[1],
+              longitude: wps.routes[0].pois.incidents[i].geometry.coordinates[0],
+              name: wps.routes[0].pois.incidents[i].description + '<br /	>' +wps.routes[0].pois.incidents[i].address,
+              show: false,
+              icon: './img/pines/accidente-grave.png'
+            };
+          $scope.vmr.markers.push(mark);
+        }
+        $scope.$apply();
+      }
+    });
+  }
+
+  $scope.getToll = function () {
+    $scope.type_poi = 1;
+    getRoute(function(wps) {
+      console.log(wps);
+      $scope.vmr.markers = [];
+      if(wps.routes[0].pois.tolls){
+        for(var i = 0; i < wps.routes[0].pois.tolls.length;i++){
+          var cost = "Costo: ";
+          wps.routes[0].pois.tolls[i].rates[0][4] ? cost=cost+wps.routes[0].pois.tolls[i].rates[0][4] : cost = cost + "-";
+              var mark = {
+                id: i,
+                latitude: wps.routes[0].pois.tolls[i].geometry.coordinates[1],
+                longitude: wps.routes[0].pois.tolls[i].geometry.coordinates[0],
+                name: wps.routes[0].pois.tolls[i].description + '<br /	>' +wps.routes[0].pois.tolls[i].address + '<br /	>' + "Costo: " + wps.routes[0].pois.tolls[i].rates[4],
+                show: false,
+                icon : './img/pines/caseta.png'
+              };
+              $scope.vmr.markers.push(mark);
+          }
+          $scope.$apply();
+        }
+      });
+    }
+
+  $scope.getWeather = function () {
+    getRoute(function(wps) {
+      $scope.vmr.markers = [];
+      if(wps.routes[0].legs){
+        console.log(wps.routes[0].legs[0].steps);
+        for(var i = 1; i < wps.routes[0].legs[0].steps.length;i++){
+          //console.log(wps.routes[0].legs[0].steps[i].weather.main.temp);
+          if(wps.routes[0].legs[0].steps[i].weather){
+            var mark = {
+              id: i,
+              latitude: wps.routes[0].legs[0].steps[i].geometry.coordinates[0][1] ,
+              longitude: wps.routes[0].legs[0].steps[i].geometry.coordinates[0][0],
+              name:"Temperatura: "+ (wps.routes[0].legs[0].steps[i].weather.main.temp - 273.15)+"°C"+'<br />'+"Clima: "+wps.routes[0].legs[0].steps[i].weather.weather[0].description,
+              show: false,
+              icon: './img/pines/soleado.png'
+            };
+            $scope.vmr.markers.push(mark);
+          }
+        }
+        $scope.$apply();
+      }
+    });
+  }
+
+  $scope.vmr = [];
+
+  $scope.vmr.markers = [];
+
+  function gasType(status){
+    if (status == 'Con anomalías' || status == 'Se negó a verificación') {
+      	url = './img/pines/gas-rojo.png';
+      } else if (status == 'No verificada') {
+      		url = './img/pines/gas-naranja.png';
+      } else {
+      		url = './img/pines/gas-verde.png';
+      }
+      	return url;
+  }
+
+  $scope.back = function() {
+      $state.go('menu.home');
+  };
+
+  $scope.polylinesr = [];
 
 
 }])
 
-.controller('onRouteCtrl', ['$scope', '$stateParams', '$ionicPopover', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('onRouteCtrl', ['$scope', '$stateParams', '$ionicPopover', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicPopover) {
+function ($scope, $stateParams, $ionicPopover, $rootScope) {
+
+  $scope.$on('$ionicView.enter', function (){
+    $scope.mapo = {
+      control: {},
+      center: {latitude: $rootScope.lat, longitude: $rootScope.lon },
+      zoom: 15,
+      options: {
+             panControl: false,
+             zoomControl: true,
+             mapTypeControl: false,
+             disableDefaultUI: true,
+             scrollwheel: false
+         }
+    };
+
+    $scope.markero = {
+        id: 0,
+        coords: {
+          latitude: $rootScope.lat,
+          longitude: $rootScope.lon
+        },
+        options: { draggable: false,
+                    icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                    }
+    };
+
+    $scope.markerdo = {
+          id: 0,
+          coords: {
+            latitude: $rootScope.latd,
+            longitude: $rootScope.lond
+          },
+          options: { draggable: false,
+                    icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                  }
+    };
+
+    getRoute( function(wps){
+      var wp = [];
+      for(var i = 0; i < wps.routes[0].geometry.coordinates.length; i++){
+        wp.push({
+          latitude: wps.routes[0].geometry.coordinates[i][1],
+          longitude: wps.routes[0].geometry.coordinates[i][0]
+        });
+      }
+      $scope.polylineso = [{
+          id: 1,
+          path: wp,
+          stroke: {
+            color: '#223D75',
+            weight: 5
+          },
+          editable: true,
+          draggable: true,
+          geodesic: true,
+          visible: true
+      }];
+      $scope.$apply();
+    });
+
+  });
+
+  function getRoute(fn){
+      var data = {};
+      data.start = $rootScope.lat+','+$rootScope.lon;
+      data.end = $rootScope.latd+','+$rootScope.lond;
+      data.poi_in = [$scope.type_poi];
+      data.weather = true;
+      $.ajax({
+        crossDomain:true,
+        type: "GET",
+        url: "https://api.sintrafico.com/route",
+        data: data,
+        headers: { "X-Requested-With" : "f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc"},
+        success:function(e) {
+            fn (e);
+          }
+        });
+  }
+
+  $scope.vmo = [];
+
+  $scope.vmo.markers = [];
+
+  $scope.polylineso = [];
+
 
   // Function to close the alerts menu if clicked anywhere in the view
     $(document).click(function(evt) {
