@@ -246,11 +246,18 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $state, UserSession) {
+  $scope.name = "";
 
   $scope.logout = function() {
     UserSession.clearUserData();
     $state.go('login');
   }
+
+  $scope.$on('$ionicView.enter', function () {
+      $scope.name = UserSession.getName();
+
+  });
+
 
 }])
 
@@ -289,7 +296,7 @@ function ($scope, $stateParams, $state, UserSession  ) {
                   if (data.error) {
                       alert(data.message);
                   } else if (!data.error) {
-                      UserSession.setData(data.id);
+                      UserSession.setData(data.id, data.nombre);
                       $state.go('menu.home');
                   }
               },
@@ -589,7 +596,7 @@ function ($scope, $stateParams, dataUserRegister, $state) {
                  if (data.error) {
                      $state.go('login');
                    } else if (!data.error) {
-                     UserSession.setData(data.id);
+                     UserSession.setData(data.id, data.nombre);
                      $state.go('menu.home');
                    }
              },
