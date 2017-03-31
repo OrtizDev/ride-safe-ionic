@@ -7,14 +7,19 @@ angular.module('app.services', [])
 
 .factory('UserSession', [function () {
   return {
-    setData: function (id) {
+    setData: function (id, nombre) {
       window.localStorage['user-id'] = id;
+      window.localStorage['nombre'] = nombre;
     },
     getData: function() {
       return window.localStorage['user-id'];
     },
+    getName: function() {
+      return window.localStorage['nombre'];
+    },
     clearUserData: function() {
       window.localStorage.removeItem('user-id');
+      window.localStorage.removeItem('nombre');
     }
   };
 }])
