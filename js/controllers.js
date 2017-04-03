@@ -5,6 +5,35 @@ angular.module('app.controllers', ['uiGmapgoogle-maps'])
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $log, $rootScope) {
 
+  $scope.latitudei = 20.66163;
+  $scope.longitudei = -103.424501;
+  $scope.$on('$ionicView.loaded', function () {
+    if (window.cordova) {
+      cordova.plugins.diagnostic.isLocationEnabled(function(enabled) {
+        if(enabled){
+        } else {
+          alert("El GPS esta " + (enabled ? "enabled" : "desactivado, por favor activalo"));
+          cordova.plugins.diagnostic.switchToLocationSettings();
+        }
+    }, function(error) {
+        alert("The following error occurred: " + error);
+    });
+   }
+  });
+
+  $scope.$on('$ionicView.enter',  function () {
+    if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(function(position){
+         $scope.$apply(function(){
+            $scope.latitudei = position.coords.latitude;
+            $scope.longitudei = position.coords.longitude;
+
+         });
+       });
+     }
+  });
+
+
   $scope.blurred = function() {
     if($("#origin").val() != ''){
       getCoordinates($("#origin").val(), function(coord){
@@ -40,14 +69,16 @@ function ($scope, $stateParams, $log, $rootScope) {
   }
 
   $('#home-inputDestination').hide();
+
   $scope.type_poi = 0;
+
   $scope.map = {
     control: {},
-    center: {latitude: 20.66163, longitude: -103.424501 },
+    center: {latitude: $scope.latitudei, longitude: $scope.longitudei },
     zoom: 15,
     options: {
            panControl: false,
-           zoomControl: true,
+           zoomControl: false,
            mapTypeControl: false,
            disableDefaultUI: true,
            scrollwheel: false
@@ -89,8 +120,8 @@ function ($scope, $stateParams, $log, $rootScope) {
   $scope.marker = {
      id: 0,
      coords: {
-       latitude: 20.66163,
-       longitude: -103.424501
+       latitude: $scope.latitudei,
+       longitude: $scope.longitudei
      },
      options: { draggable: true,
                 icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
@@ -246,11 +277,18 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $state, UserSession) {
+  $scope.name = "";
 
   $scope.logout = function() {
     UserSession.clearUserData();
     $state.go('login');
   }
+
+  $scope.$on('$ionicView.enter', function () {
+      $scope.name = UserSession.getName();
+
+  });
+
 
 }])
 
@@ -289,7 +327,7 @@ function ($scope, $stateParams, $state, UserSession  ) {
                   if (data.error) {
                       alert(data.message);
                   } else if (!data.error) {
-                      UserSession.setData(data.id);
+                      UserSession.setData(data.id, data.nombre);
                       $state.go('menu.home');
                   }
               },
@@ -589,7 +627,7 @@ function ($scope, $stateParams, dataUserRegister, $state) {
                  if (data.error) {
                      $state.go('login');
                    } else if (!data.error) {
-                     UserSession.setData(data.id);
+                     UserSession.setData(data.id, data.nombre);
                      $state.go('menu.home');
                    }
              },
