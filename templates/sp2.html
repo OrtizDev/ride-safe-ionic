@@ -54,17 +54,8 @@
       </div>
     </div>
     <div id="caravan_container" class="background-odd" style="height: 25vh;">
-      <div id="sp2-markdown15" style="text-align:center;" class="show-list-numbers-and-dots">
-        <p style="font-size: 20px; padding-top: 25px;">Modo caravana</p>
-      </div>
-      <form id="sp2-form25" class="list">
-        <ion-toggle ng-model="pushNotiMC.checked" toggle-class="toggle-balanced" ng-checked="true" id="sp2-toggle6" class="secure-checkbox" style="padding-left: 30%;"></ion-toggle>
-        <div id="sp2-markdown20" style="text-align:right; margin: 40px 20% 0px 55%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
-          <!-- To trigger the modal, please add the following parameter in the before div with id = sp2-markdown20 -->
-          <!-- ng-click="openModal(5)"-->
-          <p class="config-text" style="font-size: 12px;">Configurar</p>
-        </div>
-      </form>
+      <button ng-click="facebookLink()" id="sp2-buttonFb" style="" class="button button-balanced button-large col-12 facebook-button">Vincular con Facebook</button>
+      <button ng-click="whatsappLink()" id="sp2-buttonWs" style="" class="button button-balanced button-large col-12 whatsapp-button">Vincular con WhatsApp</button>
       <div class="spacer" style="width: 300px; height: 20px;"></div>
     </div>
     <div class="bottom-buttons">
@@ -93,8 +84,8 @@
               <img class="social-icon" src="img/whatsapp.png">
             </div>
             <div>
-              <ion-toggle toggle-class="toggle-balanced" class="left-toggle">Toggle</ion-toggle>
-              <ion-toggle toggle-class="toggle-balanced" class="right-toggle">Toggle</ion-toggle>
+              <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookImpacts.status" ng-change="facebookImpacts()">Facebook</ion-toggle>
+              <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="whatsappImpacts.status" ng-change="whatsappImpacts()">WhatsApp</ion-toggle>
             </div>
           </div>
           <div>

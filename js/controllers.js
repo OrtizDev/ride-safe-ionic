@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['uiGmapgoogle-maps'])
+angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB'])
 
 .controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
@@ -823,10 +823,10 @@ function ($scope, $stateParams, $rootScope, $state) {
 
 }])
 
-.controller('sp2Ctrl', ['$scope', '$stateParams', 'S2R', '$state', '$ionicModal',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('sp2Ctrl', ['$scope', '$stateParams', 'S2R', '$state', '$ionicModal', 'ngFB', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, S2R, $state, $ionicModal) {
+function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB) {
 
   $scope.$on('$ionicView.enter', function () {
       var IC = S2R.getEstateS2R_IC();
@@ -988,6 +988,42 @@ function ($scope, $stateParams, S2R, $state, $ionicModal) {
     }
   });
 
+  //First modal settings
+  $scope.facebookImpacts = function(){
+    if($scope.facebookImpacts.status){
+      console.log("Enabled Facebook for Impacts");
+      ngFB.api({
+        method: 'POST',
+        path: '/me/feed',
+        params: {
+          message: "Test"
+        }
+      }).then(function() {
+        console.log('The session was shared on Facebook');
+      }, function() {
+        alert("Debes vincular tu cuenta con Facebook");
+        $scope.facebookImpacts.status = false;
+        console.log('An error occurred while sharing this session on Facebook');
+      });
+    }else{
+      console.log("Disabled Facebook for Impacts");
+    }
+  }
+
+  //Facebook access
+  $scope.facebookLink = function(){
+    console.log("Facebook link clicked");
+    //Checks the login status
+    ngFB.login({scope: 'email'}).then(function (response) {
+      if (response.status === 'connected') {
+        console.log('Facebook login succeeded');
+        $scope.closeLogin();
+      } else {
+        alert("Hubo un error al vincular la cuenta");
+        console.log('Facebook login failed');
+      }
+    });
+  }
 
 }])
 
