@@ -1,6 +1,6 @@
-angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB'])
+angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage'])
 
-.controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $log, $rootScope) {
@@ -823,10 +823,18 @@ function ($scope, $stateParams, $rootScope, $state) {
 
 }])
 
-.controller('sp2Ctrl', ['$scope', '$stateParams', 'S2R', '$state', '$ionicModal', 'ngFB', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('sp2Ctrl', ['$scope', '$stateParams', 'S2R', '$state', '$ionicModal', 'ngFB', '$localStorage',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB) {
+function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
+
+  if($localStorage.fbLoggedIn){
+    $scope.textFbLink = "Vinculado con Facebook";
+    $scope.fbButtonDisabled = true;
+  }else{
+    $scope.textFbLink = "Vincular con Facebook";
+    $scope.fbButtonDisabled = false;
+  }
 
   $scope.$on('$ionicView.enter', function () {
       var IC = S2R.getEstateS2R_IC();
@@ -927,6 +935,11 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB) {
   $scope.openModal = function(index) {
     switch (index) {
       case 1:
+        if($localStorage.fbImpact){
+          $scope.facebookImpacts.status = true;
+        }else{
+          $scope.facebookImpacts.status = false;
+        }
         $scope.modal1.show();
         break;
       case 2:
@@ -991,34 +1004,32 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB) {
   //First modal settings
   $scope.facebookImpacts = function(){
     if($scope.facebookImpacts.status){
-      console.log("Enabled Facebook for Impacts");
-      ngFB.api({
-        method: 'POST',
-        path: '/me/feed',
-        params: {
-          message: "Test"
-        }
-      }).then(function() {
-        console.log('The session was shared on Facebook');
-      }, function() {
-        alert("Debes vincular tu cuenta con Facebook");
+      if($localStorage.fbLoggedIn){
+        console.log("Enabled Facebook for Impacts");
+        $localStorage.fbImpact = $scope.facebookImpacts.status;
+      }else{
         $scope.facebookImpacts.status = false;
-        console.log('An error occurred while sharing this session on Facebook');
-      });
+        alert("Debes vincular tu cuenta con Facebook");
+        console.log("Cannot enable Facebook for Impacts, no permissions");
+      }
     }else{
+      delete $localStorage.fbImpact;
       console.log("Disabled Facebook for Impacts");
     }
   }
 
   //Facebook access
+  //If the button "Vincular con Facebook" is clicked, we execute the linking to Facebook
   $scope.facebookLink = function(){
-    console.log("Facebook link clicked");
+    console.log("Facebook button clicked");
     //Checks the login status
     ngFB.login({scope: 'email'}).then(function (response) {
       if (response.status === 'connected') {
         console.log('Facebook login succeeded');
+        $localStorage.fbLoggedIn = true;
         $scope.closeLogin();
       } else {
+        $localStorage.fbLoggedIn = false;
         alert("Hubo un error al vincular la cuenta");
         console.log('Facebook login failed');
       }

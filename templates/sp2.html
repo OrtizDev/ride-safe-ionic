@@ -54,7 +54,7 @@
       </div>
     </div>
     <div id="caravan_container" class="background-odd" style="height: 25vh;">
-      <button ng-click="facebookLink()" id="sp2-buttonFb" style="" class="button button-balanced button-large col-12 facebook-button">Vincular con Facebook</button>
+      <button ng-click="facebookLink()" id="sp2-buttonFb" style="" ng-disabled="fbButtonDisabled" class="button button-balanced button-large col-12 facebook-button">{{ textFbLink }}</button>
       <button ng-click="whatsappLink()" id="sp2-buttonWs" style="" class="button button-balanced button-large col-12 whatsapp-button">Vincular con WhatsApp</button>
       <div class="spacer" style="width: 300px; height: 20px;"></div>
     </div>
