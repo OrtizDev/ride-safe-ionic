@@ -226,24 +226,24 @@
                 <div class="modal-text" style="margin: 0px 15px;">
                   <p>Avisar de aproximación a zona de accidentes frecuentes</p>
                 </div>
-                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle">Toggle</ion-toggle>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle" ng-model="accidentToggle.status" ng-change="accidentToggle()">Accident</ion-toggle>
               </div>
               <div>
                 <div class="modal-text" style="margin: 0px 15px;">
                   <p>Avisar de aproximacion a zona de robos frecuentes</p>
                 </div>
-                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle">Toggle</ion-toggle>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle" ng-model="theftsToggle.status" ng-change="theftsToggle()">Thefts</ion-toggle>
               </div>
               <div>
                 <div class="modal-text" style="margin: 0px 15px;">
                   <p>Aviso de exceso de velocidad</p>
                 </div>
-                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle">Toggle</ion-toggle>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle" ng-model="speedToggle.status" ng-change="speedToggle()">Speed</ion-toggle>
               </div>
             </div>
             <div>
               <div style="margin-right:-20px;">
-                <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+                <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveRisks()">GUARDAR</button>
               </div>
             </div>
           </ion-content>

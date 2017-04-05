@@ -971,6 +971,21 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
         $scope.modal2.show();
         break;
       case 3:
+        if($localStorage.thefts){
+          $scope.theftsToggle.status = true;
+        }else{
+          $scope.theftsToggle.status = false;
+        }
+        if($localStorage.speed){
+          $scope.speedToggle.status = true;
+        }else{
+          $scope.speedToggle.status = false;
+        }
+        if($localStorage.accident){
+          $scope.accidentToggle.status = true;
+        }else{
+          $scope.accidentToggle.status = false;
+        }
         $scope.modal3.show();
         break;
       case 4:
@@ -1096,6 +1111,37 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
     }
   }
 
+  //Third modal settings
+  $scope.accidentToggle = function(){
+    if($scope.accidentToggle.status){
+      $localStorage.accident = $scope.accidentToggle.status;
+      console.log("Enabled accidents config");
+    }else{
+      delete $localStorage.accident;
+      console.log("Disabled Accidents config");
+    }
+  }
+
+  $scope.theftsToggle = function(){
+    if($scope.theftsToggle.status){
+      $localStorage.thefts = $scope.theftsToggle.status;
+      console.log("Enabled thefts config");
+    }else{
+      delete $localStorage.thefts;
+      console.log("Disabled thefts config");
+    }
+  }
+
+  $scope.speedToggle = function(){
+    if($scope.speedToggle.status){
+      $localStorage.speed = $scope.speedToggle.status;
+      console.log("Enabled speed config");
+    }else{
+      delete $localStorage.speed;
+      console.log("Disabled speed config");
+    }
+  }
+
   //Fourth modal settings
   $scope.facebookTracking = function(){
     if($scope.facebookTracking.status){
@@ -1156,6 +1202,13 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
       $localStorage.msgTracking = msg.Tracking;
     }
     $scope.modal4.hide();
+    $('#sp2_content').removeClass("blur-efect");
+  }
+
+  //Close the third modal and "saves" (not actually) the configs
+  $scope.saveRisks = function(){
+    console.log("Saving risks configs");
+    $scope.modal3.hide();
     $('#sp2_content').removeClass("blur-efect");
   }
 
