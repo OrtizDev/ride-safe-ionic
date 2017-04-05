@@ -968,6 +968,11 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
         }else{
           $scope.smsDetour.status = false;
         }
+        if($localStorage.kmDetour){
+          $scope.kmDetour = $localStorage.kmDetour;
+        }else{
+          $scope.kmDetour = 1;
+        }
         $scope.modal2.show();
         break;
       case 3:
@@ -986,6 +991,11 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
         }else{
           $scope.accidentToggle.status = false;
         }
+        if($localStorage.kmRisk){
+          $scope.kmRisk = $localStorage.kmRisk;
+        }else{
+          $scope.kmRisk = 1;
+        }
         $scope.modal3.show();
         break;
       case 4:
@@ -1003,6 +1013,11 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
           $scope.smsTracking.status = true;
         }else{
           $scope.smsTracking.status = false;
+        }
+        if($localStorage.kmTracking){
+          $scope.kmTracking = $localStorage.kmTracking;
+        }else{
+          $scope.kmTracking = 1;
         }
         $scope.modal4.show();
         break;
@@ -1111,6 +1126,11 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
     }
   }
 
+  $scope.updateKmSelectedDetour = function(kmDetour){
+    $localStorage.kmDetour = kmDetour;
+    console.log("Updated KM for Detour");
+  }
+
   //Third modal settings
   $scope.accidentToggle = function(){
     if($scope.accidentToggle.status){
@@ -1142,6 +1162,11 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
     }
   }
 
+  $scope.updateKmSelectedRisk = function(kmRisk){
+    $localStorage.kmRisk = kmRisk;
+    console.log("Updated KM for Risk");
+  }
+
   //Fourth modal settings
   $scope.facebookTracking = function(){
     if($scope.facebookTracking.status){
@@ -1167,6 +1192,11 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
       delete $localStorage.smsTracking;
       console.log("Disabled SMS for Tracking");
     }
+  }
+
+  $scope.updateKmSelectedTracking = function(kmTracking){
+    $localStorage.kmTracking = kmTracking;
+    console.log("Updated KM for Tracking");
   }
 
   //Store the message for impacts
