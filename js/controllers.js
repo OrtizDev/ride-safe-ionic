@@ -836,6 +836,14 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
     $scope.fbButtonDisabled = false;
   }
 
+  if($localStorage.wsLoggedIn){
+    $scope.textWsLink = "Vinculado con WhatsApp";
+    $scope.wsButtonDisabled = true;
+  }else{
+    $scope.textWsLink = "Vincular con WhatsApp";
+    $scope.wsButtonDisabled = false;
+  }
+
   $scope.$on('$ionicView.enter', function () {
       var IC = S2R.getEstateS2R_IC();
       var DR = S2R.getEstateS2R_DR();
@@ -940,9 +948,24 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
         }else{
           $scope.facebookImpacts.status = false;
         }
+        if($localStorage.msgImpacts){
+          $scope.msg = { Impacts: $localStorage.msgImpacts };
+        }else{
+          $scope.msg = { Impacts: "" };
+        }
         $scope.modal1.show();
         break;
       case 2:
+        if($localStorage.fbDetour){
+          $scope.facebookDetour.status = true;
+        }else{
+          $scope.facebookDetour.status = false;
+        }
+        if($localStorage.msgDetour){
+          $scope.msg = { Detour: $localStorage.msgDetour };
+        }else{
+          $scope.msg = { Detour: "" };
+        }
         $scope.modal2.show();
         break;
       case 3:
@@ -1018,6 +1041,47 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
     }
   }
 
+  //Second modal settings
+  $scope.facebookDetour = function(){
+    if($scope.facebookDetour.status){
+      if($localStorage.fbLoggedIn){
+        console.log("Enabled Facebook for Detour");
+        $localStorage.fbDetour = $scope.facebookDetour.status;
+      }else{
+        $scope.facebookDetour.status = false;
+        alert("Debes vincular tu cuenta con Facebook");
+        console.log("Cannot enable Facebook for Detour, no permissions");
+      }
+    }else{
+      delete $localStorage.fbDetour;
+      console.log("Disabled Facebook for Detour");
+    }
+  }
+
+  //Store the message for impacts
+  $scope.saveImpacts = function(msg){
+    if(msg.Impacts == ""){
+      delete $localStorage.msgImpacts;
+    }else{
+      console.log("Saving impacts message");
+      $localStorage.msgImpacts = msg.Impacts;
+    }
+    $scope.modal1.hide();
+    $('#sp2_content').removeClass("blur-efect");
+  }
+
+  //Store the message for detours
+  $scope.saveDetour = function(msg){
+    if(msg.Detour == ""){
+      delete $localStorage.msgDetour;
+    }else{
+      console.log("Saving detour message");
+      $localStorage.msgDetour = msg.Detour;
+    }
+    $scope.modal2.hide();
+    $('#sp2_content').removeClass("blur-efect");
+  }
+
   //Facebook access
   //If the button "Vincular con Facebook" is clicked, we execute the linking to Facebook
   $scope.facebookLink = function(){
@@ -1027,7 +1091,7 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
       if (response.status === 'connected') {
         console.log('Facebook login succeeded');
         $localStorage.fbLoggedIn = true;
-        $scope.closeLogin();
+        // $scope.closeLogin(); //Temporary disabled due an error which shows closeLogin() is not defined, I don't know if this works in the devices but for now, is disabled
       } else {
         $localStorage.fbLoggedIn = false;
         alert("Hubo un error al vincular la cuenta");

@@ -55,7 +55,7 @@
     </div>
     <div id="caravan_container" class="background-odd" style="height: 25vh;">
       <button ng-click="facebookLink()" id="sp2-buttonFb" style="" ng-disabled="fbButtonDisabled" class="button button-balanced button-large col-12 facebook-button">{{ textFbLink }}</button>
-      <button ng-click="whatsappLink()" id="sp2-buttonWs" style="" class="button button-balanced button-large col-12 whatsapp-button">Vincular con WhatsApp</button>
+      <button ng-click="whatsappLink()" id="sp2-buttonWs" style="" ng-disabled="wsButtonDisabled" class="button button-balanced button-large col-12 whatsapp-button">{{ textWsLink }}</button>
       <div class="spacer" style="width: 300px; height: 20px;"></div>
     </div>
     <div class="bottom-buttons">
@@ -92,11 +92,11 @@
             <div class="modal-text" class="show-list-numbers-and-dots">
               <p>Configurar message</p>
               <label class="item item-input" style="width: 90%; margin-left: 5%;">
-                <textarea placeholder="" style="min-height: 70px;"></textarea>
+                <textarea placeholder="" style="min-height: 70px;" ng-model="msg.Impacts"></textarea>
               </label>
             </div>
             <div style="margin-right:-20px;">
-              <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+              <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveImpacts(msg)">GUARDAR</button>
             </div>
           </div>
         </ion-content>
@@ -124,8 +124,8 @@
                <img class="social-icon" src="img/whatsapp.png">
              </div>
              <div>
-               <ion-toggle toggle-class="toggle-balanced" class="left-toggle">Toggle</ion-toggle>
-               <ion-toggle toggle-class="toggle-balanced" class="right-toggle">Toggle</ion-toggle>
+               <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookDetour.status" ng-change="facebookDetour()">Facebook</ion-toggle>
+               <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="whatsappDetour.status" ng-change="whatsappDetour()">WhatsApp</ion-toggle>
              </div>
            </div>
            <div style="margin: 15px 0px;">
@@ -166,11 +166,11 @@
              <div class="modal-text" class="show-list-numbers-and-dots">
                <p>Configurar message</p>
                <label class="item item-input" style="width: 90%; margin-left: 5%;">
-                 <textarea placeholder="" style="min-height: 70px;"></textarea>
+                 <textarea placeholder="" style="min-height: 70px;" ng-model="msg.Detour"></textarea>
                </label>
              </div>
              <div style="margin-right:-20px;">
-               <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+               <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveDetour(msg)">GUARDAR</button>
              </div>
            </div>
          </ion-content>
