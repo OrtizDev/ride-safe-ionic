@@ -54,8 +54,8 @@
       </div>
     </div>
     <div id="caravan_container" class="background-odd" style="height: 25vh;">
+      <div class="spacer" style="width: 300px; height: 25%;"></div>
       <button ng-click="facebookLink()" id="sp2-buttonFb" style="" ng-disabled="fbButtonDisabled" class="button button-balanced button-large col-12 facebook-button">{{ textFbLink }}</button>
-      <button ng-click="whatsappLink()" id="sp2-buttonWs" style="" ng-disabled="wsButtonDisabled" class="button button-balanced button-large col-12 whatsapp-button">{{ textWsLink }}</button>
       <div class="spacer" style="width: 300px; height: 20px;"></div>
     </div>
     <div class="bottom-buttons">
@@ -85,7 +85,7 @@
             </div>
             <div>
               <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookImpacts.status" ng-change="facebookImpacts()">Facebook</ion-toggle>
-              <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="whatsappImpacts.status" ng-change="whatsappImpacts()">WhatsApp</ion-toggle>
+              <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="smsImpacts.status" ng-change="smsImpacts()">SMS</ion-toggle>
             </div>
           </div>
           <div>
@@ -125,7 +125,7 @@
              </div>
              <div>
                <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookDetour.status" ng-change="facebookDetour()">Facebook</ion-toggle>
-               <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="whatsappDetour.status" ng-change="whatsappDetour()">WhatsApp</ion-toggle>
+               <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="smsDetour.status" ng-change="smsDetour()">SMS</ion-toggle>
              </div>
            </div>
            <div style="margin: 15px 0px;">
@@ -306,7 +306,7 @@
                </div>
                <div>
                  <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookTracking.status" ng-change="facebookTracking()">Facebook</ion-toggle>
-                 <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="whatsappTracking.status" ng-change="whatsappTracking()">WhatsApp</ion-toggle>
+                 <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="smsTracking.status" ng-change="smsTracking()">SMS</ion-toggle>
                </div>
              </div>
              <div>

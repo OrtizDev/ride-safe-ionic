@@ -836,14 +836,6 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
     $scope.fbButtonDisabled = false;
   }
 
-  if($localStorage.wsLoggedIn){
-    $scope.textWsLink = "Vinculado con WhatsApp";
-    $scope.wsButtonDisabled = true;
-  }else{
-    $scope.textWsLink = "Vincular con WhatsApp";
-    $scope.wsButtonDisabled = false;
-  }
-
   $scope.$on('$ionicView.enter', function () {
       var IC = S2R.getEstateS2R_IC();
       var DR = S2R.getEstateS2R_DR();
@@ -953,6 +945,11 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
         }else{
           $scope.msg = { Impacts: "" };
         }
+        if($localStorage.smsImpact){
+          $scope.smsImpacts.status = true;
+        }else{
+          $scope.smsImpacts.status = false;
+        }
         $scope.modal1.show();
         break;
       case 2:
@@ -965,6 +962,11 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
           $scope.msg = { Detour: $localStorage.msgDetour };
         }else{
           $scope.msg = { Detour: "" };
+        }
+        if($localStorage.smsDetour){
+          $scope.smsDetour.status = true;
+        }else{
+          $scope.smsDetour.status = false;
         }
         $scope.modal2.show();
         break;
@@ -981,6 +983,11 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
           $scope.msg = { Tracking: $localStorage.msgTracking };
         }else{
           $scope.msg = { Tracking: "" };
+        }
+        if($localStorage.smsTracking){
+          $scope.smsTracking.status = true;
+        }else{
+          $scope.smsTracking.status = false;
         }
         $scope.modal4.show();
         break;
@@ -1051,6 +1058,16 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
     }
   }
 
+  $scope.smsImpacts = function(){
+    if($scope.smsImpacts.status){
+      $localStorage.smsImpact = $scope.smsImpacts.status;
+      console.log("Enabled SMS for Impacts");
+    }else{
+      delete $localStorage.smsImpact;
+      console.log("Disabled SMS for Impacts");
+    }
+  }
+
   //Second modal settings
   $scope.facebookDetour = function(){
     if($scope.facebookDetour.status){
@@ -1068,6 +1085,17 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
     }
   }
 
+
+  $scope.smsDetour = function(){
+    if($scope.smsDetour.status){
+      $localStorage.smsDetour = $scope.smsDetour.status;
+      console.log("Enabled SMS for Detour");
+    }else{
+      delete $localStorage.smsDetour;
+      console.log("Disabled SMS for Detour");
+    }
+  }
+
   //Fourth modal settings
   $scope.facebookTracking = function(){
     if($scope.facebookTracking.status){
@@ -1082,6 +1110,16 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
     }else{
       delete $localStorage.fbTracking;
       console.log("Disabled Facebook for Tracking");
+    }
+  }
+
+  $scope.smsTracking = function(){
+    if($scope.smsTracking.status){
+      $localStorage.smsTracking = $scope.smsTracking.status;
+      console.log("Enabled SMS for Tracking");
+    }else{
+      delete $localStorage.smsTracking;
+      console.log("Disabled SMS for Tracking");
     }
   }
 
@@ -1109,7 +1147,7 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
     $('#sp2_content').removeClass("blur-efect");
   }
 
-  //Store the message for detours
+  //Store the message for tracking
   $scope.saveTracking = function(msg){
     if(msg.Tracking == ""){
       delete $localStorage.msgTracking;
