@@ -972,6 +972,16 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
         $scope.modal3.show();
         break;
       case 4:
+        if($localStorage.fbTracking){
+          $scope.facebookTracking.status = true;
+        }else{
+          $scope.facebookTracking.status = false;
+        }
+        if($localStorage.msgTracking){
+          $scope.msg = { Tracking: $localStorage.msgTracking };
+        }else{
+          $scope.msg = { Tracking: "" };
+        }
         $scope.modal4.show();
         break;
       case 5:
@@ -1058,6 +1068,23 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
     }
   }
 
+  //Fourth modal settings
+  $scope.facebookTracking = function(){
+    if($scope.facebookTracking.status){
+      if($localStorage.fbLoggedIn){
+        console.log("Enabled Facebook for Tracking");
+        $localStorage.fbTracking = $scope.facebookTracking.status;
+      }else{
+        $scope.facebookTracking.status = false;
+        alert("Debes vincular tu cuenta con Facebook");
+        console.log("Cannot enable Facebook for Tracking, no permissions");
+      }
+    }else{
+      delete $localStorage.fbTracking;
+      console.log("Disabled Facebook for Tracking");
+    }
+  }
+
   //Store the message for impacts
   $scope.saveImpacts = function(msg){
     if(msg.Impacts == ""){
@@ -1079,6 +1106,18 @@ function ($scope, $stateParams, S2R, $state, $ionicModal, ngFB, $localStorage) {
       $localStorage.msgDetour = msg.Detour;
     }
     $scope.modal2.hide();
+    $('#sp2_content').removeClass("blur-efect");
+  }
+
+  //Store the message for detours
+  $scope.saveTracking = function(msg){
+    if(msg.Tracking == ""){
+      delete $localStorage.msgTracking;
+    }else{
+      console.log("Saving tracking message");
+      $localStorage.msgTracking = msg.Tracking;
+    }
+    $scope.modal4.hide();
     $('#sp2_content').removeClass("blur-efect");
   }
 

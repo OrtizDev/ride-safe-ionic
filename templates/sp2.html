@@ -305,19 +305,19 @@
                  <img class="social-icon" src="img/whatsapp.png">
                </div>
                <div>
-                 <ion-toggle toggle-class="toggle-balanced" class="left-toggle">Toggle</ion-toggle>
-                 <ion-toggle toggle-class="toggle-balanced" class="right-toggle">Toggle</ion-toggle>
+                 <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookTracking.status" ng-change="facebookTracking()">Facebook</ion-toggle>
+                 <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="whatsappTracking.status" ng-change="whatsappTracking()">WhatsApp</ion-toggle>
                </div>
              </div>
              <div>
                <div class="modal-text" class="show-list-numbers-and-dots">
                  <p>Configurar message</p>
                  <label class="item item-input" style="width: 90%; margin-left: 5%;">
-                   <textarea placeholder="" style="min-height: 70px;"></textarea>
+                    <textarea placeholder="" style="min-height: 70px;" ng-model="msg.Tracking"></textarea>
                  </label>
                </div>
                <div style="margin-right:-20px;">
-                 <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+                 <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveTracking(msg)">GUARDAR</button>
                </div>
              </div>
            </ion-content>
