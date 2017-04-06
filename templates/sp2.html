@@ -54,17 +54,8 @@
       </div>
     </div>
     <div id="caravan_container" class="background-odd" style="height: 25vh;">
-      <div id="sp2-markdown15" style="text-align:center;" class="show-list-numbers-and-dots">
-        <p style="font-size: 20px; padding-top: 25px;">Modo caravana</p>
-      </div>
-      <form id="sp2-form25" class="list">
-        <ion-toggle ng-model="pushNotiMC.checked" toggle-class="toggle-balanced" ng-checked="true" id="sp2-toggle6" class="secure-checkbox" style="padding-left: 30%;"></ion-toggle>
-        <div id="sp2-markdown20" style="text-align:right; margin: 40px 20% 0px 55%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
-          <!-- To trigger the modal, please add the following parameter in the before div with id = sp2-markdown20 -->
-          <!-- ng-click="openModal(5)"-->
-          <p class="config-text" style="font-size: 12px;">Configurar</p>
-        </div>
-      </form>
+      <div class="spacer" style="width: 300px; height: 25%;"></div>
+      <button ng-click="facebookLink()" id="sp2-buttonFb" style="" ng-disabled="fbButtonDisabled" class="button button-balanced button-large col-12 facebook-button">{{ textFbLink }}</button>
       <div class="spacer" style="width: 300px; height: 20px;"></div>
     </div>
     <div class="bottom-buttons">
@@ -93,19 +84,19 @@
               <img class="social-icon" src="img/whatsapp.png">
             </div>
             <div>
-              <ion-toggle toggle-class="toggle-balanced" class="left-toggle">Toggle</ion-toggle>
-              <ion-toggle toggle-class="toggle-balanced" class="right-toggle">Toggle</ion-toggle>
+              <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookImpacts.status" ng-change="facebookImpacts()">Facebook</ion-toggle>
+              <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="smsImpacts.status" ng-change="smsImpacts()">SMS</ion-toggle>
             </div>
           </div>
           <div>
             <div class="modal-text" class="show-list-numbers-and-dots">
               <p>Configurar message</p>
               <label class="item item-input" style="width: 90%; margin-left: 5%;">
-                <textarea placeholder="" style="min-height: 70px;"></textarea>
+                <textarea placeholder="" style="min-height: 70px;" ng-model="msg.Impacts"></textarea>
               </label>
             </div>
             <div style="margin-right:-20px;">
-              <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+              <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveImpacts(msg)">GUARDAR</button>
             </div>
           </div>
         </ion-content>
@@ -133,8 +124,8 @@
                <img class="social-icon" src="img/whatsapp.png">
              </div>
              <div>
-               <ion-toggle toggle-class="toggle-balanced" class="left-toggle">Toggle</ion-toggle>
-               <ion-toggle toggle-class="toggle-balanced" class="right-toggle">Toggle</ion-toggle>
+               <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookDetour.status" ng-change="facebookDetour()">Facebook</ion-toggle>
+               <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="smsDetour.status" ng-change="smsDetour()">SMS</ion-toggle>
              </div>
            </div>
            <div style="margin: 15px 0px;">
@@ -142,32 +133,32 @@
                <p>Después de cuántos km</p>
              </div>
              <label class="item item-select black-font col-3 select-item" id="gender_select" name="gender" style="padding: 16px; margin:0px;">
-               <select class="select-input" name="kilometers">
-                 <option value="" selected="selected">1</option>
-                 <option value="" selected="selected">2</option>
-                 <option value="" selected="selected">3</option>
-                 <option value="" selected="selected">4</option>
-                 <option value="" selected="selected">5</option>
-                 <option value="" selected="selected">6</option>
-                 <option value="" selected="selected">7</option>
-                 <option value="" selected="selected">8</option>
-                 <option value="" selected="selected">9</option>
-                 <option value="" selected="selected">10</option>
-                 <option value="" selected="selected">11</option>
-                 <option value="" selected="selected">12</option>
-                 <option value="" selected="selected">13</option>
-                 <option value="" selected="selected">14</option>
-                 <option value="" selected="selected">15</option>
-                 <option value="" selected="selected">16</option>
-                 <option value="" selected="selected">17</option>
-                 <option value="" selected="selected">18</option>
-                 <option value="" selected="selected">19</option>
-                 <option value="" selected="selected">20</option>
-                 <option value="" selected="selected">21</option>
-                 <option value="" selected="selected">22</option>
-                 <option value="" selected="selected">23</option>
-                 <option value="" selected="selected">24</option>
-                 <option value="" selected="selected">25</option>
+               <select class="select-input" name="kilometers" ng-model="kmDetour" ng-change="updateKmSelectedDetour(kmDetour)">
+                 <option value="1" selected="selected">1</option>
+                 <option value="2">2</option>
+                 <option value="3">3</option>
+                 <option value="4">4</option>
+                 <option value="5">5</option>
+                 <option value="6">6</option>
+                 <option value="7">7</option>
+                 <option value="8">8</option>
+                 <option value="9">9</option>
+                 <option value="10">10</option>
+                 <option value="11">11</option>
+                 <option value="12">12</option>
+                 <option value="13">13</option>
+                 <option value="14">14</option>
+                 <option value="15">15</option>
+                 <option value="16">16</option>
+                 <option value="17">17</option>
+                 <option value="18">18</option>
+                 <option value="19">19</option>
+                 <option value="20">20</option>
+                 <option value="21">21</option>
+                 <option value="22">22</option>
+                 <option value="23">23</option>
+                 <option value="24">24</option>
+                 <option value="25">25</option>
                </select>
              </label>
            </div>
@@ -175,11 +166,11 @@
              <div class="modal-text" class="show-list-numbers-and-dots">
                <p>Configurar message</p>
                <label class="item item-input" style="width: 90%; margin-left: 5%;">
-                 <textarea placeholder="" style="min-height: 70px;"></textarea>
+                 <textarea placeholder="" style="min-height: 70px;" ng-model="msg.Detour"></textarea>
                </label>
              </div>
              <div style="margin-right:-20px;">
-               <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+               <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveDetour(msg)">GUARDAR</button>
              </div>
            </div>
          </ion-content>
@@ -201,32 +192,32 @@
                 <p>Después de cuántos km</p>
               </div>
               <label class="item item-select black-font col-3 select-item" id="gender_select" name="gender" style="padding: 16px; margin:0px;">
-                <select class="select-input" name="kilometers">
-                  <option value="" selected="selected">1</option>
-                  <option value="" selected="selected">2</option>
-                  <option value="" selected="selected">3</option>
-                  <option value="" selected="selected">4</option>
-                  <option value="" selected="selected">5</option>
-                  <option value="" selected="selected">6</option>
-                  <option value="" selected="selected">7</option>
-                  <option value="" selected="selected">8</option>
-                  <option value="" selected="selected">9</option>
-                  <option value="" selected="selected">10</option>
-                  <option value="" selected="selected">11</option>
-                  <option value="" selected="selected">12</option>
-                  <option value="" selected="selected">13</option>
-                  <option value="" selected="selected">14</option>
-                  <option value="" selected="selected">15</option>
-                  <option value="" selected="selected">16</option>
-                  <option value="" selected="selected">17</option>
-                  <option value="" selected="selected">18</option>
-                  <option value="" selected="selected">19</option>
-                  <option value="" selected="selected">20</option>
-                  <option value="" selected="selected">21</option>
-                  <option value="" selected="selected">22</option>
-                  <option value="" selected="selected">23</option>
-                  <option value="" selected="selected">24</option>
-                  <option value="" selected="selected">25</option>
+                <select class="select-input" name="kilometers" ng-model="kmRisk" ng-change="updateKmSelectedRisk(kmRisk)">
+                  <option value="1" selected="selected">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
                 </select>
               </label>
             </div>
@@ -235,24 +226,24 @@
                 <div class="modal-text" style="margin: 0px 15px;">
                   <p>Avisar de aproximación a zona de accidentes frecuentes</p>
                 </div>
-                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle">Toggle</ion-toggle>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle" ng-model="accidentToggle.status" ng-change="accidentToggle()">Accident</ion-toggle>
               </div>
               <div>
                 <div class="modal-text" style="margin: 0px 15px;">
                   <p>Avisar de aproximacion a zona de robos frecuentes</p>
                 </div>
-                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle">Toggle</ion-toggle>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle" ng-model="theftsToggle.status" ng-change="theftsToggle()">Thefts</ion-toggle>
               </div>
               <div>
                 <div class="modal-text" style="margin: 0px 15px;">
                   <p>Aviso de exceso de velocidad</p>
                 </div>
-                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle">Toggle</ion-toggle>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle" ng-model="speedToggle.status" ng-change="speedToggle()">Speed</ion-toggle>
               </div>
             </div>
             <div>
               <div style="margin-right:-20px;">
-                <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+                <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveRisks()">GUARDAR</button>
               </div>
             </div>
           </ion-content>
@@ -274,32 +265,32 @@
                  <p>Después de cuántos km</p>
                </div>
                <label class="item item-select black-font col-3 select-item" id="gender_select" name="gender" style="padding: 16px; margin:0px;">
-                 <select class="select-input" name="kilometers">
-                   <option value="" selected="selected">1</option>
-                   <option value="" selected="selected">2</option>
-                   <option value="" selected="selected">3</option>
-                   <option value="" selected="selected">4</option>
-                   <option value="" selected="selected">5</option>
-                   <option value="" selected="selected">6</option>
-                   <option value="" selected="selected">7</option>
-                   <option value="" selected="selected">8</option>
-                   <option value="" selected="selected">9</option>
-                   <option value="" selected="selected">10</option>
-                   <option value="" selected="selected">11</option>
-                   <option value="" selected="selected">12</option>
-                   <option value="" selected="selected">13</option>
-                   <option value="" selected="selected">14</option>
-                   <option value="" selected="selected">15</option>
-                   <option value="" selected="selected">16</option>
-                   <option value="" selected="selected">17</option>
-                   <option value="" selected="selected">18</option>
-                   <option value="" selected="selected">19</option>
-                   <option value="" selected="selected">20</option>
-                   <option value="" selected="selected">21</option>
-                   <option value="" selected="selected">22</option>
-                   <option value="" selected="selected">23</option>
-                   <option value="" selected="selected">24</option>
-                   <option value="" selected="selected">25</option>
+                 <select class="select-input" name="kilometers" ng-model="kmTracking" ng-change="updateKmSelectedTracking(kmTracking)">
+                   <option value="1" selected="selected">1</option>
+                   <option value="2">2</option>
+                   <option value="3">3</option>
+                   <option value="4">4</option>
+                   <option value="5">5</option>
+                   <option value="6">6</option>
+                   <option value="7">7</option>
+                   <option value="8">8</option>
+                   <option value="9">9</option>
+                   <option value="10">10</option>
+                   <option value="11">11</option>
+                   <option value="12">12</option>
+                   <option value="13">13</option>
+                   <option value="14">14</option>
+                   <option value="15">15</option>
+                   <option value="16">16</option>
+                   <option value="17">17</option>
+                   <option value="18">18</option>
+                   <option value="19">19</option>
+                   <option value="20">20</option>
+                   <option value="21">21</option>
+                   <option value="22">22</option>
+                   <option value="23">23</option>
+                   <option value="24">24</option>
+                   <option value="25">25</option>
                  </select>
                </label>
              </div>
@@ -314,19 +305,19 @@
                  <img class="social-icon" src="img/whatsapp.png">
                </div>
                <div>
-                 <ion-toggle toggle-class="toggle-balanced" class="left-toggle">Toggle</ion-toggle>
-                 <ion-toggle toggle-class="toggle-balanced" class="right-toggle">Toggle</ion-toggle>
+                 <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookTracking.status" ng-change="facebookTracking()">Facebook</ion-toggle>
+                 <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="smsTracking.status" ng-change="smsTracking()">SMS</ion-toggle>
                </div>
              </div>
              <div>
                <div class="modal-text" class="show-list-numbers-and-dots">
                  <p>Configurar message</p>
                  <label class="item item-input" style="width: 90%; margin-left: 5%;">
-                   <textarea placeholder="" style="min-height: 70px;"></textarea>
+                    <textarea placeholder="" style="min-height: 70px;" ng-model="msg.Tracking"></textarea>
                  </label>
                </div>
                <div style="margin-right:-20px;">
-                 <button style="left:-10px;" class="button button-light  button-full button-clear">GUARDAR</button>
+                 <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveTracking(msg)">GUARDAR</button>
                </div>
              </div>
            </ion-content>
