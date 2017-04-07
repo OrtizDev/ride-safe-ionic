@@ -276,10 +276,10 @@ function ($scope, $stateParams, $log, $rootScope) {
 
 }])
 
-.controller('myRoutesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('myRoutesCtrl', ['$scope', '$state', '$rootScope',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $state, $rootScope) {
 
   $(".routes-list-item").click(function () {
     $(".routes-list-item").removeClass("active");
@@ -287,6 +287,11 @@ function ($scope, $stateParams) {
   });
 
   $scope.list = [];
+
+  delete $rootScope.lat;
+  delete $rootScope.latd;
+  delete $rootScope.lon;
+  delete $rootScope.lond;
 
   $.ajax({
       type: "GET",
@@ -301,7 +306,12 @@ function ($scope, $stateParams) {
           newItem.speed = j.velocidad;
           newItem.time = j.tiempo_viaje;
           newItem.km = j.distancia;
+          newItem.lon = j.altOrig;
+          newItem.lond = j.altDes;
+          newItem.lat = j.latOrig;
+          newItem.latd = j.latDes;
           $scope.list.push(newItem);
+          delete newItem;
         })
       },
       error: function (xhr, status, error) {
@@ -310,6 +320,10 @@ function ($scope, $stateParams) {
   });
 
   $scope.showItemInfo = function(item){
+    $rootScope.lat = item.lat;
+    $rootScope.latd = item.latd;
+    $rootScope.lon = item.lon;
+    $rootScope.lond = item.lond;
     $("#myRoutes-markdown10").html('<p style="color:#FFFFFF; text-align:center;">'
         + '  <strong>Detalles de viaje</strong>'
         + '</p>'
@@ -328,6 +342,24 @@ function ($scope, $stateParams) {
         + '  </p>'
         + '</div>');
   }
+
+  $scope.startRoute = function(){
+    if(
+      !$rootScope.lat ||
+      !$rootScope.latd ||
+      !$rootScope.lon ||
+      !$rootScope.lond ||
+      $rootScope.lat == 0 ||
+      $rootScope.lon == 0 ||
+      $rootScope.latd == 0 ||
+      $rootScope.lond == 0 ){
+      alert("Debes seleccionar una ruta");
+    }else{
+      $("#myRoutes-markdown10").html('');
+      $state.go('onRoute');
+    }
+  }
+
 
 }])
 
