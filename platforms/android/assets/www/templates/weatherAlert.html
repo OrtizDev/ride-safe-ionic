@@ -1,0 +1,30 @@
+<ion-view title="weatherAlert" hide-nav-bar="true" id="page12" style="background-color:#3B3C3A;">
+  <ion-content padding="false" class="manual-ios-statusbar-padding full-height" style="margin-bottom: -4%;">
+    <div style="height:10%;">
+      <button id="weatherAlert-button14" ui-sref="dangerAlert" style="color:#FFFFFF; padding-right: 20px; margin:0; width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+    </div>
+    <div id="weatherAlert-container18" style="height: 25%;" class="bottom-border">
+      <h3 id="weatherAlert-heading13" style="color:#FFFFFF;font-weight:400;text-align:center; font-family: 'Avenir-roman';">CLIMA</h3>
+      <div>
+        <img src="img/clima-lluvia.png" style="display: block; width: 25%; height: auto; margin-left: auto; margin-right: auto; padding: 10px;">
+      </div>
+    </div>
+    <ion-list id="weatherAlert-list11" class="half-height">
+      <ion-item ng-click="typeTrafic(14)" class="item-thumbnail-left gray-bg alert-item" id="weatherAlert-list-item22">
+        <img src="img/clima-nublado.png" class="center-img">
+        <h2>Nublado</h2>
+      </ion-item>
+      <ion-item ng-click="typeTrafic(12)" class="item-thumbnail-left gray-bg alert-item" id="weatherAlert-list-item23">
+        <img src="img/clima-lluvia.png" class="center-img">
+        <h2>Lluvia</h2>
+      </ion-item>
+      <ion-item ng-click="typeTrafic(13)" class="item-thumbnail-left gray-bg alert-item" id="weatherAlert-list-item23">
+        <img src="img/clima-granizo.png" class="center-img">
+        <h2>Granizo</h2>
+      </ion-item>
+    </ion-list>
+    <div style="margin-right:-20px; height:13%;">
+      <button ng-click="saveAlert()" id="weatherAlert-button15" style="left:-10px;border-radius:0px 0px 0px 0px; margin:0; border:none; height:100%;" class="button button-calm button-large button-full">¡Alertar!</button>
+    </div>
+  </ion-content>
+</ion-view>

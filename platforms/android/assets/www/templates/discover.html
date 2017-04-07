@@ -1,0 +1,75 @@
+<ion-view title="discover" hide-nav-bar="true" id="page14">
+  <ion-content padding="false" class="manual-ios-statusbar-padding" style="margin-bottom: -5px;">
+    <div class="title-container">
+      <div class="spacer" style="width: 300px; height: 40%;"></div>
+      <h4 id="discover-heading7">DESCUBRE RUTAS</h4>
+    </div>
+    <div id="selects-container" style="height: 50vh;">
+      <div id="discover-container3" class="background-blue input-box" style="float:left; border-top: 4px solid #fff; border-left: none;">
+        <div id="discover-markdown3" style="text-align:center;" class="show-list-numbers-and-dots">
+          <h5>Elegir estado</h5>
+        </div>
+        <form id="discover-form12" class="list">
+          <label class="item item-select" id="discover-select12" name="discover-state">
+            <select class="input-label select-input" ng-model="state" id="states" ng-change="filter()">
+              <option value="" selected="selected" disabled hidden>Seleccionar</option>
+            </select>
+          </label>
+        </form>
+      </div>
+      <div id="discover-container4" class="background-odd input-box" style="float:right; border-top: 4px solid #fff; border-right: none;">
+        <div id="discover-markdown4" style="text-align:center;" class="show-list-numbers-and-dots">
+          <h5>Temática</h5>
+        </div>
+        <form id="discover-form13" class="list">
+          <label class="item item-select" id="discover-select13" name="discover-state">
+            <select class="select-input" ng-model="thematic" id="thematics" ng-change="filter()">
+              <option value="" selected="selected" disabled hidden>Seleccionar</option>
+            </select>
+          </label>
+        </form>
+      </div>
+      <div id="discover-container5" class="background-odd input-box" style="float:left; border-bottom: 4px solid #fff; border-left: none;">
+        <div id="discover-markdown5" style="text-align:center;" class="show-list-numbers-and-dots">
+          <h5>Concentraciones</h5>
+        </div>
+        <form id="discover-form14" class="list">
+          <label class="item item-select" id="discover-select14" name="discover-state">
+            <select class="select-input" id="concentra" ng-model="concentracion" ng-change="filter()">
+              <option value="" selected="selected" disabled hidden>Seleccionar</option>
+            </select>
+          </label>
+        </form>
+      </div>
+      <div id="discover-container6" class="background-blue input-box"  style="float:right; border-bottom: 4px solid #fff; border-right: none;">
+        <div id="discover-markdown7" style="text-align:center;" class="show-list-numbers-and-dots">
+          <h5>Pistas de carreras</h5>
+        </div>
+        <form id="discover-form15" class="list">
+          <label class="item item-select" id="discover-select15" name="discover-state">
+            <select class="select-input" name="speedway_dr" ng-model="sway"  id="speedway" ng-options="sw.speedway as sw.speedwayName for sw in speedw" ng-change="filter()">
+              <option value="" selected="selected" disabled hidden>Seleccionar</option>
+            </select>
+          </label>
+        </form>
+      </div>
+
+    </div>
+    <ion-scroll direction="y" id="discover_results" class="background-odd">
+      <div id="discover-markdown8" style="text-align:center; text-decoration: none;" class="show-list-numbers-and-dots underlined">
+        <h5 id="discover_results_title">
+          <strong>RESULTADOS</strong>
+        </h5>
+        <ion-list id="discover-list">
+          <ion-item class="results-list-item" ng-repeat="item in routes" ng-click="select_item(item.id_descubrir_ruta)">
+              {{item.nombre}}
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-scroll>
+    <div class="bottom-buttons">
+      <button ui-sref="menu.home" style="border-radius:0px 0px 0px 0px;" class="button button-dark button-large col-5 cancel-button">Cancelar</button>
+      <button ng-click="road()" style="border-radius:0px 0px 0px 0px;" class="button button-balanced button-large col-5 go-button">A rodar!</button>
+    </div>
+  </ion-content>
+</ion-view>

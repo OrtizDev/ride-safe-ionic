@@ -1,2 +1,9 @@
 .DS_Store
 SCSS-MOVEME/*
+node_modules/
+bin/
+.tmp
+.sass-cache
+plugins
+patforms
+www/lib
