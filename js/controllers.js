@@ -300,6 +300,7 @@ function ($scope, $stateParams) {
           newItem.amount = j.gasto;
           newItem.speed = j.velocidad;
           newItem.time = j.tiempo_viaje;
+          newItem.km = j.distancia;
           $scope.list.push(newItem);
         })
       },
