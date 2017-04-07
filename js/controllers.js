@@ -286,6 +286,48 @@ function ($scope, $stateParams) {
     $(this).addClass("active");
   });
 
+  $scope.list = [];
+
+  $.ajax({
+      type: "GET",
+      url: "http://startbluesoft.com/rideSafeApp/v1/index.php/routes",
+      dataType: "json",
+      success: function (data) {
+        $.each(data, function(i, j){
+          var newItem = {};
+          newItem.name = j.nombre;
+          newItem.id = j.id_ruta;
+          newItem.amount = j.gasto;
+          newItem.speed = j.velocidad;
+          newItem.time = j.tiempo_viaje;
+          $scope.list.push(newItem);
+        })
+      },
+      error: function (xhr, status, error) {
+          console.log("Error getting my routes");
+      }
+  });
+
+  $scope.showItemInfo = function(item){
+    $("#myRoutes-markdown10").html('<p style="color:#FFFFFF; text-align:center;">'
+        + '  <strong>Detalles de viaje</strong>'
+        + '</p>'
+        + '<div style="text-align:left;">'
+        + '  <img class="my-routes-imgs" src="img/my_routes_sample.jpg">'
+        + '</div>'
+        + '<div class="my-routes-text">'
+        + '  <p>'
+        + '    Tiempo total del viaje: ' + item.time + ''
+        + '    <br>'
+        + '    Km recorridos: ' + item.km + ' km'
+        + '    <br>'
+        + '    Gasto casetas: $' + item.amount + ''
+        + '    <br>'
+        + '    Velocidad promedio: ' + item.speed + ' km/hr'
+        + '  </p>'
+        + '</div>');
+  }
+
 }])
 
 .controller('menuCtrl', ['$scope', '$stateParams', '$state', 'UserSession',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
