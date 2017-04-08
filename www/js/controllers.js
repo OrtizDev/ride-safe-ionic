@@ -8,7 +8,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
       $scope.positions = {
         lat: 0,
         lng: 0
-      }
+      };
 
       $scope.$on('$ionicView.loaded', function () {
         if (window.cordova) {
@@ -45,7 +45,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
         } else {
           console.log('vacio');
         }
-      }
+      };
 
       $scope.blurredd = function () {
         if ($('#destination').val() != '') {
@@ -57,7 +57,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
         } else {
           console.log('vacio');
         }
-      }
+      };
 
       $('#home-inputDestination').hide();
 
@@ -111,7 +111,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
                     };
                   }
                 }
-              }
+              };
 
               $scope.marker = {
                 id: 0,
@@ -153,7 +153,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
                     };
                   }
                 }
-              }
+              };
 
 
               $scope.map = {
@@ -167,10 +167,10 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
                   disableDefaultUI: true,
                   scrollwheel: false
                 }
-              }
+              };
             });
-          }
-          $scope.error = function (error) { }
+          };
+          $scope.error = function (error) { };
           navigator.geolocation.getCurrentPosition($scope.drawMap, $scope.error, $scope.options);
         }
       });
@@ -272,7 +272,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
             $scope.$apply();
           }
         });
-      }
+      };
 
       $scope.vm = [];
 
@@ -301,7 +301,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
       $scope.logout = function () {
         UserSession.clearUserData();
         $state.go('login');
-      }
+      };
 
       $scope.$on('$ionicView.enter', function () {
         $scope.name = UserSession.getName();
@@ -316,7 +316,6 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
       $scope.formData = {};
       $scope.login = function () {
-
         var email = $('#emailLogin').val().trim();
         var password = $('#passwordLogin').val();
         if (email == '') {
@@ -356,7 +355,14 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
             }
           }
         }
-      }
+      };
+
+      $scope.pressEnter = function (e) {
+        if (e.keyCode === 13) {
+          $scope.login();
+          $('input').blur();
+        }
+      };
 
       $scope.signUp = function () {
         $state.go('userRegister');
@@ -428,7 +434,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
             alert('No se pudieron obtener las ciudades');
           }
         });
-      }
+      };
 
       $scope.motoRegis = function () {
         dataUserRegister.user.name = $('input[name=username]').val();
@@ -446,11 +452,11 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
         } else {
           alert('Las contraseñas no coinciden');
         }
-      }
+      };
 
       $scope.login = function () {
         $state.go('login');
-      }
+      };
 
       $('input[name=bdate]').change(function () {
         var dateValue = $(this).val();
@@ -468,7 +474,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
       $scope.return = function () {
         $state.go('userRegister');
-      }
+      };
 
       $.ajax({
         type: 'GET',
@@ -527,7 +533,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
             alert('No se pudieron obtener los modelos');
           }
         });
-      }
+      };
 
       $scope.ciudad = { checked: false };
       $scope.atv = { checked: false };
@@ -624,7 +630,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
     }])
 
-  .controller('thanksCtrl', ['$scope', '$stateParams', 'dataUserRegister', '$state', 
+  .controller('thanksCtrl', ['$scope', '$stateParams', 'dataUserRegister', '$state',
     // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
@@ -742,7 +748,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
 
       $scope.filter = function () {
-        var query = 'SELECT * FROM descubrir_ruta'
+        var query = 'SELECT * FROM descubrir_ruta';
 
         if ($('select[id=concentra]').val() != null || $('select[id=thematics]').val() != null || $('select[id=speedway]').val() != null || $('select[id=states]').val() != null)
           query += ' WHERE';
@@ -793,11 +799,11 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           }
         });
         console.log(query);
-      }
+      };
 
       $scope.select_item = function (item) {
         $scope.id_ruta = item;
-      }
+      };
 
       $scope.road = function () {
 
@@ -836,7 +842,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
         } else {
           alert('No haz seleccionado ningun ruta');
         }
-      }
+      };
 
 
     }])
@@ -903,11 +909,11 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           $scope.pushNotiAR.checked,
           $scope.pushNotiLT.checked,
           $scope.pushNotiMC.checked);
-      }
+      };
 
       $scope.backS2R = function () {
         $state.go('menu.home');
-      }
+      };
 
       // Modal controller
       $ionicModal.fromTemplateUrl('modal-1.html', {
@@ -952,117 +958,117 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
       $scope.openModal = function (index) {
         switch (index) {
-          case 1:
-            if ($localStorage.fbImpact) {
+        case 1:
+          if ($localStorage.fbImpact) {
               $scope.facebookImpacts.status = true;
             } else {
               $scope.facebookImpacts.status = false;
             }
-            if ($localStorage.msgImpacts) {
+          if ($localStorage.msgImpacts) {
               $scope.msg = { Impacts: $localStorage.msgImpacts };
             } else {
               $scope.msg = { Impacts: '' };
             }
-            if ($localStorage.smsImpact) {
+          if ($localStorage.smsImpact) {
               $scope.smsImpacts.status = true;
             } else {
               $scope.smsImpacts.status = false;
             }
-            $scope.modal1.show();
-            break;
-          case 2:
-            if ($localStorage.fbDetour) {
+          $scope.modal1.show();
+          break;
+        case 2:
+          if ($localStorage.fbDetour) {
               $scope.facebookDetour.status = true;
             } else {
               $scope.facebookDetour.status = false;
             }
-            if ($localStorage.msgDetour) {
+          if ($localStorage.msgDetour) {
               $scope.msg = { Detour: $localStorage.msgDetour };
             } else {
               $scope.msg = { Detour: '' };
             }
-            if ($localStorage.smsDetour) {
+          if ($localStorage.smsDetour) {
               $scope.smsDetour.status = true;
             } else {
               $scope.smsDetour.status = false;
             }
-            if ($localStorage.kmDetour) {
+          if ($localStorage.kmDetour) {
               $scope.kmDetour = $localStorage.kmDetour;
             } else {
               $scope.kmDetour = 1;
             }
-            $scope.modal2.show();
-            break;
-          case 3:
-            if ($localStorage.thefts) {
+          $scope.modal2.show();
+          break;
+        case 3:
+          if ($localStorage.thefts) {
               $scope.theftsToggle.status = true;
             } else {
               $scope.theftsToggle.status = false;
             }
-            if ($localStorage.speed) {
+          if ($localStorage.speed) {
               $scope.speedToggle.status = true;
             } else {
               $scope.speedToggle.status = false;
             }
-            if ($localStorage.accident) {
+          if ($localStorage.accident) {
               $scope.accidentToggle.status = true;
             } else {
               $scope.accidentToggle.status = false;
             }
-            if ($localStorage.kmRisk) {
+          if ($localStorage.kmRisk) {
               $scope.kmRisk = $localStorage.kmRisk;
             } else {
               $scope.kmRisk = 1;
             }
-            $scope.modal3.show();
-            break;
-          case 4:
-            if ($localStorage.fbTracking) {
+          $scope.modal3.show();
+          break;
+        case 4:
+          if ($localStorage.fbTracking) {
               $scope.facebookTracking.status = true;
             } else {
               $scope.facebookTracking.status = false;
             }
-            if ($localStorage.msgTracking) {
+          if ($localStorage.msgTracking) {
               $scope.msg = { Tracking: $localStorage.msgTracking };
             } else {
               $scope.msg = { Tracking: '' };
             }
-            if ($localStorage.smsTracking) {
+          if ($localStorage.smsTracking) {
               $scope.smsTracking.status = true;
             } else {
               $scope.smsTracking.status = false;
             }
-            if ($localStorage.kmTracking) {
+          if ($localStorage.kmTracking) {
               $scope.kmTracking = $localStorage.kmTracking;
             } else {
               $scope.kmTracking = 1;
             }
-            $scope.modal4.show();
-            break;
-          case 5:
-            $scope.modal5.show();
-            break;
+          $scope.modal4.show();
+          break;
+        case 5:
+          $scope.modal5.show();
+          break;
         }
         $('#sp2_content').addClass('blur-efect');
       };
 
       $scope.closeModal = function (index) {
         switch (index) {
-          case 1:
-            $scope.modal1.hide();
-            break;
-          case 2:
-            $scope.modal2.hide();
-            break;
-          case 3:
-            $scope.modal3.hide();
-            break;
-          case 4:
-            $scope.modal4.hide();
-            break;
-          case 5:
-            $scope.modal5.hide();
-            break;
+        case 1:
+          $scope.modal1.hide();
+          break;
+        case 2:
+          $scope.modal2.hide();
+          break;
+        case 3:
+          $scope.modal3.hide();
+          break;
+        case 4:
+          $scope.modal4.hide();
+          break;
+        case 5:
+          $scope.modal5.hide();
+          break;
         }
         $('#sp2_content').removeClass('blur-efect');
       };
@@ -1071,21 +1077,21 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
       //Cleanup the modal when we're done with it!
       $scope.$on('$destroy', function (index) {
         switch (index) {
-          case 1:
-            $scope.modal1.remove();
-            break;
-          case 2:
-            $scope.modal2.remove();
-            break;
-          case 3:
-            $scope.modal3.remove();
-            break;
-          case 4:
-            $scope.modal4.remove();
-            break;
-          case 5:
-            $scope.modal5.remove();
-            break;
+        case 1:
+          $scope.modal1.remove();
+          break;
+        case 2:
+          $scope.modal2.remove();
+          break;
+        case 3:
+          $scope.modal3.remove();
+          break;
+        case 4:
+          $scope.modal4.remove();
+          break;
+        case 5:
+          $scope.modal5.remove();
+          break;
         }
       });
 
@@ -1104,7 +1110,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           delete $localStorage.fbImpact;
           console.log('Disabled Facebook for Impacts');
         }
-      }
+      };
 
       $scope.smsImpacts = function () {
         if ($scope.smsImpacts.status) {
@@ -1114,7 +1120,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           delete $localStorage.smsImpact;
           console.log('Disabled SMS for Impacts');
         }
-      }
+      };
 
       //Second modal settings
       $scope.facebookDetour = function () {
@@ -1131,7 +1137,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           delete $localStorage.fbDetour;
           console.log('Disabled Facebook for Detour');
         }
-      }
+      };
 
 
       $scope.smsDetour = function () {
@@ -1142,12 +1148,12 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           delete $localStorage.smsDetour;
           console.log('Disabled SMS for Detour');
         }
-      }
+      };
 
       $scope.updateKmSelectedDetour = function (kmDetour) {
         $localStorage.kmDetour = kmDetour;
         console.log('Updated KM for Detour');
-      }
+      };
 
       //Third modal settings
       $scope.accidentToggle = function () {
@@ -1158,7 +1164,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           delete $localStorage.accident;
           console.log('Disabled Accidents config');
         }
-      }
+      };
 
       $scope.theftsToggle = function () {
         if ($scope.theftsToggle.status) {
@@ -1168,7 +1174,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           delete $localStorage.thefts;
           console.log('Disabled thefts config');
         }
-      }
+      };
 
       $scope.speedToggle = function () {
         if ($scope.speedToggle.status) {
@@ -1178,12 +1184,12 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           delete $localStorage.speed;
           console.log('Disabled speed config');
         }
-      }
+      };
 
       $scope.updateKmSelectedRisk = function (kmRisk) {
         $localStorage.kmRisk = kmRisk;
         console.log('Updated KM for Risk');
-      }
+      };
 
       //Fourth modal settings
       $scope.facebookTracking = function () {
@@ -1200,7 +1206,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           delete $localStorage.fbTracking;
           console.log('Disabled Facebook for Tracking');
         }
-      }
+      };
 
       $scope.smsTracking = function () {
         if ($scope.smsTracking.status) {
@@ -1210,12 +1216,12 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           delete $localStorage.smsTracking;
           console.log('Disabled SMS for Tracking');
         }
-      }
+      };
 
       $scope.updateKmSelectedTracking = function (kmTracking) {
         $localStorage.kmTracking = kmTracking;
         console.log('Updated KM for Tracking');
-      }
+      };
 
       //Store the message for impacts
       $scope.saveImpacts = function (msg) {
@@ -1227,7 +1233,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
         }
         $scope.modal1.hide();
         $('#sp2_content').removeClass('blur-efect');
-      }
+      };
 
       //Store the message for detours
       $scope.saveDetour = function (msg) {
@@ -1239,7 +1245,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
         }
         $scope.modal2.hide();
         $('#sp2_content').removeClass('blur-efect');
-      }
+      };
 
       //Store the message for tracking
       $scope.saveTracking = function (msg) {
@@ -1251,14 +1257,14 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
         }
         $scope.modal4.hide();
         $('#sp2_content').removeClass('blur-efect');
-      }
+      };
 
       //Close the third modal and "saves" (not actually) the configs
       $scope.saveRisks = function () {
         console.log('Saving risks configs');
         $scope.modal3.hide();
         $('#sp2_content').removeClass('blur-efect');
-      }
+      };
 
       //Facebook access
       //If the button "Vincular con Facebook" is clicked, we execute the linking to Facebook
@@ -1276,7 +1282,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
             console.log('Facebook login failed');
           }
         });
-      }
+      };
 
     }])
 
@@ -1648,7 +1654,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
             $scope.$apply();
           }
         });
-      }
+      };
 
       $scope.getIncident = function () {
         $scope.type_poi = 3;
@@ -1669,7 +1675,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
             $scope.$apply();
           }
         });
-      }
+      };
 
       $scope.getToll = function () {
         $scope.type_poi = 1;
@@ -1693,7 +1699,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
             $scope.$apply();
           }
         });
-      }
+      };
 
       $scope.getWeather = function () {
         getRoute(function (wps) {
@@ -1717,7 +1723,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
             $scope.$apply();
           }
         });
-      }
+      };
 
       $scope.vmr = [];
 
@@ -1847,7 +1853,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           $('input[name="nav-trigger"]').prop('checked', false);
         }
 
-      })
+      });
 
       $('input[name="nav-trigger"]').click(function () {
         event.stopPropagation();
@@ -1924,4 +1930,4 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
       //  // Execute action
       // });
 
-    }])
+    }]);

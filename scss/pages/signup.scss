@@ -1,0 +1,73 @@
+.signup-page {
+  background-color: #3B3C3A;
+  h3.header {
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  .user-form {
+    .row {
+      padding: 0;
+    }
+    label {
+      padding-left: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      border-bottom: 1px solid white;
+      border-bottom-right-radius: 0px !important;
+      border-bottom-left-radius: 0px !important;
+      border-radius: 0;
+      .input-label {
+        color: white;
+      }
+      input {
+        color: $stable;
+        padding-right: 0 !important;
+      }
+      &.select-label {
+        border-bottom: 0;
+        .select-input {
+          padding: 10px;
+          margin-top: 10px;
+          background: #fff;
+          border-radius: 3px;
+          width: 100%;
+        }
+      }
+      #dateHolder {
+        position: absolute;
+        bottom: 10px;
+        text-align: center;
+        width: 100%;
+        color: #fff;
+      }
+
+      &.item-border {
+        border-bottom: none;
+        .input-label {
+          width: 50%;
+          text-align: left;
+        }
+        input {
+          border-bottom: 1px solid white;
+        }
+      }
+    }
+    .next-button {
+      border-radius: 8px;
+      width: auto;
+      margin: 0 auto;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      padding: 0 20px;
+    }
+    .login-button {
+      width: auto;
+      position: absolute;
+      right: 0;
+      font-weight: 600;
+    }
+  }
+}

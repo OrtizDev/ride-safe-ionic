@@ -5,6 +5,6 @@
     "sass"
   ],  
    "gulpStartupTasks": [        
-    "watch"
+    "watch", "default"
   ]
 }

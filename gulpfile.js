@@ -12,10 +12,10 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass', 'watch']);
 
 gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
+  gulp.src('./scss/styles.scss')
     .pipe(sass())
     .on('error', sass.logError)
     .pipe(gulp.dest('./www/css/'))

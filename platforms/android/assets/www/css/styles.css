@@ -1,0 +1,89 @@
+.login-page .background {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(../img/KEtoAt4XQeeko098Dbft_moto.jpg) no-repeat center;
+  background-size: cover; }
+
+.login-page .logo {
+  display: block;
+  width: 60%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto; }
+
+.login-page #login-form2 {
+  background: none; }
+  .login-page #login-form2 .border-radius-large {
+    border-radius: 8px; }
+
+.login-page .loggin-button {
+  font-size: 25px;
+  border-radius: 8px 8px 8px 8px; }
+
+.login-page .signup-button {
+  font-weight: 600;
+  color: #000000;
+  text-align: right; }
+
+.signup-page {
+  background-color: #3B3C3A; }
+  .signup-page h3.header {
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0px; }
+  .signup-page .user-form .row {
+    padding: 0; }
+  .signup-page .user-form label {
+    padding-left: 0;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid white;
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-radius: 0; }
+    .signup-page .user-form label .input-label {
+      color: white; }
+    .signup-page .user-form label input {
+      color: #f8f8f8;
+      padding-right: 0 !important; }
+    .signup-page .user-form label.select-label {
+      border-bottom: 0; }
+      .signup-page .user-form label.select-label .select-input {
+        padding: 10px;
+        margin-top: 20px;
+        background: #fff;
+        border-radius: 3px;
+        width: 100%; }
+    .signup-page .user-form label #dateHolder {
+      position: absolute;
+      bottom: 10px;
+      text-align: center;
+      width: 100%;
+      color: #fff; }
+    .signup-page .user-form label #telEmer {
+      position: absolute;
+      bottom: 10px;
+      text-align: center;
+      width: 100%;
+      color: #fff; }
+    .signup-page .user-form label.item-border {
+      border-bottom: none; }
+      .signup-page .user-form label.item-border input {
+        border-bottom: 1px solid white; }
+  .signup-page .user-form .next-button {
+    border-radius: 8px;
+    width: auto;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 0 20px; }
+  .signup-page .user-form .login-button {
+    width: auto;
+    position: absolute;
+    right: 0;
+    font-weight: 600; }
