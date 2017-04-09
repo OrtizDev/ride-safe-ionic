@@ -63,11 +63,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
       $scope.type_poi = 0;
 
-
       var directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
       var directionsService = new google.maps.DirectionsService();
-
-
 
       $scope.$on('$ionicView.enter', function () {
         if (navigator.geolocation) {
@@ -687,7 +684,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           if (data.error) {
             alert(data.message);
           } else if (!data.error) {
-            estados = JSON.parse(data.message);
+            let estados = JSON.parse(data.message);
             var toAppend = '';
             $.each(estados, function (i, item) {
               toAppend += '<option value="' + item.id_estado + '">' + item.nombre + '</option>';
@@ -1889,9 +1886,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
     }])
 
-  .controller('routeDetailsCtrl', ['$scope', '$stateParams', '$ionicPopover',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    // You can include any angular dependencies as parameters for this function
-    // TIP: Access Route Parameters for your page via $stateParams.parameterName
+  .controller('routeDetailsCtrl', ['$scope', '$stateParams', '$ionicPopover',
     function ($scope, $stateParams, $ionicPopover) {
 
       // .fromTemplate() method
@@ -1929,5 +1924,56 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
       // $scope.$on('popover.removed', function() {
       //  // Execute action
       // });
+    }])
+  .controller('caravanaCtrl', ['$scope', '$state',
+    function ($scope, $state) {
+      $scope.users = [
+        {name: 'Carlos Barranco', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+        {name: 'Arturo Caballero', selected: false},
+      ];
 
+      $scope.seleccionados = 0;
+
+      $scope.changedUser = function() {
+        $scope.seleccionados = $scope.users.filter((user)=> {
+          return user.selected;
+        }).length;
+        if($scope.seleccionados >= 20) {
+          $scope.disabledUsers = true;
+        }else {
+          $scope.disabledUsers = false;
+        }
+      }
+
+
+      $scope.sendInvitations = function() {
+        $state.go('menu.caravanaDestination');
+      }
+
+
+    }])
+    .controller('destinationCaravanaCtrl', ['$scope',
+    function ($scope) {
+      
     }]);

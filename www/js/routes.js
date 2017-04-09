@@ -70,6 +70,28 @@ angular.module('app.routes', [])
         }
       })
 
+      // Caravana routes
+
+      .state('menu.caravana', {
+        url: '/caravana',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/caravana.html',
+            controller: 'caravanaCtrl'
+          }
+        }
+      })
+
+      .state('menu.caravanaDestination', {
+        url: '/caravana/destination',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/destination.html',
+            controller: 'destinationCaravanaCtrl'
+          }
+        }
+      })
+
       .state('menu.sp2', {
         url: '/s2p',
         views: {

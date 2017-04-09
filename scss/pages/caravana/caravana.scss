@@ -1,0 +1,46 @@
+#caravana-page {
+  ion-content {
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+  }
+  .title-container {
+    height: 15vh;
+    flex: 0 0 15vh;
+    .spacer {
+      width: 300px;
+      height: 30%;
+    }
+    #heading {
+      color: #000000;
+      text-align: center;
+    }
+    .selected {
+      text-align: center;
+      color: white;
+    }
+  }
+
+  .caravana-container {
+    height: auto;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .users {
+      .user[disabled] {
+        color: grey;
+      }
+    }
+  }
+
+  .caravana-footer {
+    padding: 0;
+    height: auto;
+    flex: 0 0 auto;
+    flex-grow: nogrow;
+    .button {
+      border-radius: 0;
+    }
+  }
+}
+

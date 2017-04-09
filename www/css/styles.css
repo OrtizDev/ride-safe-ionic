@@ -33,9 +33,6 @@
   font-weight: normal;
   font-style: normal; }
 
-ion-content > div:first-child {
-  height: 100%; }
-
 /*********** User Register view ************/
 #userRegister-heading1 {
   font-family: "Avenir";
@@ -906,3 +903,77 @@ label[for="nav-trigger"] {
 
 #home-page .angular-google-map, #home-page .angular-google-map-container {
   height: 100%; }
+
+#caravana-page ion-content {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh; }
+
+#caravana-page .title-container {
+  height: 15vh;
+  flex: 0 0 15vh; }
+  #caravana-page .title-container .spacer {
+    width: 300px;
+    height: 30%; }
+  #caravana-page .title-container #heading {
+    color: #000000;
+    text-align: center; }
+  #caravana-page .title-container .selected {
+    text-align: center;
+    color: white; }
+
+#caravana-page .caravana-container {
+  height: auto;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden; }
+  #caravana-page .caravana-container .users .user[disabled] {
+    color: grey; }
+
+#caravana-page .caravana-footer {
+  padding: 0;
+  height: auto;
+  flex: 0 0 auto;
+  flex-grow: nogrow; }
+  #caravana-page .caravana-footer .button {
+    border-radius: 0; }
+
+#caravana-destination-page ion-content {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh; }
+
+#caravana-destination-page .title-container {
+  height: 15vh;
+  flex: 0 0 15vh; }
+  #caravana-destination-page .title-container .spacer {
+    width: 300px;
+    height: 30%; }
+  #caravana-destination-page .title-container #heading {
+    color: #000000;
+    text-align: center; }
+  #caravana-destination-page .title-container .selected {
+    text-align: center;
+    color: white; }
+
+#caravana-destination-page .caravana-container {
+  height: auto;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center; }
+  #caravana-destination-page .caravana-container .button {
+    width: 80%;
+    height: 100px; }
+
+#caravana-destination-page .caravana-footer {
+  padding: 0;
+  height: auto;
+  flex: 0 0 auto;
+  flex-grow: nogrow; }
+  #caravana-destination-page .caravana-footer .button {
+    border-radius: 0; }
