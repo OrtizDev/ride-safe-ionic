@@ -70,6 +70,51 @@ angular.module('app.routes', [])
         }
       })
 
+      // Caravana routes
+
+      .state('menu.caravana', {
+        url: '/caravana',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/caravana.html',
+            controller: 'caravanaCtrl'
+          }
+        }
+      })
+
+      .state('menu.caravanaDestination', {
+        url: '/caravana/destination',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/destination.html',
+            controller: 'destinationCaravanaCtrl'
+          }
+        }
+      })
+
+      .state('menu.caravanaCreateRoute', {
+        url: '/caravana/destination',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/createRoute.html',
+            controller: 'createRouteCaravanaCtrl'
+          }
+        }
+      })
+
+      .state('menu.caravanaDiscoverRoute', {
+        url: '/caravana/discover',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/discoverRoute.html',
+            controller: 'discoverRouteCaravanaCtrl'
+          }
+        }
+      })
+
+      // End of caravana's routes
+      // -----------------------------------------------------------
+
       .state('menu.sp2', {
         url: '/s2p',
         views: {

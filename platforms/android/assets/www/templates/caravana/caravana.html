@@ -1,0 +1,20 @@
+<ion-view title="Caravana" hide-nav-bar="true" id="caravana-page">
+  <ion-content padding="false" class="manual-ios-statusbar-padding" scroll="false">
+    <div class="title-container">
+      <div class="spacer"></div>
+      <h4 id="heading">Usuarios conectados</h4>
+      <div class="selected">{{seleccionados}}/20 seleccionados</div>
+    </div>
+    <div class="caravana-container">
+      <ion-list class="users">
+        <ion-checkbox class="user" ng-repeat="(key, value) in users" ng-model="value.selected" ng-change="changedUser()"
+            ng-disabled="!value.selected && disabledUsers">{{value.name}}</ion-checkbox>
+      </ion-list>
+    </div>
+    <div class="caravana-footer row">
+      <button ui-sref="menu.home" class="col button button-dark button-large cancel-button">Cancelar</button>
+      <button ng-click="sendInvitations()" class="col button button-balanced button-large go-button">Elegir Destino</button>
+    </div>
+
+  </ion-content>
+</ion-view>

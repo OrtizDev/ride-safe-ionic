@@ -1,4 +1,4 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="false" id="menu-page">
   <ion-side-menu-content>
     <ion-nav-bar class="bar-stable">
       <ion-nav-back-button></ion-nav-back-button>
@@ -10,37 +10,52 @@
   </ion-side-menu-content>
   <ion-side-menu side="left" id="side-menu21">
     <ion-content padding="false" style="top:0px !important;" class="side-menu-left ">
-      <div id="menu-container1">
-        <a ui-sref="config" menu-close="" id="menu-button17" class="button button-positive menu-icon icon ion-android-settings"></a>
-        <a ui-sref="menu.userManual" menu-close="" id="menu-button16" class="button button-positive menu-icon icon ion-help"></a>
+
+      <div class="header">
+        <div class="buttons">
+          <a ui-sref="config" menu-close class="button button-positive menu-icon icon ion-android-settings"></a>
+          <a ui-sref="menu.userManual" menu-close class="button button-positive menu-icon icon ion-help"></a>
+        </div>
         <div class="user-img-container">
-          <a ui-sref="" menu-close class="user_image">
+          <a ui-sref="#" menu-close class="user_image">
             <!-- the user image is a background style in custom.app.css -->
             <!-- To remove the text please add the "hidden-text" class -->
             <p id="picture_text">AÑADIR<br>UNA<br>FOTO</p>
           </a>
         </div>
-        <div id="user_name" style="text-align:center;" class="show-list-numbers-and-dots">
+        <div id="user_name" class="show-list-numbers-and-dots">
           <p>{{name}}</p>
         </div>
-        <form id="menu-form11" class="list">
+        <form class="list">
           <label class="item item-input" id="menu-search2">
             <i class="icon ion-search placeholder-icon"></i>
             <input type="search" placeholder="">
           </label>
         </form>
       </div>
-      <ion-list id="menu-list1" style="height:100%;">
-        <ion-item class="item-icon-left menu-list-item" id="menu-list-item1" ui-sref="menu.discover" menu-close="">
-          <i class="icon"><img src="img/descubrir-destinos.png" alt=""></i>Descubrir destinos</ion-item>
-        <ion-item class="item-icon-left  menu-list-item background-odd" id="menu-list-item2" ui-sref="menu.myRoutes" menu-close="">
-          <i class="icon"><img src="img/rutas-guardadas.png" alt=""></i>Mis rutas guardadas</ion-item>
-        <ion-item class="item-icon-left  menu-list-item" id="menu-list-item3" ui-sref="#" menu-close="">
-          <i class="icon"><img src="img/caravana.png" alt=""></i>Caravana</ion-item>
-        <ion-item class="item-icon-left  menu-list-item background-odd" id="menu-list-item4" ui-sref="menu.sp2" menu-close="">
-          <i class="icon"><img src="img/s2r.png" alt=""></i>S2P (Secure 2 Protection)</ion-item>
-        <ion-item ng-click="logout()" class="item-icon-left menu-list-item" id="menu-list-item5" menu-close="">
-          <i class="icon"><img src="img/salir.png" alt=""></i>Cerrar sesión</ion-item>
+
+      <ion-list class="navigation-list">
+        <ion-item class="item-icon-left menu-list-item" ui-sref="menu.discover" menu-close>
+          <i class="icon"><img src="img/descubrir-destinos.png" alt=""></i> Descubrir
+          destinos
+        </ion-item>
+        <ion-item class="item-icon-left menu-list-item background-odd" ui-sref="menu.myRoutes"
+            menu-close>
+          <i class="icon"><img src="img/rutas-guardadas.png" alt=""></i
+          >Mis rutas
+          guardadas
+        </ion-item>
+        <ion-item class="item-icon-left menu-list-item" ui-sref="menu.caravana" menu-close>
+          <i class="icon"><img src="img/caravana.png" alt=""></i>Caravana
+        </ion-item>
+        <ion-item class="item-icon-left menu-list-item background-odd" ui-sref="menu.sp2"
+            menu-close>
+          <i class="icon"><img src="img/s2r.png" alt=""></i> S2P (Secure 2 Protection)
+        </ion-item>
+        <ion-item ng-click="logout()" class="item-icon-left menu-list-item" menu-close>
+          <i class="icon"><img src="img/salir.png" alt=""></i>
+          <div>Cerrar sesión</div>
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>

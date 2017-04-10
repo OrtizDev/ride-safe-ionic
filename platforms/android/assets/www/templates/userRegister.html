@@ -1,73 +1,53 @@
 <ion-view title="user-register" hide-nav-bar="true" id="page8" class="signup-page">
   <ion-content padding="true" class="manual-ios-statusbar-padding">
     <h3 class="header">REGISTRO</h3>
-    <form id="userRegister-form4" class="list user-form" ng-submit="motoRegis()">
-      <div class="row">
-        <div class="col col-33">
-          <label class="item item-input item-floating-label" name="name">
-            <span class="input-label">Nombre(s)</span>
-            <input type="text" placeholder="Nombre(s)" name="username" ng-model="authorization.username" required>
-          </label>
-        </div>
-        <div class="col col-33">
-          <label class="item item-input item-floating-label" name="lastname1">
-            <span class="input-label">Apellido paterno</span>
-            <input type="text" placeholder="Apellido paterno" name="apat" ng-model="authorization.apat" required>
-          </label>
-        </div>
-        <div class="col col-33">
-          <label class="item item-input item-floating-label" name="lastname2">
-            <span class="input-label">Apellido materno</span>
-            <input type="text" placeholder="Apellido materno" name="amat" ng-model="authorization.amat" required>
-          </label>
-        </div>
-      </div>
+    <form class="list user-form" ng-submit="motoRegis()">
 
-      <div class="row row-bottom">
-        <div class="col">
-          <label class="select-label" id="gender_select" name="gender">
-            <select class="select-input" name="gender_re" ng-model="gender" ng-options="genders.gender as genders.genderName for genders in typegender">
-              <option value="" selected="selected" disabled hidden>Genero</option>
-            </select>
-          </label>
-        </div>
-        <div class="col">
-          <label class="item item-input item-floating-label register-input" name="phone">
-            <span class="input-label">Celular</span>
-            <input type="tel" placeholder="Celular" name="cellphone" ng-model="authorization.cellphone" size="10" required>
-          </label>
-        </div>
-      </div>
+      <label class="item item-input item-floating-label" name="name">
+        <span class="input-label">Nombre(s)</span>
+        <input type="text" placeholder="Nombre(s)" name="username" ng-model="authorization.username" required>
+      </label>
+      <label class="item item-input item-floating-label" name="lastname1">
+        <span class="input-label">Apellido paterno</span>
+        <input type="text" placeholder="Apellido paterno" name="apat" ng-model="authorization.apat" required>
+      </label>
+      <label class="item item-input item-floating-label" name="lastname2">
+        <span class="input-label">Apellido materno</span>
+        <input type="text" placeholder="Apellido materno" name="amat" ng-model="authorization.amat" required>
+      </label>
+
+      <label class="select-label" name="gender">
+        <select class="select-input" name="gender_re" ng-model="gender" ng-options="genders.gender as genders.genderName for genders in typegender">
+          <option value="" selected="selected" disabled hidden>Genero</option>
+        </select>
+      </label>
+      <label class="item item-input item-floating-label" name="phone">
+        <span class="input-label">Celular</span>
+        <input type="tel" placeholder="Celular" name="cellphone" ng-model="authorization.cellphone" size="10" required>
+      </label>
 
       <label class="item item-input item-floating-label" id="input-birdth" name="birthdate">
         <span class="input-label">Fecha de nacimiento</span>
         <p id="dateHolder" >Fecha de nacimiento</p>
         <input type="date" placeholder="Fecha de nacimiento" name="bdate" max="{{max}}" ng-model="authorization.bdate" style="color: transparent !important;">
       </label>
-      <label class="item item-input item-floating-label no-border register-input" id="userRegister-input11"
+      <label class="item item-input item-floating-label" id="userRegister-input11"
           name="emergency-number">
-        <span id="telEmer" class="input-label">Telefono de emergencia</span>
+        <span class="input-label">Telefono de emergencia</span>
         <input type="tel" placeholder="Telefono de emergencia" name="telEmer" ng-model="authorization.telEmer" size="10" required>
       </label>
 
-      <div class="row">
-        <div class="col">
-          <label class="select-label" name="state">
-            <select class="select-input" name="state_re" ng-model="state" id="states" ng-change="updateCi(state)" required>
-              <option value="" selected="selected" disabled hidden>Estado</option>
-            </select>
-          </label>
-        </div>
-        <div class="col">
-          <label class="select-label" name="city">
-            <select class="select-input"ng-model="city_re" id="city" required>
-              <option value="">Ciudad</option>
-            </select>
-          </label>
-        </div>
-      </div>
+      <label class="select-label" name="state">
+        <select class="select-input" name="state_re" ng-model="state" id="states" ng-change="updateCi(state)" required>
+          <option value="" selected="selected" disabled hidden>Estado</option>
+        </select>
+      </label>
 
-
+      <label class="select-label" name="city">
+        <select class="select-input"ng-model="city_re" id="city" required>
+          <option value="">Ciudad</option>
+        </select>
+      </label>
 
       <label class="item item-input item-border" name="mail">
         <span class="input-label">Usuario (e-mail)</span>
@@ -81,13 +61,11 @@
         <span class="input-label">Repetir contraseña</span>
         <input type="password" placeholder="" name="repass" ng-model="authorization.repass" ng-minlength="minpassword" required>
       </label>
-
-      <div class="row">
+      
+      <div class="row row-center">
         <button type="submit" class="next-button button button-stable button-small">SIGUIENTE</button>
       </div>
-      <div class="row">
-        <button ng-click="login()" class="login-button row button button-light button-small button-clear">+ Iniciar sesión</button>
-      </div>
+      <button ng-click="login()" class="login-button row button button-light button-small button-clear">+ Iniciar sesión</button>
     </form>
   </ion-content>
 </ion-view>
