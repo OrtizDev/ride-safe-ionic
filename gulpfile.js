@@ -7,14 +7,20 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var uglify = require('gulp-uglify');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./scss/**/*.scss'],
+  scripts: ['./www/js/**/*.js', '!./www/js/app.bundle.min.js']
 };
 
-gulp.task('default', ['sass', 'watch']);
+var files = {
+  jsbundle: 'app.bundle.min.js',
+};
 
-gulp.task('sass', function(done) {
+gulp.task('default', ['sass', 'scripts', 'watch']);
+
+gulp.task('sass', function (done) {
   gulp.src('./scss/styles.scss')
     .pipe(sass())
     .on('error', sass.logError)
@@ -27,18 +33,26 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
-gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
+gulp.task('scripts',  function () {
+  gulp.src(paths.scripts)
+    // .pipe(uglify())
+    .pipe(concat(files.jsbundle))
+    .pipe(gulp.dest('./www/js'));
 });
 
-gulp.task('install', ['git-check'], function() {
+gulp.task('watch', function () {
+  gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.scripts, ['scripts']);
+});
+
+gulp.task('install', ['git-check'], function () {
   return bower.commands.install()
-    .on('log', function(data) {
+    .on('log', function (data) {
       gutil.log('bower', gutil.colors.cyan(data.id), data.message);
     });
 });
 
-gulp.task('git-check', function(done) {
+gulp.task('git-check', function (done) {
   if (!sh.which('git')) {
     console.log(
       '  ' + gutil.colors.red('Git is not installed.'),

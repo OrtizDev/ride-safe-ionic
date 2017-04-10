@@ -1,0 +1,15 @@
+#selects-container {
+  height: 50vh;
+  display: flex;
+  flex-flow: wrap row;
+  .discover-container {
+    width: 50%;
+    flex: 0 0 50%;
+  }
+}
+.background-blue {
+  background: #2a429f;
+}
+.background-odd {
+  background: #3871c2;
+}
