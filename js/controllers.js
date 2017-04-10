@@ -239,7 +239,7 @@ function ($scope, $stateParams, $log, $rootScope) {
 
  function getCoordinates(address, fn){
   var geocoder = new google.maps.Geocoder();
-  geocoder.geocode( { address :address}, function(results, status){
+  geocoder.geocode( { address :address }, function(results, status){
      if(status == google.maps.GeocoderStatus.OK){
        fn (results);
      } else {
@@ -1997,4 +1997,9 @@ function ($scope, $stateParams, $ionicPopover) {
   //  // Execute action
   // });
 
+}])
+
+.controller('adsCtrl', ['$scope', '$stateParams',
+  function($scope, $stateParams){
+    
 }])
