@@ -276,10 +276,10 @@ function ($scope, $stateParams, $log, $rootScope) {
 
 }])
 
-.controller('myRoutesCtrl', ['$scope', '$state', '$rootScope',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('myRoutesCtrl', ['$scope', '$state', '$rootScope', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $rootScope) {
+function ($scope, $state, $rootScope, $ionicLoading) {
 
   $(".routes-list-item").click(function () {
     $(".routes-list-item").removeClass("active");
@@ -292,6 +292,15 @@ function ($scope, $state, $rootScope) {
   delete $rootScope.latd;
   delete $rootScope.lon;
   delete $rootScope.lond;
+
+
+  $ionicLoading.show({
+    content: 'Cargando',
+    animation: 'fade-in',
+    showBackdop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
 
   $.ajax({
       type: "GET",
@@ -313,6 +322,7 @@ function ($scope, $state, $rootScope) {
           $scope.list.push(newItem);
           delete newItem;
         })
+        $ionicLoading.hide();
       },
       error: function (xhr, status, error) {
           console.log("Error getting my routes");
@@ -1998,8 +2008,64 @@ function ($scope, $stateParams, $ionicPopover) {
   // });
 
 }])
+/**
+* This part controls the advertisement, getting from the API the data
+* and included the posibility to filtering.
+*
+* @copyright Startbluesoft 2017
+* @author Cesar Zavala
+* @since 10-April-2017
+* @version 1.0
+*/
+.controller('adsCtrl', ['$scope', '$stateParams', '$ionicLoading',
+  function($scope, $stateParams, $ionicLoading){
 
-.controller('adsCtrl', ['$scope', '$stateParams',
-  function($scope, $stateParams){
-    
+    $ionicLoading.show({
+      content: 'Cargando',
+      animation: 'fade-in',
+      showBackdop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "http://startbluesoft.com/rideSafeApp/v1/index.php/anuncio",
+        dataType: "json",
+        success: function (data) {
+          var html = "";
+          $.each(data, function(i, j){
+            // @TODO Remove this
+            var random = Math.round(Math.random() * 750) + 100;
+            var width = window.innerWidth / 2;
+            // @TODO End
+            html += '<figure class="ad-item establishment-'+j.id_estable+' price-'+j.costo+'">'
+                            + ' <img src="https://dummyimage.com/'+width+'x'+random+'/000/fff" />'
+                            + ' <figcaption>'+j.descripcion+'<br /><b class="price">$'+j.costo+'</b><span class="stablishment" style="visibility: hidden;">'+j.id_estable+'</span></figcaption>'
+                            + '</figure>';
+          });
+          var $grid = $('#columns').isotope({
+            itemSelector: '.ad-item',
+            layoutMode: 'fitRows',
+            getSortData: {
+              price: '.price parseInt',
+              stablishment: '.stablishment parseInt'
+            },
+            percentPosition: true,
+            masonry: {
+              columnWidth: 50
+            }
+          }).append(html);
+
+          $ionicLoading.hide();
+
+          $('#sorts').on( 'click', 'button', function() {
+            var sortByValue = $(this).attr('data-sort-by');
+            $grid.isotope({ sortBy: sortByValue });
+          });
+        },
+        error: function (xhr, status, error) {
+            console.log("Error getting ads");
+        }
+    });
 }])
