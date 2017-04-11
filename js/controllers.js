@@ -2036,7 +2036,7 @@ function ($scope, $stateParams, $ionicPopover) {
           var html = "";
           $.each(data, function(i, j){
             html = '<figure class="ad-item price establishment" data-establishment="'+j.id_estable+'" data-price="'+j.costo+'">'
-                  + ' <img src="https://dummyimage.com/600x400/000/fff" />'
+                  + ' <img src="https://dummyimage.com/160x400/000/fff" />'
                   + ' <figcaption>'+j.descripcion+'<br /><b>$'+j.costo+'</b></figcaption>'
                   + '</figure>';
             $("#columns").append(html);
