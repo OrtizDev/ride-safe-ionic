@@ -612,6 +612,108 @@ function ($scope, $stateParams, $rootScope, $state, dataUserRegister, UserSessio
    });
    }
 
+$.ajax({
+      type: "POST",
+      url: "http://localhost/StartBlueSoft/v1/index.php/confUser",
+      data: parametros,
+      dataType: 'json',
+      success: function (data) {
+            $scope.authorization = data;
+            $scope.authorization.bdate= new Date($scope.authorization.bdate);
+            $scope.ciudad = { checked : $scope.authorization.ciudad ? true : false };
+            $scope.atv = { checked : $scope.authorization.atv ? true : false};
+            $scope.touring = { checked : $scope.authorization.touring ? true : false};
+            $scope.trabajo = { checked : $scope.authorization.trabajo ? true : false};
+            $scope.circuitos = { checked : $scope.authorization.circuitos ? true : false};
+            $scope.enduro = { checked : $scope.authorization.enduro ? true : false};
+            $scope.stunt = { checked : $scope.authorization.stunt ? true : false};
+            $scope.carretera = { checked : $scope.authorization.carretera ? true : false};
+            $scope.otro = { checked : $scope.authorization.otro ? true : false};
+            console.log($scope.authorization);
+       },
+       error: function (xhr, status, error) {
+           console.log(xhr.responseText);
+           alert("No se pudieron obtener tus datos");
+       }
+  });
+  $scope.updateUser = function() {
+    var dataUserRegister={
+      user:{
+      }
+    };
+    dataUserRegister.user.name = $("input[name=username]").val();
+    dataUserRegister.user.id = $scope.authorization.id;
+    dataUserRegister.user.appat = $("input[name=apat]").val();
+    dataUserRegister.user.apmat = $("input[name=amat]").val();
+    dataUserRegister.user.gender = ($("select[name=gender_re]").val() != null) ? (($("select[name=gender_re]").val()== "string:M") ? "M" : "F"): $scope.authorization.gender;
+    dataUserRegister.user.cell = $("input[name=cellphone]").val();
+    dataUserRegister.user.birth = $("input[name=bdate]").val();
+    dataUserRegister.user.cellemer = $("input[name=telEmer]").val();
+    dataUserRegister.user.city = $("select[name=city_re]").val();
+    dataUserRegister.user.email = $("input[name=emailRe]").val();
+    dataUserRegister.user.password = ($("input[name=pass]").val() == "") ? $scope.authorization.contrasena :  $("input[name=pass]").val();
+    dataUserRegister.user.estatus = ($("input[name=pass]").val() == "") ? 0 : 1;
+    console.log(dataUserRegister);
+    $.ajax({
+      type: "POST",
+      url: "http://localhost/StartBlueSoft/v1/index.php/updateUser",
+      data: dataUserRegister.user,
+      dataType: 'json',
+      success: function (data) {
+        if(data.error) {
+          alert("Intentalo más tarde");
+        } else if(!data.error){
+          $state.go('thanks');
+     }
+  },
+   error: function (xhr, status, error) {
+     console.log(xhr.responseText);
+     alert("Fallo Registro, intentalo más tarde");
+   }
+});
+};
+
+$scope.updateMoto = function() {
+  var dataMotoRegister={
+    moto:{
+    }
+  };
+
+  console.log($scope.authorization.ciudad);
+  dataMotoRegister.moto.id = $scope.authorization.idmoto;
+  dataMotoRegister.moto.marca = ($("select[id=brands").val() != null) ? $("select[id=brands").val() : $scope.authorization.modelo;
+  dataMotoRegister.moto.modelo = ($("select[id=models").val() != null) ? $("select[id=models").val() : $scope.authorization.marca;
+  dataMotoRegister.moto.anio = ($("select[id=year").val() != null) ? $("select[id=year").val() : $scope.authorization.anio;
+  dataMotoRegister.moto.placas = $("input[id=plate]").val();
+  dataMotoRegister.moto.ciudad = $scope.ciudad.checked? 1 : 0;
+  dataMotoRegister.moto.touring = $scope.touring.checked? 1 : 0;
+  dataMotoRegister.moto.circuitos = $scope.circuitos.checked? 1 : 0;
+  dataMotoRegister.moto.stunt = $scope.stunt.checked? 1 : 0;
+  dataMotoRegister.moto.atv = $scope.atv.checked? 1 : 0;
+  dataMotoRegister.moto.trabajo = $scope.trabajo.checked? 1 : 0;
+  dataMotoRegister.moto.enduro = $scope.enduro.checked? 1 : 0;
+  dataMotoRegister.moto.carretera = $scope.carretera.checked? 1 : 0;
+  dataMotoRegister.moto.otro = $scope.otro.checked? $("#other").val() : "";
+  console.log(dataMotoRegister);
+  $.ajax({
+    type: "POST",
+    url: "http://localhost/StartBlueSoft/v1/index.php/updateMoto",
+    data: dataMotoRegister.moto,
+    dataType: 'json',
+    success: function (data) {
+      if(data.error) {
+        alert("Intentalo más tarde");
+      } else if(!data.error){
+        $state.go('thanks');
+   }
+},
+ error: function (xhr, status, error) {
+   console.log(xhr.responseText);
+   alert("Fallo Registro, intentalo más tarde");
+ }
+});
+}
+
   $scope.ciudad = { checked : false };
   $scope.atv = { checked : false };
   $scope.touring = { checked : false };

@@ -31,7 +31,7 @@
 		      </label>
 		      <label class="item item-select black-font col-4 select-item" id="gender_select" name="gender" style="padding: 16px; margin-left: 0px; margin-bottom:0px;">
 		        <select class="select-input" name="gender_re" ng-model="gender" ng-options="genders.gender as genders.genderName for genders in typegender">
-		          <option value="" selected="selected" disabled hidden>Genero</option>
+		          <option value="" selected="selected" disabled hidden>{{authorization.gender}}</option>
 		        </select>
 		      </label>
 		      <label class="item item-input item-floating-label register-input no-border col-5" id="userRegister-input9" name="phone">
@@ -40,8 +40,7 @@
 		      </label>
 		      <label class="item item-input item-floating-label no-border register-input" id="input-birdth" name="birthdate">
 		        <span class="input-label">Fecha de nacimiento</span>
-		        <p id="dateHolder" style="position: absolute; bottom: 10px; text-align: center; width: 90%; color: #fff;">Fecha de nacimiento</p>
-		        <input type="date" placeholder="Fecha de nacimiento" name="bdate" max="{{max}}" ng-model="authorization.bdate" style="color: transparent !important;">
+		        <input type="date" placeholder="Fecha de nacimiento" name="bdate" max="{{max}}" ng-bind="authorization.bdate | date : 'dd.MM.yyyy'" ng-model="authorization.bdate">
 		      </label>
 		      <label class="item item-input item-floating-label no-border register-input" id="userRegister-input11" name="emergency-number">
 		        <span class="input-label">Telefono de emergencia</span>
@@ -59,7 +58,7 @@
 		      </label>
 		      <label class="item item-input item-stacked-label no-border" id="userRegister-email" name="mail">
 		        <span class="input-label">Usuario (e-mail)</span>
-		        <input type="email" placeholder="" name="emailRe" ng-model="authorization.emailRe" ng-pattern="emailFormat" required>
+		        <input type="email" placeholder="" name="emailRe" ng-model="authorization.emailRe" ng-pattern="emailFormat" ng-disabled="true" required>
 		      </label>
 		      <label class="item item-input item-stacked-label no-border" id="userRegister-pass" name="mail">
 		        <span class="input-label">Contraseña</span>
@@ -69,8 +68,8 @@
 		        <span class="input-label">Repetir contraseña</span>
 		        <input type="password" placeholder="" name="repass" ng-model="authorization.repass" ng-minlength="minpassword" required>
 		      </label>
-					<button ui-sref="menu.home" id="motoRegister-send" style="margin-left: 5%; margin-top: 30px;" class="button button-stable button-small col-4">MENU</button>
-					<button type="submit" id="motoRegister-cancel" style="margin-left: 10%; margin-top: 30px;" class="button button-balanced button-small col-4">GUARDAR</button>
+					<button ui-sref="menu.home" id="userRegister-send" style="margin-left: 5%; margin-top: 30px;" class="button button-stable button-small col-4">MENU</button>
+					<button type="submit" id="userRegister-guardar" ng-click="updateUser()" style="margin-left: 10%; margin-top: 30px;" class="button button-balanced button-small col-4">GUARDAR</button>
 		    </form>
       </div>
 
@@ -78,23 +77,23 @@
 				<h3 id="motoRegister-heading3">MOTOCICLETA</h3>
 				<form id="motoRegister-form5" class="list" ng-submit="register()" name="motoRe">
 					<label class="item item-select black-font select-item" id="motoRegister_brand" name="moto-brand">
-						<select class="select-input">
-							<option value="" selected="selected" disabled hidden>Marca de motocicleta</option>
+						<select class="select-input" id="brands" ng-model="brand" ng-change="updateMod(brand)">
+							<option value="" selected="selected" disabled hidden>{{authorization.marca}}</option>
 						</select>
 					</label>
 					<label class="item item-select black-font col-3 select-item" id="motoRegister_model" style="padding: 16px; margin: 25px 0px 0px 16%;">
-						<select class="select-input">
-							<option value="" selected="selected" disabled hidden>Modelo</option>
+						<select class="select-input" id="models">
+							<option value="" selected="selected" disabled hidden>{{authorization.modelo}}</option>
 						</select>
 					</label>
 					<label class="item item-select black-font col-3 select-item" id="motoRegister_year" style="padding: 16px; margin: 25px 0px 0px 5%;">
-						<select class="select-input">
-							<option value="" selected="selected" disabled hidden>Año</option>
+						<select class="select-input" ng-model="years" id="year">
+							<option value="" selected="selected" disabled hidden>{{authorization.anio}}</option>
 						</select>
 					</label>
 					<label class="item item-input item-floating-label register-input no-border" id="motoRegister-plates">
 						<span class="input-label">Placas</span>
-						<input type="number" placeholder="Placas">
+						<input type="number" placeholder="Placas" ng-model="authorization.placas">
 					</label>
 					<h4 id="motoRegister-heading4">¿Qué uso le das a tu motocicleta?</h4>
 					<ion-checkbox id="motoRegister-checkbox1" ng-model="ciudad.checked" class="check-odd checkbox-slim" style="margin-left: 10px; margin-right: -10px;">Ciudad</ion-checkbox>
@@ -110,7 +109,7 @@
 						<input type="text" placeholder="" id="other">
 					</label>
 					<button ui-sref="menu.home" id="motoRegister-send" style="margin-left: 5%;" class="button button-stable button-small col-4">MENU</button>
-					<button type="submit" id="motoRegister-cancel" style="margin-left: 10%;" class="button button-balanced button-small col-4">GUARDAR</button>
+					<button type="submit" id="motoRegister-cancel" style="margin-left: 10%;" class="button button-balanced button-small col-4" ng-click="updateMoto()">GUARDAR</button>
 				</form>
       </div>
 
