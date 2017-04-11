@@ -2035,37 +2035,39 @@ function ($scope, $stateParams, $ionicPopover) {
         success: function (data) {
           var html = "";
           $.each(data, function(i, j){
-            // @TODO Remove this
-            var random = Math.round(Math.random() * 750) + 100;
-            var width = window.innerWidth / 2;
-            // @TODO End
-            html += '<figure class="ad-item establishment-'+j.id_estable+' price-'+j.costo+'">'
-                            + ' <img src="https://dummyimage.com/'+width+'x'+random+'/000/fff" />'
-                            + ' <figcaption>'+j.descripcion+'<br /><b class="price">$'+j.costo+'</b><span class="stablishment" style="visibility: hidden;">'+j.id_estable+'</span></figcaption>'
-                            + '</figure>';
+            html = '<figure class="ad-item price establishment" data-establishment="'+j.id_estable+'" data-price="'+j.costo+'">'
+                  + ' <img src="https://dummyimage.com/600x400/000/fff" />'
+                  + ' <figcaption>'+j.descripcion+'<br /><b>$'+j.costo+'</b></figcaption>'
+                  + '</figure>';
+            $("#columns").append(html);
           });
-          var $grid = $('#columns').isotope({
-            itemSelector: '.ad-item',
-            layoutMode: 'fitRows',
-            getSortData: {
-              price: '.price parseInt',
-              stablishment: '.stablishment parseInt'
-            },
-            percentPosition: true,
-            masonry: {
-              columnWidth: 50
-            }
-          }).append(html);
-
           $ionicLoading.hide();
-
-          $('#sorts').on( 'click', 'button', function() {
-            var sortByValue = $(this).attr('data-sort-by');
-            $grid.isotope({ sortBy: sortByValue });
-          });
         },
         error: function (xhr, status, error) {
             console.log("Error getting ads");
         }
     });
+
+    $('#sorts').on( 'click', 'button', function() {
+      var sortByValue = $(this).attr('data-sort-by');
+      switch(sortByValue){
+        case 'price':
+          var sort = $(".price").sort(sortDivsPrice);
+          $("#columns").html(sort);
+        break;
+        case 'establishment':
+          var sort = $(".establishment").sort(sortDivsEstablishment);
+          $("#columns").html(sort);
+        break;
+      }
+    });
+    function sortDivsPrice(a,b){
+        return $(a).data("price") > $(b).data("price") ? 1 : -1;
+    };
+
+    function sortDivsEstablishment(a, b){
+      return $(a).data("establishment") > $(b).data("establishment") ? 1 : -1;
+    }
+
+
 }])
