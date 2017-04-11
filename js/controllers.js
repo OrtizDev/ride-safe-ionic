@@ -333,7 +333,7 @@ function ($scope, $stateParams, $state, UserSession  ) {
               },
               error: function (xhr, status, error) {
                   console.log(xhr.responseText);
-                  alert("No se pudo iniciar sesi�n, int�ntalo m�s tarde");
+                  alert("No se pudo iniciar sesión, inténtalo más tarde");
               }
           });
         }
