@@ -8,7 +8,7 @@ angular.module('app.controllers')
 
       $scope.mapr = {
         control: {},
-        center: { latitude: $rootScope.lat, longitude: $rootScope.lon },
+        center: { latitude: $rootScope.origin.lat, longitude: $rootScope.origin.lng },
         zoom: 15,
         options: {
           panControl: false,
@@ -22,8 +22,8 @@ angular.module('app.controllers')
       $scope.markerr = {
         id: 0,
         coords: {
-          latitude: $rootScope.lat,
-          longitude: $rootScope.lon
+          latitude: $rootScope.origin.lat,
+          longitude: $rootScope.origin.lng
         },
         options: {
           draggable: false,
@@ -34,8 +34,8 @@ angular.module('app.controllers')
       $scope.markerdr = {
         id: 0,
         coords: {
-          latitude: $rootScope.latd,
-          longitude: $rootScope.lond
+          latitude: $rootScope.destination.lat,
+          longitude: $rootScope.destination.lng
         },
         options: {
           draggable: false,
@@ -83,8 +83,8 @@ angular.module('app.controllers')
 
     function getRoute(fn) {
       var data = {};
-      data.start = $rootScope.lat + ',' + $rootScope.lon;
-      data.end = $rootScope.latd + ',' + $rootScope.lond;
+      data.start = $rootScope.origin.lat + ',' + $rootScope.origin.lng;
+      data.end = $rootScope.destination.lat + ',' + $rootScope.destination.lng;
       data.poi_in = [$scope.type_poi];
       data.weather = true;
       $.ajax({

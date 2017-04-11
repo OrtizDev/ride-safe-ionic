@@ -150,13 +150,17 @@ angular.module('app.controllers')
                 alert(data.message);
               } else if (!data.error) {
                 var coord = JSON.parse(data.message);
-                $rootScope.latd = coord[0].altDes;
-                $rootScope.lond = coord[0].latDes;
+                $rootScope.destination = {
+                  lat: coord[0].altDes,
+                  lng: coord[0].latDes
+                };
                 if (navigator.geolocation) {
                   navigator.geolocation.getCurrentPosition(function (position) {
                     $scope.$apply(function () {
-                      $rootScope.lat = position.coords.latitude;
-                      $rootScope.lon = position.coords.longitude;
+                      $rootScope.origin = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                      };
                       $state.go('routeReview');
                     });
                   });

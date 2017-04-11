@@ -19,7 +19,7 @@
     </ion-scroll>
     <div class="caravana-footer row">
       <button ui-sref="menu.home" class="col button button-dark button-large cancel-button">Cancelar</button>
-      <button ng-click="startCaravana()" class="col button button-balanced button-large go-button">
+      <button ui-sref="onRoute" class="col button button-balanced button-large go-button" ng-disabled="chrono !== 0">
         {{chrono === 0 ? 'Iniciar Caravana' : chrono}}</button>
     </div>
 

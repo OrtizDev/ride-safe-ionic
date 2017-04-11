@@ -27,6 +27,14 @@ angular.module('app.controllers')
           getCoordinates($('#origin').val(), function (coord) {
             $scope.marker.coords.latitude = coord[0].geometry.location.lat();
             $scope.marker.coords.longitude = coord[0].geometry.location.lng();
+            $rootScope.origin = {
+              lat: coord[0].geometry.location.lat(),
+              lng: coord[0].geometry.location.lng()
+            };
+            $scope.map.center = {
+              latitude: coord[0].geometry.location.lat(),
+              longitude: coord[0].geometry.location.lng()
+            };
 
             if ($('#home-inputDestination').is(':hidden')) {
               $('#home-inputDestination').show();
@@ -49,6 +57,14 @@ angular.module('app.controllers')
           getCoordinates($('#destination').val(), function (coord) {
             $scope.markerd.coords.latitude = coord[0].geometry.location.lat();
             $scope.markerd.coords.longitude = coord[0].geometry.location.lng();
+            $rootScope.destination = {
+              lat: coord[0].geometry.location.lat(),
+              lng: coord[0].geometry.location.lng()
+            };
+            $scope.map.center = {
+              latitude: coord[0].geometry.location.lat(),
+              longitude: coord[0].geometry.location.lng()
+            };
             getDirections();
           });
         } else {
@@ -88,10 +104,12 @@ angular.module('app.controllers')
                 },
                 events: {
                   dragend: function (markerd, eventName, args) {
-                    $rootScope.latd = markerd.getPosition().lat();
-                    $rootScope.lond = markerd.getPosition().lng();
+                    $rootScope.destination = {
+                      lat: markerd.getPosition().lat(),
+                      lng: markerd.getPosition().lng()
+                    };
 
-                    var latlngd = new google.maps.LatLng($rootScope.latd, $rootScope.lond);
+                    var latlngd = new google.maps.LatLng($rootScope.destination.lat, $rootScope.destination.lng);
 
                     foo(latlngd, function (locationd) {
                       $('#destination').val(locationd);
@@ -119,16 +137,18 @@ angular.module('app.controllers')
                 },
                 events: {
                   dragend: function (marker, marked, eventName, args) {
-                    $rootScope.lat = marker.getPosition().lat();
-                    $rootScope.lon = marker.getPosition().lng();
+                    $rootScope.origin = {
+                      lat: marker.getPosition().lat(),
+                      lon: marker.getPosition().lng()
+                    };
 
                     if ($('#home-inputDestination').is(':hidden')) {
-                      var latlngd = new google.maps.LatLng(($rootScope.lat), $rootScope.lon);
-                      $scope.markerd.coords.latitude = ($rootScope.lat);
-                      $scope.markerd.coords.longitude = $rootScope.lon;
+                      var latlngd = new google.maps.LatLng(($rootScope.origin.lat), $rootScope.origin.lng);
+                      $scope.markerd.coords.latitude = $rootScope.origin.lat;
+                      $scope.markerd.coords.longitude = $rootScope.origin.lng;
                     }
 
-                    var latlng = new google.maps.LatLng($rootScope.lat, $rootScope.lon);
+                    var latlng = new google.maps.LatLng($rootScope.origin.lat, $rootScope.origin.lng);
 
                     foo(latlng, function (location) {
                       $('#origin').val(location);

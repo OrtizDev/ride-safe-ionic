@@ -1030,8 +1030,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
     }])
 
 
-  .controller('createRouteCaravanaCtrl', ['$scope',
-    function ($scope) {
+  .controller('createRouteCaravanaCtrl', ['$scope', '$rootScope',
+    function ($scope, $rootScope) {
       $scope.$on('$ionicView.loaded', function () {
         if (window.cordova) {
           cordova.plugins.diagnostic.isLocationEnabled(function (enabled) {
@@ -1076,10 +1076,12 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
                 },
                 events: {
                   dragend: function (markerd, eventName, args) {
-                    $rootScope.latd = markerd.getPosition().lat();
-                    $rootScope.lond = markerd.getPosition().lng();
+                    $rootScope.destination = {
+                      lat: markerd.getPosition().lat(),
+                      lng: markerd.getPosition().lng() 
+                    };
 
-                    var latlngd = new google.maps.LatLng($rootScope.latd, $rootScope.lond);
+                    var latlngd = new google.maps.LatLng($rootScope.destination.lat, $rootScope.destination.lng);
 
                     foo(latlngd, function (locationd) {
                       $('#destination').val(locationd);
@@ -1107,16 +1109,18 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
                 },
                 events: {
                   dragend: function (marker, marked, eventName, args) {
-                    $rootScope.lat = marker.getPosition().lat();
-                    $rootScope.lon = marker.getPosition().lng();
+                    $rootScope.origin = {
+                      lat: marker.getPosition().lat(),
+                      lng: marker.getPosition().lng()
+                    };
 
                     if ($('#home-inputDestination').is(':hidden')) {
-                      var latlngd = new google.maps.LatLng(($rootScope.lat), $rootScope.lon);
-                      $scope.markerd.coords.latitude = ($rootScope.lat);
-                      $scope.markerd.coords.longitude = $rootScope.lon;
+                      var latlngd = new google.maps.LatLng(($rootScope.origin.lat), $rootScope.origin.lng);
+                      $scope.markerd.coords.latitude = $rootScope.origin.lat;
+                      $scope.markerd.coords.longitude = $rootScope.origin.lng;
                     }
 
-                    var latlng = new google.maps.LatLng($rootScope.lat, $rootScope.lon);
+                    var latlng = new google.maps.LatLng($rootScope.origin.lat, $rootScope.origin.lng);
 
                     foo(latlng, function (location) {
                       $('#origin').val(location);
