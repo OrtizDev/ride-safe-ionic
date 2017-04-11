@@ -17,7 +17,8 @@ angular.module('app.routes', [])
             templateUrl: 'templates/home.html',
             controller: 'homeCtrl'
           }
-        }
+        },
+        
       })
 
       .state('menu.myRoutes', {
@@ -87,17 +88,6 @@ angular.module('app.routes', [])
         views: {
           'side-menu21': {
             templateUrl: 'templates/caravana/destination.html',
-            controller: 'destinationCaravanaCtrl'
-          }
-        }
-      })
-
-      .state('menu.caravanaCreateRoute', {
-        url: '/caravana/destination',
-        views: {
-          'side-menu21': {
-            templateUrl: 'templates/caravana/createRoute.html',
-            controller: 'createRouteCaravanaCtrl'
           }
         }
       })
@@ -111,6 +101,37 @@ angular.module('app.routes', [])
           }
         }
       })
+
+      .state('menu.caravanaCreateRoute', {
+        url: '/caravana/createRoute',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/createRoute.html',
+            controller: 'caravanaCreateRouteCtrl'
+          }
+        }
+      })
+
+      .state('menu.caravanaReviewRoute', {
+        url: '/caravana/review-route',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/reviewRoute.html',
+            controller: 'CaravanaReviewRouteCtrl'
+          }
+        }
+      })
+
+      .state('menu.caravanaInvitations', {
+        url: '/caravana/invitations',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/invitations.html',
+            controller: 'CaravanaInvitations'
+          }
+        }
+      })
+
 
       // End of caravana's routes
       // -----------------------------------------------------------

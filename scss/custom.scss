@@ -208,33 +208,6 @@ ion-content>div:first-child {
 
 
 
-/*********** HOME ************/
-
-.home-button {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  z-index: 3;
-  min-height: 35px !important;
-  min-width: 35px !important;
-}
-
-#home-form9 {
-  position: absolute;
-  top: 85px;
-  left: 45px;
-  width: 75%;
-  >label {
-    border-radius: 10px;
-    border: 1px solid #3b3c3a;
-    height: 40px;
-    margin: 1px 0px;
-    padding-left: 12px !important;
-  }
-}
-
-
-
 /*********** MENU ***********/
 
 .hidden-text {
@@ -665,10 +638,10 @@ ion-content>div:first-child {
 
 /*********** ON ROUTE VIEW ***********/
 
-.filter-bar {
-  height: 9vh;
-  z-index: 2;
-}
+// .filter-bar {
+//   height: 9vh;
+//   z-index: 2;
+// }
 
 .filter-button {
   height: 100%;

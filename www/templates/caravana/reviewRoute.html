@@ -29,8 +29,8 @@
       <ui-gmap-polyline ng-repeat="pr in polylinesr" path="pr.path" stroke="pr.stroke" visible='pr.visible' geodesic='pr.geodesic'></ui-gmap-polyline>
     </ui-gmap-google-map>
     <div class="buttons-bottom">
-			<button ng-click="back()" class="button button-dark button-large col-5 cancel-button">Cancelar</button>
-		  <button ui-sref="onRoute" class="button button-balanced button-large col-5 go-button">A rodar!</button>
+			<button ui-sref="menu.caravanaCreateRoute" class="button button-dark button-large col-5 cancel-button">Cancelar</button>
+		  <button ui-sref="menu.caravanaInvitations" class="button button-balanced button-large col-5 go-button">Enviar Inv.</button>
     </div>
   </ion-content>
 </ion-view>
