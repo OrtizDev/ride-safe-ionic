@@ -145,6 +145,7 @@ angular.module('app.routes', [])
   })
 
   .state('onRoute', {
+    cache: false,
     url: '/on-route',
     templateUrl: 'templates/onRoute.html',
     controller: 'onRouteCtrl'
@@ -154,6 +155,13 @@ angular.module('app.routes', [])
     url: '/route-details',
     templateUrl: 'templates/routeDetails.html',
     controller: 'routeDetailsCtrl'
+  })
+
+  .state('ads', {
+    cache: false,
+    url: '/ads',
+    templateUrl: 'templates/ads.html',
+    controller: 'adsCtrl'
   })
 
 $urlRouterProvider.otherwise('login')
