@@ -2028,8 +2028,8 @@ function ($scope, $stateParams, $ionicPopover) {
       showDelay: 0
     });
 
-    delete $rootScope.list;
-    $rootScope.list = [];
+    delete $rootScope.list_ad;
+    $scope.list = [];
 
     $.ajax({
         type: "GET",
@@ -2047,7 +2047,7 @@ function ($scope, $stateParams, $ionicPopover) {
             item.id = j.id_anuncio;
             item.desc = j.descripcion;
             item.costo = j.costo;
-            $rootScope.list.push(item);
+            $scope.list.push(item);
             compiledHtml += html;
           });
           var compiled = $compile(compiledHtml)($scope);
@@ -2088,7 +2088,21 @@ function ($scope, $stateParams, $ionicPopover) {
     }
 
     $scope.openAd = function(item){
+      $rootScope.list_ad = $scope.list[item];
       $state.go('showAd');
     }
 
+}])
+
+/**
+* This part controls the the info of the advertisement selected
+*
+* @copyright Startbluesoft 2017
+* @author Cesar Zavala
+* @since 11-April-2017
+* @version 1.0
+*/
+.controller('showAdCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$compile', '$rootScope',
+  function($scope, $state, $stateParams, $ionicLoading, $compile, $rootScope){
+    $scope.description = $rootScope.list_ad.desc;
 }])
