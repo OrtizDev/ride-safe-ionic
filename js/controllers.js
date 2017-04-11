@@ -239,7 +239,7 @@ function ($scope, $stateParams, $log, $rootScope) {
 
  function getCoordinates(address, fn){
   var geocoder = new google.maps.Geocoder();
-  geocoder.geocode( { address :address}, function(results, status){
+  geocoder.geocode( { address :address }, function(results, status){
      if(status == google.maps.GeocoderStatus.OK){
        fn (results);
      } else {
@@ -276,10 +276,10 @@ function ($scope, $stateParams, $log, $rootScope) {
 
 }])
 
-.controller('myRoutesCtrl', ['$scope', '$state', '$rootScope',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('myRoutesCtrl', ['$scope', '$state', '$rootScope', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $rootScope) {
+function ($scope, $state, $rootScope, $ionicLoading) {
 
   $(".routes-list-item").click(function () {
     $(".routes-list-item").removeClass("active");
@@ -292,6 +292,15 @@ function ($scope, $state, $rootScope) {
   delete $rootScope.latd;
   delete $rootScope.lon;
   delete $rootScope.lond;
+
+
+  $ionicLoading.show({
+    content: 'Cargando',
+    animation: 'fade-in',
+    showBackdop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
 
   $.ajax({
       type: "GET",
@@ -313,6 +322,7 @@ function ($scope, $state, $rootScope) {
           $scope.list.push(newItem);
           delete newItem;
         })
+        $ionicLoading.hide();
       },
       error: function (xhr, status, error) {
           console.log("Error getting my routes");
@@ -1996,5 +2006,68 @@ function ($scope, $stateParams, $ionicPopover) {
   // $scope.$on('popover.removed', function() {
   //  // Execute action
   // });
+
+}])
+/**
+* This part controls the advertisement, getting from the API the data
+* and included the posibility to filtering.
+*
+* @copyright Startbluesoft 2017
+* @author Cesar Zavala
+* @since 10-April-2017
+* @version 1.0
+*/
+.controller('adsCtrl', ['$scope', '$stateParams', '$ionicLoading',
+  function($scope, $stateParams, $ionicLoading){
+
+    $ionicLoading.show({
+      content: 'Cargando',
+      animation: 'fade-in',
+      showBackdop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "http://startbluesoft.com/rideSafeApp/v1/index.php/anuncio",
+        dataType: "json",
+        success: function (data) {
+          var html = "";
+          $.each(data, function(i, j){
+            html = '<figure class="ad-item price establishment" data-establishment="'+j.id_estable+'" data-price="'+j.costo+'">'
+                  + ' <img src="https://dummyimage.com/600x400/000/fff" />'
+                  + ' <figcaption>'+j.descripcion+'<br /><b>$'+j.costo+'</b></figcaption>'
+                  + '</figure>';
+            $("#columns").append(html);
+          });
+          $ionicLoading.hide();
+        },
+        error: function (xhr, status, error) {
+            console.log("Error getting ads");
+        }
+    });
+
+    $('#sorts').on( 'click', 'button', function() {
+      var sortByValue = $(this).attr('data-sort-by');
+      switch(sortByValue){
+        case 'price':
+          var sort = $(".price").sort(sortDivsPrice);
+          $("#columns").html(sort);
+        break;
+        case 'establishment':
+          var sort = $(".establishment").sort(sortDivsEstablishment);
+          $("#columns").html(sort);
+        break;
+      }
+    });
+    function sortDivsPrice(a,b){
+        return $(a).data("price") > $(b).data("price") ? 1 : -1;
+    };
+
+    function sortDivsEstablishment(a, b){
+      return $(a).data("establishment") > $(b).data("establishment") ? 1 : -1;
+    }
+
 
 }])
