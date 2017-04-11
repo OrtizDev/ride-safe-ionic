@@ -158,10 +158,17 @@ angular.module('app.routes', [])
   })
 
   .state('ads', {
-    cache: false,
+    cache: true,
     url: '/ads',
     templateUrl: 'templates/ads.html',
     controller: 'adsCtrl'
+  })
+
+  .state('showAd', {
+    cache: false,
+    url: '/show-ads',
+    templateUrl: 'templates/ad.html',
+    controller: 'showAdCtrl'
   })
 
 $urlRouterProvider.otherwise('login')

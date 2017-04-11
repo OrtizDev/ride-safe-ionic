@@ -2017,8 +2017,8 @@ function ($scope, $stateParams, $ionicPopover) {
 * @since 10-April-2017
 * @version 1.0
 */
-.controller('adsCtrl', ['$scope', '$stateParams', '$ionicLoading',
-  function($scope, $stateParams, $ionicLoading){
+.controller('adsCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$compile', '$rootScope',
+  function($scope, $state, $stateParams, $ionicLoading, $compile, $rootScope){
 
     $ionicLoading.show({
       content: 'Cargando',
@@ -2028,19 +2028,30 @@ function ($scope, $stateParams, $ionicPopover) {
       showDelay: 0
     });
 
+    delete $rootScope.list;
+    $rootScope.list = [];
+
     $.ajax({
         type: "GET",
         url: "http://startbluesoft.com/rideSafeApp/v1/index.php/anuncio",
         dataType: "json",
         success: function (data) {
           var html = "";
+          var compiledHtml = "";
           $.each(data, function(i, j){
-            html = '<figure class="ad-item price establishment" data-establishment="'+j.id_estable+'" data-price="'+j.costo+'">'
+            var item = {};
+            html = '<figure class="ad-item price establishment" data-establishment="'+j.id_estable+'" data-price="'+j.costo+'" ng-click="openAd('+j.id_anuncio+')">'
                   + ' <img src="https://dummyimage.com/160x400/000/fff" />'
                   + ' <figcaption>'+j.descripcion+'<br /><b>$'+j.costo+'</b></figcaption>'
                   + '</figure>';
-            $("#columns").append(html);
+            item.id = j.id_anuncio;
+            item.desc = j.descripcion;
+            item.costo = j.costo;
+            $rootScope.list.push(item);
+            compiledHtml += html;
           });
+          var compiled = $compile(compiledHtml)($scope);
+          angular.element(document.getElementById('columns')).append(compiled);
           $ionicLoading.hide();
         },
         error: function (xhr, status, error) {
@@ -2053,11 +2064,18 @@ function ($scope, $stateParams, $ionicPopover) {
       switch(sortByValue){
         case 'price':
           var sort = $(".price").sort(sortDivsPrice);
-          $("#columns").html(sort);
+          //@TODO Read next to-do
+          var compiled = $compile(sort)($scope);
+          angular.element(document.getElementById('columns')).append(compiled);
         break;
         case 'establishment':
           var sort = $(".establishment").sort(sortDivsEstablishment);
-          $("#columns").html(sort);
+          //@TODO Find a better way to handle this, because every time is clicked it detects x2 the click
+          // for example the first time when an element is clicked counts as 2, then, counts as 4
+          // then as 8, then as 16...to the infinity and beyond
+          // this link could help: http://stackoverflow.com/questions/20192133/replace-the-html-of-an-element-with-the-content-of-an-external-template-in-a-dir
+          var compiled = $compile(sort)($scope);
+          angular.element(document.getElementById('columns')).append(compiled);
         break;
       }
     });
@@ -2069,5 +2087,8 @@ function ($scope, $stateParams, $ionicPopover) {
       return $(a).data("establishment") > $(b).data("establishment") ? 1 : -1;
     }
 
+    $scope.openAd = function(item){
+      $state.go('showAd');
+    }
 
 }])
