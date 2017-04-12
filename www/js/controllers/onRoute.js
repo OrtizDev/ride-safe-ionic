@@ -16,6 +16,10 @@ angular.module('app.controllers')
           }
         };
 
+        // if($rootScope.onCaravana) {
+        //   setTimeout
+        // }
+
         $scope.markero = {
           id: 0,
           coords: {
@@ -92,29 +96,23 @@ angular.module('app.controllers')
 
       // Function to close the alerts menu if clicked anywhere in the view
       $(document).click(function (evt) {
-
         if (evt.target.id == 'nav-trigger') {
           return;
         }
-
         if ($('input[name="nav-trigger"]').is(':checked')) {
           $('input[name="nav-trigger"]').prop('checked', false);
         }
-
       });
 
       $('input[name="nav-trigger"]').click(function () {
         event.stopPropagation();
-
       });
 
       // .fromTemplate() method
       var template = '<ion-popover-view style="top: 25% !important;"><ion-content> Hola! </ion-content></ion-popover-view>';
-
       $scope.popover = $ionicPopover.fromTemplate(template, {
         scope: $scope
       });
-
       // .fromTemplateUrl() method
       $ionicPopover.fromTemplateUrl('stops-route-confirm.html', {
         scope: $scope

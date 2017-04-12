@@ -55,7 +55,9 @@
     </div>
     <div id="caravan_container" class="background-odd" style="height: 25vh;">
       <div class="spacer" style="width: 300px; height: 25%;"></div>
-      <button ng-click="facebookLink()" id="sp2-buttonFb" style="" ng-disabled="fbButtonDisabled" class="button button-balanced button-large col-12 facebook-button">{{ textFbLink }}</button>
+      <div class="row row-center"> 
+        <button ng-click="facebookLink()" id="sp2-buttonFb" style="" ng-disabled="fbButtonDisabled" class="button button-balanced button-large col-12 facebook-button">{{ textFbLink }}</button>
+      </div>
       <div class="spacer" style="width: 300px; height: 20px;"></div>
     </div>
     <div class="bottom-buttons">
@@ -65,7 +67,7 @@
 
     <script id="modal-1.html" type="text/ng-template">
       <ion-modal-view style="background: transparent;">
-        <ion-content padding="true" class="manual-ios-statusbar-padding modal-1">
+        <ion-content padding="true" class="manual-ios-statusbar-padding modal-1" scroll="false">
       		<div class="modal-header">
             <div style="height:20px;">
               <button id="close-button10" ng-click="closeModal(1)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
@@ -105,7 +107,7 @@
 
      <script id="modal-2.html" type="text/ng-template">
        <ion-modal-view style="background: transparent;">
-         <ion-content padding="true" class="manual-ios-statusbar-padding modal-2">
+         <ion-content padding="true" class="manual-ios-statusbar-padding modal-2" scroll="false">
        		<div class="modal-header">
              <div style="height:20px;">
                <button id="close-button10" ng-click="closeModal(2)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
@@ -179,7 +181,7 @@
 
       <script id="modal-3.html" type="text/ng-template">
         <ion-modal-view style="background: transparent;">
-          <ion-content padding="true" class="manual-ios-statusbar-padding modal-3">
+          <ion-content padding="true" class="manual-ios-statusbar-padding modal-3" scroll="false">
         		<div class="modal-header">
               <div style="height:20px;">
                 <button id="close-button10" ng-click="closeModal(3)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
@@ -252,7 +254,7 @@
 
        <script id="modal-4.html" type="text/ng-template">
          <ion-modal-view style="background: transparent;">
-           <ion-content padding="true" class="manual-ios-statusbar-padding modal-4">
+           <ion-content padding="true" class="manual-ios-statusbar-padding modal-4" scroll="false">
          		<div class="modal-header">
                <div style="height:20px;">
                  <button id="close-button10" ng-click="closeModal(4)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>

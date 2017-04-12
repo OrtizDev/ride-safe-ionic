@@ -161,7 +161,7 @@ angular.module('app.controllers')
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                       };
-                      $state.go('routeReview');
+                      $state.go('menu.caravanaInvitations');
                     });
                   });
                 } else {

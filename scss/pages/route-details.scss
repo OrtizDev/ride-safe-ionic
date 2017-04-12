@@ -1,0 +1,96 @@
+.route-details {
+  background-color: #3B3C3A;
+  #route_details_title {
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0px;
+  }
+  .row {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    padding: 0;
+  }
+  .button {
+    border-radius: 0;
+    text-align: center;
+  }
+}
+
+
+#route-form-details  {
+  width: 80%;
+  margin: 20% auto 10%;
+  & label {
+    border: none;
+  }
+}
+
+#route_name input {
+  font-size: 19px;
+}
+
+.light-input {
+  span {
+    display: inline-block;
+    text-align: left;
+    margin-bottom: -20px;
+  }
+  input {
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: solid #fff 1px;
+    padding: 0 !important;
+    background: transparent;
+    border-radius: 0px;
+  }
+}
+
+#origin span,
+#destination span {
+  width: 20%;
+}
+
+#origin input,
+#destination input {
+  width: 75%;
+}
+
+#kilometers {
+  span {
+    width: 10%;
+  }
+  input {
+    width: 85%;
+  }
+}
+
+#time {
+  span {
+    width: 45%;
+  }
+  input {
+    width: 50%;
+  }
+}
+
+#toll_cost {
+  span {
+    width: 50%;
+  }
+  input {
+    width: 45%;
+  }
+}
+
+#not_save_route,
+#save_route {
+  font-size: 4vw;
+  border-radius: 8px 8px 8px 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 4px;
+}

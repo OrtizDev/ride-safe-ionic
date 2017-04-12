@@ -5,6 +5,8 @@
 @import 'pages/menu';
 @import 'pages/home';
 
+@import 'pages/route-details';
+
 
 @import 'pages/caravana/caravana';
 
@@ -19,4 +21,8 @@
 .background-odd {
   background: #3871c2;
   color: white;
+}
+
+.row-center {
+  justify-content: center;
 }

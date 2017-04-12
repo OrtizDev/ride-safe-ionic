@@ -15,7 +15,13 @@ angular.module('app.controllers')
       $scope.$on('$ionicView.enter', function () {
         $scope.name = UserSession.getName();
 
+        // setTimeout(() => {
+        //   showConfirmPopup();
+        // }, 3000);  
+
       });
 
+      
 
-    }])
+
+    }]);

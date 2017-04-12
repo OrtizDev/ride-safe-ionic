@@ -4,11 +4,11 @@
     <form id="route-form" class="list">
       <label class="item item-input" id="home-inputOrigin" name="origin">
         <span style="width: 15%; font-size: 12px;"><i class="icon ion-record calm"></i></span>
-        <input type="text" placeholder="Origen de ruta" id="origin" ng-blur="blurred()">
+        <input type="text" placeholder="Origen de ruta" id="origin" ng-blur="blurred()" ng-keyup="enterPressed($event, blurred)">
       </label>
       <label class="item item-input" id="home-inputDestination" name="origin">
         <span style="width: 15%; font-size: 16px;"><i class="icon ion-android-search"></i></span>
-        <input type="text" placeholder="Destino" id="destination" ng-blur="blurredd()">
+        <input type="text" placeholder="Destino" id="destination" ng-blur="blurredd()" ng-keyup="enterPressed($event, blurredd)">
       </label>
     </form>
     <ui-gmap-google-map control="map.control" ng-if="map.center" center="map.center"
@@ -31,7 +31,7 @@
     </ui-gmap-google-map>
 
     <div class="buttons-bottom">
-      <button ui-sref="routeReview" class="button button-balanced button-large button-full">Revisar ruta</button>
+      <button ui-sref="routeReview" class="button button-balanced button-large button-full" ng-disabled="disabled">Revisar ruta</button>
     </div>
   </ion-content>
 </ion-view>

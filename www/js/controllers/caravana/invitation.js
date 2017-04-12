@@ -21,7 +21,7 @@ angular.module('app.controllers')
           }
         });
       }
-      $scope.chrono = 30;
+      $scope.chrono = 10;
       $scope.users = [
         { name: 'Carlos Barranco', status: false },
         { name: 'Arturo Caballero', status: true },

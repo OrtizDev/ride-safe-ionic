@@ -1,5 +1,4 @@
 angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage'])
-
   .controller('myRoutesCtrl', ['$scope', '$stateParams',
     function ($scope, $stateParams) {
 
@@ -23,7 +22,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           if (data.error) {
             alert(data.message);
           } else if (!data.error) {
-            estados = JSON.parse(data.message);
+            let estados = JSON.parse(data.message);
             var toAppend = '';
             $.each(estados, function (i, item) {
               toAppend += '<option value="' + item.id_estado + '">' + item.nombre + '</option>';
@@ -61,7 +60,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
             if (data.error) {
               alert(data.message);
             } else if (!data.error) {
-              estados = JSON.parse(data.message);
+              let estados = JSON.parse(data.message);
               var toAppend = '';
               $.each(estados, function (i, item) {
                 toAppend += '<option value="' + item.id_municipio + '">' + item.nombre + '</option>';
@@ -124,7 +123,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
           if (data.error) {
             alert(data.message);
           } else if (!data.error) {
-            estados = JSON.parse(data.message);
+            let estados = JSON.parse(data.message);
             var toAppend = '';
             $.each(estados, function (i, item) {
               toAppend += '<option value="' + item.id_marca_moto + '">' + item.nombre + '</option>';
@@ -160,7 +159,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
             if (data.error) {
               alert(data.message);
             } else if (!data.error) {
-              estados = JSON.parse(data.message);
+              let estados = JSON.parse(data.message);
               var toAppend = '';
               $.each(estados, function (i, item) {
                 toAppend += '<option value="' + item.id_modelo + '">' + item.nombre + '</option>';
@@ -270,8 +269,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
     }])
 
-  .controller('thanksCtrl', ['$scope', '$stateParams', 'dataUserRegister', '$state',
-    function ($scope, $stateParams, dataUserRegister, $state) {
+  .controller('thanksCtrl', ['$scope', '$stateParams', 'dataUserRegister', '$state', 'UserSession',
+    function ($scope, $stateParams, dataUserRegister, $state, UserSession) {
 
       $scope.$on('$ionicView.enter', function () {
         setTimeout(function () {
@@ -414,117 +413,117 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
       $scope.openModal = function (index) {
         switch (index) {
-          case 1:
-            if ($localStorage.fbImpact) {
-              $scope.facebookImpacts.status = true;
-            } else {
-              $scope.facebookImpacts.status = false;
-            }
-            if ($localStorage.msgImpacts) {
-              $scope.msg = { Impacts: $localStorage.msgImpacts };
-            } else {
-              $scope.msg = { Impacts: '' };
-            }
-            if ($localStorage.smsImpact) {
-              $scope.smsImpacts.status = true;
-            } else {
-              $scope.smsImpacts.status = false;
-            }
-            $scope.modal1.show();
-            break;
-          case 2:
-            if ($localStorage.fbDetour) {
-              $scope.facebookDetour.status = true;
-            } else {
-              $scope.facebookDetour.status = false;
-            }
-            if ($localStorage.msgDetour) {
-              $scope.msg = { Detour: $localStorage.msgDetour };
-            } else {
-              $scope.msg = { Detour: '' };
-            }
-            if ($localStorage.smsDetour) {
-              $scope.smsDetour.status = true;
-            } else {
-              $scope.smsDetour.status = false;
-            }
-            if ($localStorage.kmDetour) {
-              $scope.kmDetour = $localStorage.kmDetour;
-            } else {
-              $scope.kmDetour = 1;
-            }
-            $scope.modal2.show();
-            break;
-          case 3:
-            if ($localStorage.thefts) {
-              $scope.theftsToggle.status = true;
-            } else {
-              $scope.theftsToggle.status = false;
-            }
-            if ($localStorage.speed) {
-              $scope.speedToggle.status = true;
-            } else {
-              $scope.speedToggle.status = false;
-            }
-            if ($localStorage.accident) {
-              $scope.accidentToggle.status = true;
-            } else {
-              $scope.accidentToggle.status = false;
-            }
-            if ($localStorage.kmRisk) {
-              $scope.kmRisk = $localStorage.kmRisk;
-            } else {
-              $scope.kmRisk = 1;
-            }
-            $scope.modal3.show();
-            break;
-          case 4:
-            if ($localStorage.fbTracking) {
-              $scope.facebookTracking.status = true;
-            } else {
-              $scope.facebookTracking.status = false;
-            }
-            if ($localStorage.msgTracking) {
-              $scope.msg = { Tracking: $localStorage.msgTracking };
-            } else {
-              $scope.msg = { Tracking: '' };
-            }
-            if ($localStorage.smsTracking) {
-              $scope.smsTracking.status = true;
-            } else {
-              $scope.smsTracking.status = false;
-            }
-            if ($localStorage.kmTracking) {
-              $scope.kmTracking = $localStorage.kmTracking;
-            } else {
-              $scope.kmTracking = 1;
-            }
-            $scope.modal4.show();
-            break;
-          case 5:
-            $scope.modal5.show();
-            break;
+        case 1:
+          if ($localStorage.fbImpact) {
+            $scope.facebookImpacts.status = true;
+          } else {
+            $scope.facebookImpacts.status = false;
+          }
+          if ($localStorage.msgImpacts) {
+            $scope.msg = { Impacts: $localStorage.msgImpacts };
+          } else {
+            $scope.msg = { Impacts: '' };
+          }
+          if ($localStorage.smsImpact) {
+            $scope.smsImpacts.status = true;
+          } else {
+            $scope.smsImpacts.status = false;
+          }
+          $scope.modal1.show();
+          break;
+        case 2:
+          if ($localStorage.fbDetour) {
+            $scope.facebookDetour.status = true;
+          } else {
+            $scope.facebookDetour.status = false;
+          }
+          if ($localStorage.msgDetour) {
+            $scope.msg = { Detour: $localStorage.msgDetour };
+          } else {
+            $scope.msg = { Detour: '' };
+          }
+          if ($localStorage.smsDetour) {
+            $scope.smsDetour.status = true;
+          } else {
+            $scope.smsDetour.status = false;
+          }
+          if ($localStorage.kmDetour) {
+            $scope.kmDetour = $localStorage.kmDetour;
+          } else {
+            $scope.kmDetour = 1;
+          }
+          $scope.modal2.show();
+          break;
+        case 3:
+          if ($localStorage.thefts) {
+            $scope.theftsToggle.status = true;
+          } else {
+            $scope.theftsToggle.status = false;
+          }
+          if ($localStorage.speed) {
+            $scope.speedToggle.status = true;
+          } else {
+            $scope.speedToggle.status = false;
+          }
+          if ($localStorage.accident) {
+            $scope.accidentToggle.status = true;
+          } else {
+            $scope.accidentToggle.status = false;
+          }
+          if ($localStorage.kmRisk) {
+            $scope.kmRisk = $localStorage.kmRisk;
+          } else {
+            $scope.kmRisk = 1;
+          }
+          $scope.modal3.show();
+          break;
+        case 4:
+          if ($localStorage.fbTracking) {
+            $scope.facebookTracking.status = true;
+          } else {
+            $scope.facebookTracking.status = false;
+          }
+          if ($localStorage.msgTracking) {
+            $scope.msg = { Tracking: $localStorage.msgTracking };
+          } else {
+            $scope.msg = { Tracking: '' };
+          }
+          if ($localStorage.smsTracking) {
+            $scope.smsTracking.status = true;
+          } else {
+            $scope.smsTracking.status = false;
+          }
+          if ($localStorage.kmTracking) {
+            $scope.kmTracking = $localStorage.kmTracking;
+          } else {
+            $scope.kmTracking = 1;
+          }
+          $scope.modal4.show();
+          break;
+        case 5:
+          $scope.modal5.show();
+          break;
         }
         $('#sp2_content').addClass('blur-efect');
       };
 
       $scope.closeModal = function (index) {
         switch (index) {
-          case 1:
-            $scope.modal1.hide();
-            break;
-          case 2:
-            $scope.modal2.hide();
-            break;
-          case 3:
-            $scope.modal3.hide();
-            break;
-          case 4:
-            $scope.modal4.hide();
-            break;
-          case 5:
-            $scope.modal5.hide();
-            break;
+        case 1:
+          $scope.modal1.hide();
+          break;
+        case 2:
+          $scope.modal2.hide();
+          break;
+        case 3:
+          $scope.modal3.hide();
+          break;
+        case 4:
+          $scope.modal4.hide();
+          break;
+        case 5:
+          $scope.modal5.hide();
+          break;
         }
         $('#sp2_content').removeClass('blur-efect');
       };
@@ -533,21 +532,21 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
       //Cleanup the modal when we're done with it!
       $scope.$on('$destroy', function (index) {
         switch (index) {
-          case 1:
-            $scope.modal1.remove();
-            break;
-          case 2:
-            $scope.modal2.remove();
-            break;
-          case 3:
-            $scope.modal3.remove();
-            break;
-          case 4:
-            $scope.modal4.remove();
-            break;
-          case 5:
-            $scope.modal5.remove();
-            break;
+        case 1:
+          $scope.modal1.remove();
+          break;
+        case 2:
+          $scope.modal2.remove();
+          break;
+        case 3:
+          $scope.modal3.remove();
+          break;
+        case 4:
+          $scope.modal4.remove();
+          break;
+        case 5:
+          $scope.modal5.remove();
+          break;
         }
       });
 
@@ -766,10 +765,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
     }])
 
-  .controller('traficAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    // You can include any angular dependencies as parameters for this function
-    // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function ($scope, $stateParams, $state, Alert) {
+  .controller('traficAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert', '$ionicHistory',
+    function ($scope, $stateParams, $state, Alert, $ionicHistory) {
 
       $scope.type_alert = 0;
 
@@ -782,7 +779,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
                   if (!error) {
                     alert('Alerta exitosa');
                     setTimeout(function () {
-                      $state.go('menu.home');
+                      let $backView = $ionicHistory.backView();
+                      $backView.go();
                     }, 1000);
                   } else {
                     alert('Intentalo más tarde');
@@ -809,10 +807,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
     }])
 
-  .controller('policeAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    // You can include any angular dependencies as parameters for this function
-    // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function ($scope, $stateParams, $state, Alert) {
+  .controller('policeAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert', '$ionicHistory',
+    function ($scope, $stateParams, $state, Alert, $ionicHistory) {
 
       $scope.type_alert = 0;
 
@@ -825,7 +821,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
                   if (!error) {
                     alert('Alerta exitosa');
                     setTimeout(function () {
-                      $state.go('menu.home');
+                      let $backView = $ionicHistory.backView();
+                      $backView.go();
                     }, 1000);
                   } else {
                     alert('Intentalo más tarde');
@@ -852,10 +849,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
     }])
 
-  .controller('accidentAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    // You can include any angular dependencies as parameters for this function
-    // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function ($scope, $stateParams, $state, Alert) {
+  .controller('accidentAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert', '$ionicHistory',
+    function ($scope, $stateParams, $state, Alert, $ionicHistory) {
 
       $scope.type_alert = 0;
 
@@ -868,7 +863,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
                   if (!error) {
                     alert('Alerta exitosa');
                     setTimeout(function () {
-                      $state.go('menu.home');
+                      let $backView = $ionicHistory.backView();
+                      $backView.go();
                     }, 1000);
                   } else {
                     alert('Intentalo más tarde');
@@ -894,10 +890,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
     }])
 
-  .controller('dangerAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    // You can include any angular dependencies as parameters for this function
-    // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function ($scope, $stateParams, $state, Alert) {
+  .controller('dangerAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert', '$ionicHistory',
+    function ($scope, $stateParams, $state, Alert, $ionicHistory) {
 
       $scope.type_alert = 0;
 
@@ -910,7 +904,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
                   if (!error) {
                     alert('Alerta exitosa');
                     setTimeout(function () {
-                      $state.go('menu.home');
+                      let $backView = $ionicHistory.backView();
+                      $backView.go();
                     }, 1000);
                   } else {
                     alert('Intentalo más tarde');
@@ -939,10 +934,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
 
     }])
 
-  .controller('weatherAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    // You can include any angular dependencies as parameters for this function
-    // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function ($scope, $stateParams, $state, Alert) {
+  .controller('weatherAlertCtrl', ['$scope', '$stateParams', '$state', 'Alert', '$ionicHistory',
+    function ($scope, $stateParams, $state, Alert, $ionicHistory) {
 
       $('.alert-item').click(function () {
         $('.alert-item').removeClass('active');
@@ -960,7 +953,8 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
                   if (!error) {
                     alert('Alerta exitosa');
                     setTimeout(function () {
-                      $state.go('menu.home');
+                      let $backView = $ionicHistory.backView();
+                      $backView.go();
                     }, 1000);
                   } else {
                     alert('Intentalo más tarde');
@@ -987,47 +981,9 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
     function ($scope, $stateParams) {
     }])
 
+
+
   
-
-  .controller('routeDetailsCtrl', ['$scope', '$stateParams', '$ionicPopover',
-    function ($scope, $stateParams, $ionicPopover) {
-
-      // .fromTemplate() method
-      var template = '<ion-popover-view style="top: 25% !important;"><ion-content> Hola! </ion-content></ion-popover-view>';
-
-      $scope.popover = $ionicPopover.fromTemplate(template, {
-        scope: $scope
-      });
-
-      // .fromTemplateUrl() method
-      $ionicPopover.fromTemplateUrl('saved-route-alert.html', {
-        scope: $scope
-      }).then(function (popover) {
-        $scope.popover = popover;
-      });
-
-
-      $scope.openPopover = function ($event) {
-        $scope.popover.show($event);
-      };
-      $scope.closePopover = function () {
-        $scope.popover.hide();
-      };
-      //Cleanup the popover when we're done with it!
-      $scope.$on('$destroy', function () {
-        $scope.popover.remove();
-      });
-
-      //
-      // // Execute action on hidden popover
-      // $scope.$on('popover.hidden', function() {
-      //  // Execute action
-      // });
-      // // Execute action on remove popover
-      // $scope.$on('popover.removed', function() {
-      //  // Execute action
-      // });
-    }])
 
 
   .controller('createRouteCaravanaCtrl', ['$scope', '$rootScope',
@@ -1078,7 +1034,7 @@ angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage']
                   dragend: function (markerd, eventName, args) {
                     $rootScope.destination = {
                       lat: markerd.getPosition().lat(),
-                      lng: markerd.getPosition().lng() 
+                      lng: markerd.getPosition().lng()
                     };
 
                     var latlngd = new google.maps.LatLng($rootScope.destination.lat, $rootScope.destination.lng);
