@@ -1,9 +1,9 @@
+bin/
 .DS_Store
 SCSS-MOVEME/*
 node_modules/
-bin/
 .tmp
 .sass-cache
 plugins
-patforms
+platforms
 www/lib
