@@ -1,6 +1,6 @@
 angular.module('app.controllers')
-  .controller('onRouteCtrl', ['$scope', '$stateParams', '$ionicPopover', '$rootScope',
-    function ($scope, $stateParams, $ionicPopover, $rootScope) {
+  .controller('onRouteCtrl', ['$scope', '$stateParams', '$ionicPopover', '$rootScope', '$ionicPlatform', '$cordovaGeolocation',
+    function ($scope, $stateParams, $ionicPopover, $rootScope, $ionicPlatform, $cordovaGeolocation) {
       
       $scope.vmo = [];
       $scope.vmo.markers = [];
@@ -71,7 +71,16 @@ angular.module('app.controllers')
       });
 
 
-
+      $ionicPlatform.ready(function () {
+        var watchOptions = { timeout: 3000, enableHighAccuracy: false };
+        $cordovaGeolocation.watchPosition(watchOptions).then(null,
+          function (err) {
+            console.log("watch error", err);
+          },
+          function (position) {
+            console.log(position);
+          });
+      });
 
 
       // Function to close the alerts menu if clicked anywhere in the view

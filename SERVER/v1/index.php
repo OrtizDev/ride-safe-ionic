@@ -1,9 +1,10 @@
 ﻿<?php
-
+header('Access-Control-Allow-Origin: *');
 
 require_once '../include/DbOperation.php';
 require '.././libs/Slim/Slim.php';
-header('Access-Control-Allow-Origin: *');
+
+
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 
@@ -336,42 +337,6 @@ $app->get('/anuncio', function() use ($app){
   echoResponse(200,$anuncio);
 
 });
-
-$app ->get('/amigos/activos',function() use ($app){
-   $db = new DbOperation();
-   $response = array();
-   $amigos_activos = $db -> getUsuariosActivos();
-   $response['error'] = false;
-   $response['message'] = json_encode($amigos_activos);
-   echoResponse(200,$amigos_activos);
- });
-
-
- $app ->get('/notificaciones',function() use ($app){
-   $query = $app->request->post('query');
-  
-   $db = new DbOperation();
-   $response = array();
-   $notificaciones = $db -> getNotificaciones();
-   $response['error'] = false;
-   $response['message'] = json_encode($notificaciones);
-   echoResponse(200,$notificaciones);
-   });
-
-$app->post('/send/notificacion', function() use ($app){
-
-  $id_notificacion = $app->request->post('id_notificacion');
-  $id_usuario = $app->request->post('id_usuario');
-  $id_amigo = $app->request->post('id_amigo');
-  $descripcion_notificacion = $app->request->post('descripcion_notificacion');
-  $db = new DbOperation();
-  $response =  array();
-  $res = $db -> postNotificacion($id_notificacion,$id_usuario,$id_amigo,$descripcion_notificacion);
-  $res == 1? $response['message'] = false : $response['message'] = true;
-  echo json_encode($res);
-  echoResponse(200,$response);
-});
-
 
 $app->run();
 

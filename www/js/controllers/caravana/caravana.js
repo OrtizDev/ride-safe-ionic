@@ -1,38 +1,45 @@
 angular.module('app.controllers')
   .controller('caravanaCtrl', ['$scope', '$state',
     function ($scope, $state) {
-      $scope.users = [
-        { name: 'Carlos Barranco', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-        { name: 'Arturo Caballero', selected: false },
-      ];
+      // $scope.users = [
+      //   { name: 'Carlos Barranco', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      //   { name: 'Arturo Caballero', selected: false },
+      // ];
 
       $.ajax({
         type: 'GET',
         url: 'http://startbluesoft.com/rideSafeApp/v1/index.php/amigos/activos',
         // dataType: 'json',
         success: (users) => {
-          console.log(users);
+          $.each(users, (index, user) => {
+            $scope.users.push({
+              name: user.name,
+              selected: false,
+              id: user.id
+            });
+
+          });
         }
       });
 

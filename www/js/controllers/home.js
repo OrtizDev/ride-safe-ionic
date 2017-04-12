@@ -1,6 +1,6 @@
 angular.module('app.controllers')
-  .controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', '$ionicPopup', '$state', '$cordovaGeolocation',
-    function ($scope, $stateParams, $log, $rootScope, $ionicPopup, $state, $cordovaGeolocation) {
+  .controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', '$ionicPopup', '$ionicPlatform', '$state', '$cordovaGeolocation',
+    function ($scope, $stateParams, $log, $rootScope, $ionicPopup, $ionicPlatform, $state, $cordovaGeolocation) {
 
       $scope.positions = {
         lat: 0,
@@ -145,13 +145,20 @@ angular.module('app.controllers')
       $scope.$on('$ionicView.enter', function () {
         var options = { timeout: 5000, enableHighAccuracy: true };
         $cordovaGeolocation.getCurrentPosition(options).then(function (position) {
+          console.log(position);
           $scope.drawMap(position);
         });
-        $cordovaGeolocation.watchPosition(options).then(function(position) {
-          console.log(position);
-        }, (error) => {
-          console.log(error);
-        });
+      });
+
+      $ionicPlatform.ready(function () {
+        var watchOptions = { timeout: 3000, enableHighAccuracy: false };
+        $cordovaGeolocation.watchPosition(watchOptions).then(null,
+          function (err) {
+            console.log("watch error", err);
+          },
+          function (position) {
+            console.log(position);
+          });
       });
 
       $scope.enterPressed = function (event, callback) {

@@ -12,6 +12,7 @@ angular.module('app.controllers')
 
       $.ajax({
         type: 'GET',
+        crossDomain: true,
         url: 'http://startbluesoft.com/rideSafeApp/v1/index.php/state',
         dataType: 'json',
         success: function (data) {
@@ -34,6 +35,7 @@ angular.module('app.controllers')
 
       $.ajax({
         type: 'GET',
+        crossDomain: true,
         url: 'http://startbluesoft.com/rideSafeApp/v1/index.php/thematic',
         dataType: 'json',
         success: function (data) {
