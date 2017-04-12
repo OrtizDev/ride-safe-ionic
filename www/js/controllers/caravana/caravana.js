@@ -27,6 +27,15 @@ angular.module('app.controllers')
         { name: 'Arturo Caballero', selected: false },
       ];
 
+      $.ajax({
+        type: 'GET',
+        url: 'http://startbluesoft.com/rideSafeApp/v1/index.php/amigos/activos',
+        // dataType: 'json',
+        success: (users) => {
+          console.log(users);
+        }
+      });
+
       $scope.seleccionados = 0;
 
       $scope.changedUser = function () {

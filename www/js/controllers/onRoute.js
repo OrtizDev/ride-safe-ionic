@@ -1,9 +1,14 @@
 angular.module('app.controllers')
   .controller('onRouteCtrl', ['$scope', '$stateParams', '$ionicPopover', '$rootScope',
     function ($scope, $stateParams, $ionicPopover, $rootScope) {
+      
+      $scope.vmo = [];
+      $scope.vmo.markers = [];
+      $scope.polylineso = [];
+      
 
       $scope.$on('$ionicView.enter', function () {
-        $scope.mapo = {
+        $scope.map = {
           control: {},
           center: { latitude: $rootScope.origin.lat, longitude: $rootScope.origin.lng },
           zoom: 15,
@@ -16,11 +21,7 @@ angular.module('app.controllers')
           }
         };
 
-        // if($rootScope.onCaravana) {
-        //   setTimeout
-        // }
-
-        $scope.markero = {
+        $scope.markerOrigin = {
           id: 0,
           coords: {
             latitude: $rootScope.origin.lat,
@@ -32,7 +33,7 @@ angular.module('app.controllers')
           }
         };
 
-        $scope.markerdo = {
+        $scope.markerDestination = {
           id: 0,
           coords: {
             latitude: $rootScope.destination.lat,
@@ -69,29 +70,8 @@ angular.module('app.controllers')
 
       });
 
-      function getRoute(fn) {
-        var data = {};
-        data.start = $rootScope.origin.lat + ',' + $rootScope.origin.lng;
-        data.end = $rootScope.destination.lat + ',' + $rootScope.destination.lng;
-        data.poi_in = [$scope.type_poi];
-        data.weather = true;
-        $.ajax({
-          crossDomain: true,
-          type: 'GET',
-          url: 'https://api.sintrafico.com/route',
-          data: data,
-          headers: { 'X-Requested-With': 'f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc' },
-          success: function (e) {
-            fn(e);
-          }
-        });
-      }
 
-      $scope.vmo = [];
 
-      $scope.vmo.markers = [];
-
-      $scope.polylineso = [];
 
 
       // Function to close the alerts menu if clicked anywhere in the view
@@ -131,6 +111,24 @@ angular.module('app.controllers')
       $scope.$on('$destroy', function () {
         $scope.popover.remove();
       });
+
+      function getRoute(fn) {
+        var data = {};
+        data.start = $rootScope.origin.lat + ',' + $rootScope.origin.lng;
+        data.end = $rootScope.destination.lat + ',' + $rootScope.destination.lng;
+        data.poi_in = [$scope.type_poi];
+        data.weather = true;
+        $.ajax({
+          crossDomain: true,
+          type: 'GET',
+          url: 'https://api.sintrafico.com/route',
+          data: data,
+          headers: { 'X-Requested-With': 'f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc' },
+          success: function (e) {
+            fn(e);
+          }
+        });
+      }
 
 
     }]);
