@@ -1,10 +1,19 @@
 {
   "name": "io.cordova.myappc6a716",
   "app_id": "",
-  "gulpDependantTasks" : [
+  "gulpDependantTasks": [
     "sass"
-  ],  
-   "gulpStartupTasks": [        
+  ],
+  "gulpStartupTasks": [
     "watch", "default"
-  ]
+  ],
+  "watch": {
+    "sass": ["scss/**/*.scss"],
+    "html": ["www/**/*.html"],
+    "livereload": [
+      "www/**/*.html",
+      "www/**/*.js",
+      "www/**/*.css"
+    ]
+  }
 }
