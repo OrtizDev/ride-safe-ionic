@@ -255,6 +255,27 @@ class DbOperation{
       }
       return $post;
     }
+
+     public function getUsuariosActivos(){
+      $query = SELECT usuario.nombre FROM usuario, usuario_amigo WHERE usuario.id_usuario = usuario_amigo.id_usuario AND usuario.status = "1" GROUP BY usuario.nombre;
+      $result = mysqli_query($this -> con, $query);
+      while ($row = mysqli_fetch_assoc($result)) {
+        $post[] = array_map('utf8_encode',$row);
+      }
+      return $post;
+    }
+
+
+    public function getNotificaciones(){
+      $query = SELECT usuario.nombre, notificaciones.descripcion_notificacion FROM notificaciones,usuario,usuario_amigo WHERE usuario.id_usuario = notificaciones.id_usuario AND notificaciones.id_usuario = usuario_amigo.id_usuario GROUP BY notificaciones.descripcion_notificacion
+      $result = mysqli_query($this -> con, $query);
+      while ($row = mysqli_fetch_assoc($result)){
+        $post[] = array_map('utf8_encode' $row);
+      }
+      return $post;
+    }
+
+
 }
 
 ?>

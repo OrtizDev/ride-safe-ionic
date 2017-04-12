@@ -346,14 +346,6 @@ $app ->get('/amigos/activos',function() use ($app){
   echoResponse(200,$amigos_activos)
 });
 
-$app ->get('/notificaciones',function() use ($app){
-  $db = new DbOperation();
-  $response = array();
-  $notificaciones = $db -> getNotificaciones();
-  $response['error'] = false;
-  $response['message'] = json_encode($notificaciones);
-  echoResponse(200,$notificaciones)
-  });
 
 $app ->post('/send/notificaciones',function() use ($app){
   $query = $app->request->post('query');
@@ -365,6 +357,7 @@ $app ->post('/send/notificaciones',function() use ($app){
   $response['message'] = json_encode($notificaciones);
   echoResponse(200,$notificaciones)
   });
+
 $app->run();
 
 ?>
