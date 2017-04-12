@@ -274,6 +274,18 @@ class DbOperation{
       }
       return $post;
     }
+	
+   public function postNotificacion($id_notificacion,$id_usuario,$id_amigo,$descripcion_notificacion){
+    $stmt = $this -> con ->prepare("INSERT INTO notificaciones(id_notificacion, id_usuario, id_amigo, descripcion_notificacion) VALUES(?,?,?,?)");
+      $stmt -> bind_param('iiis',$id_notificacion,$id_usuario,$id_amigo,$descripcion_notificacion);
+      $result = $stmt -> execute();
+      $stmt -> close();
+      if($result){
+        return 1;
+      } else {
+        return 0;
+      }
+    }
 
 
 }
