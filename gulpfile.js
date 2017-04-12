@@ -18,6 +18,8 @@ var files = {
   jsbundle: 'app.bundle.min.js',
 };
 
+gulp.task('serve:before', ['default']);
+
 gulp.task('default', ['sass', 'scripts', 'watch']);
 
 gulp.task('sass', function (done) {
