@@ -93,14 +93,6 @@ angular.module('app.controllers')
       $scope.$on('$ionicView.loaded', function () {
         $('#home-inputDestination').hide();
         if (window.cordova) {
-          cordova.plugins.diagnostic.isLocationEnabled(function (enabled) {
-            if (!enabled) {
-              alert('El GPS esta ' + (enabled ? 'enabled' : 'desactivado, por favor activalo'));
-              cordova.plugins.diagnostic.switchToLocationSettings();
-            }
-          }, function (error) {
-            alert('The following error occurred: ' + error);
-          });
         }
       });
 

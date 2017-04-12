@@ -306,6 +306,7 @@ angular.module('app.controllers')
 
       function getCoordinates(address, fn) {
         var geocoder = new google.maps.Geocoder();
+        console.log(geocoder);
         geocoder.geocode({ address: address }, function (results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             fn(results);

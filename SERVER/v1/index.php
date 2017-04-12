@@ -1,10 +1,10 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
 require_once '../include/DbOperation.php';
 require '.././libs/Slim/Slim.php';
-
+header('Access-Control-Allow-Origin: *');
 \Slim\Slim::registerAutoloader();
-
 $app = new \Slim\Slim();
 
 //Method to display response
@@ -337,27 +337,26 @@ $app->get('/anuncio', function() use ($app){
 
 });
 
-$app ->get('/amigos/activos',function() use ($app){
-  $db = new DbOperation();
-  $response = array();
-  $amigos_activos = $db -> getUsariosActivos();
-  $response['error'] = false;
-  $response['message'] = json_encode($amigos_activos);
-  echoResponse(200,$amigos_activos)
-});
+// $app ->get('/amigos/activos',function() use ($app){
+//   $db = new DbOperation();
+//   $response = array();
+//   $amigos_activos = $db -> getUsariosActivos();
+//   $response['error'] = false;
+//   $response['message'] = json_encode($amigos_activos);
+//   echoResponse(200,$amigos_activos)
+// });
 
 
-$app ->post('/send/notificaciones',function() use ($app){
-  $query = $app->request->post('query');
+// $app ->post('/send/notificaciones',function() use ($app){
+//   $query = $app->request->post('query');
   
-  $db = new DbOperation();
-  $response = array();
-  $notificaciones = $db -> getNotificaciones();
-  $response['error'] = false;
-  $response['message'] = json_encode($notificaciones);
-  echoResponse(200,$notificaciones)
-  });
-
+//   $db = new DbOperation();
+//   $response = array();
+//   $notificaciones = $db -> getNotificaciones();
+//   $response['error'] = false;
+//   $response['message'] = json_encode($notificaciones);
+//   echoResponse(200,$notificaciones)
+//   });
 $app->run();
 
 ?>

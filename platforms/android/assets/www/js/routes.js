@@ -2,10 +2,6 @@ angular.module('app.routes', [])
 
   .config(function ($stateProvider, $urlRouterProvider) {
 
-    // Ionic uses AngularUI Router which uses the concept of states
-    // Learn more here: https://github.com/angular-ui/ui-router
-    // Set up the various states which the app can be in.
-    // Each state's controller can be found in controllers.js
     $stateProvider
 
 
@@ -17,7 +13,8 @@ angular.module('app.routes', [])
             templateUrl: 'templates/home.html',
             controller: 'homeCtrl'
           }
-        }
+        },
+        
       })
 
       .state('menu.myRoutes', {
@@ -87,17 +84,6 @@ angular.module('app.routes', [])
         views: {
           'side-menu21': {
             templateUrl: 'templates/caravana/destination.html',
-            controller: 'destinationCaravanaCtrl'
-          }
-        }
-      })
-
-      .state('menu.caravanaCreateRoute', {
-        url: '/caravana/destination',
-        views: {
-          'side-menu21': {
-            templateUrl: 'templates/caravana/createRoute.html',
-            controller: 'createRouteCaravanaCtrl'
           }
         }
       })
@@ -111,6 +97,37 @@ angular.module('app.routes', [])
           }
         }
       })
+
+      .state('menu.caravanaCreateRoute', {
+        url: '/caravana/createRoute',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/createRoute.html',
+            controller: 'caravanaCreateRouteCtrl'
+          }
+        }
+      })
+
+      .state('menu.caravanaReviewRoute', {
+        url: '/caravana/review-route',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/reviewRoute.html',
+            controller: 'CaravanaReviewRouteCtrl'
+          }
+        }
+      })
+
+      .state('menu.caravanaInvitations', {
+        url: '/caravana/invitations',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/caravana/invitations.html',
+            controller: 'CaravanaInvitations'
+          }
+        }
+      })
+
 
       // End of caravana's routes
       // -----------------------------------------------------------
@@ -200,7 +217,13 @@ angular.module('app.routes', [])
         templateUrl: 'templates/routeDetails.html',
         controller: 'routeDetailsCtrl'
       })
+      .state('ads', {
+        cache: false,
+        url: '/ads',
+        templateUrl: 'templates/ads.html',
+        controller: 'adsCtrl'
+      });
 
-    $urlRouterProvider.otherwise('login')
+    $urlRouterProvider.otherwise('login');
 
   });

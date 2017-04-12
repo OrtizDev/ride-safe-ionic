@@ -1,0 +1,24 @@
+<ion-view title="ads" hide-nav-bar="true" id="ads">
+  <ion-content id="ads" padding="false" style="margin-bottom: 0px;" class="manual-ios-statusbar-" scroll="true">
+    <div class="title-container">
+      <div class="spacer" style="width: 300px; height: 40%;"></div>
+      <h4 id="discover-heading7" style="font-family: arial;">Nuestros Productos</h4>
+    </div>
+    <div class="bar">
+      <div class=" button-bar" id="sorts">
+        <button class="button button-dark background-odd" data-sort-by="establishment" ng-click="setPlatform('ios')">
+          Establecimiento
+        </button>
+        <button class="button button-dark background-odd" data-sort-by="price" ng-click="setPlatform('android')">
+          Costo
+        </button>
+      </div>
+    </div>
+    <div id="columns" class="grid">
+    </div>
+    <div style="min-height: 10vh; height: 10vh; clear: both;">&nbsp;</div>
+  </ion-content>
+  <div class="fixed-outside">
+    <button ui-sref="menu.home" style="left:0px;font-size:20px; margin:0; height:10vh;" class="button button-dark  button-full">Cancelar</button>
+  </div>
+</ion-view>

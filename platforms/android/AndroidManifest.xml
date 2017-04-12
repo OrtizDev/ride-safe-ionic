@@ -11,6 +11,16 @@
         </activity>
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyB6A0jX2Z5Y_6CTSbV4sqcBaMtECGR6t5E" />
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        <receiver android:name="cordova.plugins.Diagnostic$LocationProviderChangedReceiver">
+            <intent-filter>
+                <action android:name="android.location.PROVIDERS_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="cordova.plugins.Diagnostic$NFCStateChangedReceiver">
+            <intent-filter>
+                <action android:name="android.nfc.action.ADAPTER_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
     <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="23" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
