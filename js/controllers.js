@@ -2038,15 +2038,18 @@ function ($scope, $stateParams, $ionicPopover) {
         success: function (data) {
           var html = "";
           var compiledHtml = "";
+          var iteration = 0;
           $.each(data, function(i, j){
             var item = {};
-            html = '<figure class="ad-item price establishment" data-establishment="'+j.id_estable+'" data-price="'+j.costo+'" ng-click="openAd('+j.id_anuncio+')">'
+            html = '<figure class="ad-item price establishment" data-establishment="'+j.id_estable+'" data-price="'+j.costo+'" ng-click="openAd('+iteration+')">'
                   + ' <img src="https://dummyimage.com/160x400/000/fff" />'
                   + ' <figcaption>'+j.descripcion+'<br /><b>$'+j.costo+'</b></figcaption>'
                   + '</figure>';
             item.id = j.id_anuncio;
             item.desc = j.descripcion;
-            item.costo = j.costo;
+            item.price = j.costo;
+            item.name = j.nombre_producto;
+            iteration++;
             $scope.list.push(item);
             compiledHtml += html;
           });
@@ -2104,5 +2107,11 @@ function ($scope, $stateParams, $ionicPopover) {
 */
 .controller('showAdCtrl', ['$scope', '$state', '$stateParams', '$ionicLoading', '$compile', '$rootScope',
   function($scope, $state, $stateParams, $ionicLoading, $compile, $rootScope){
-    $scope.description = $rootScope.list_ad.desc;
+    if(!$rootScope.list_ad){
+      $state.go('ads');
+    }else{
+      $scope.description = $rootScope.list_ad.desc;
+      $scope.name = $rootScope.list_ad.name;
+      $scope.price = $rootScope.list_ad.price;
+    }
 }])

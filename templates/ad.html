@@ -5,10 +5,12 @@
       <h4 id="discover-heading7" style="font-family: arial;">Conoce el producto</h4>
     </div>
     <div ng-model="image" class="image-ad"><img src="https://dummyimage.com/320x400/000/fff" /></div>
-    <div class="title-ad"><p style="float: left; width: 50%;">Testa</p><p style="float: right; width: 50%; text-align: right;">Test2</p></div>
-    <div ng-model="description" class="description-ad">{{ description }}</div>
+    <div class="title-ad"><p style="float: left; width: 50%;">{{ name }}</p><p style="float: right; width: 50%; text-align: right;">${{ price }}</p></div>
+    <div style="clear:both">&nbsp;</div>
+    <div class="description-ad">{{ description }}</div>
   </ion-content>
-  <div class="fixed-outside">
-    <button ui-sref="ads" style="left:0px;font-size:20px; margin:0; height:10vh;" class="button button-dark  button-full">Cancelar</button>
+  <div class="fixed-outside bottom-buttons">
+    <button ui-sref="ads" style="border-radius:0px 0px 0px 0px;" class="button button-dark button-large col-5 cancel-button">Cancelar</button>
+    <button ng-click="goToEstablishment()" style="border-radius:0px 0px 0px 0px;" class="button button-balanced button-large col-5 go-button">Visitar</button>
   </div>
 </ion-view>
