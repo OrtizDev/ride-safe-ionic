@@ -1,6 +1,6 @@
 angular.module('app.controllers')
-  .controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', '$ionicPopup', '$state',
-    function ($scope, $stateParams, $log, $rootScope, $ionicPopup, $state) {
+  .controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', '$ionicPopup', '$state', '$cordovaGeolocation',
+    function ($scope, $stateParams, $log, $rootScope, $ionicPopup, $state, $cordovaGeolocation) {
 
       $scope.positions = {
         lat: 0,
@@ -10,101 +10,100 @@ angular.module('app.controllers')
       $scope.disabled = true;
 
       $scope.drawMap = function (position) {
-        $scope.$apply(function () {
-          $scope.positions.lng = position.coords.longitude;
-          $scope.positions.lat = position.coords.latitude;
+        $scope.positions.lng = position.coords.longitude;
+        $scope.positions.lat = position.coords.latitude;
 
-          $scope.markerd = {
-            id: 1,
-            coords: {
-              latitude: $scope.positions.lat,
-              longitude: $scope.positions.lng
-            },
-            options: {
-              draggable: true,
-              icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
-            },
-            events: {
-              dragend: function (markerd, eventName, args) {
-                $rootScope.destination = {
-                  lat: markerd.getPosition().lat(),
-                  lng: markerd.getPosition().lng()
-                };
+        $scope.markerd = {
+          id: 1,
+          coords: {
+            latitude: $scope.positions.lat,
+            longitude: $scope.positions.lng
+          },
+          options: {
+            draggable: true,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+          },
+          events: {
+            dragend: function (markerd, eventName, args) {
+              $rootScope.destination = {
+                lat: markerd.getPosition().lat(),
+                lng: markerd.getPosition().lng()
+              };
 
-                var latlngd = new google.maps.LatLng($rootScope.destination.lat, $rootScope.destination.lng);
+              var latlngd = new google.maps.LatLng($rootScope.destination.lat, $rootScope.destination.lng);
 
-                foo(latlngd, function (locationd) {
-                  $('#destination').val(locationd);
+              foo(latlngd, function (locationd) {
+                $('#destination').val(locationd);
+                getDirections();
+              });
+              $scope.markerd.options = {
+                draggable: true,
+                labelAnchor: '100 0',
+                icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                labelClass: 'marker-labels'
+              };
+            }
+          }
+        };
+
+        $scope.marker = {
+          id: 0,
+          coords: {
+            latitude: $scope.positions.lat,
+            longitude: $scope.positions.lng
+          },
+          options: {
+            draggable: true,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+          },
+          events: {
+            dragend: function (marker, marked, eventName, args) {
+              $rootScope.origin = {
+                lat: marker.getPosition().lat(),
+                lon: marker.getPosition().lng()
+              };
+
+              if ($('#home-inputDestination').is(':hidden')) {
+                var latlngd = new google.maps.LatLng(($rootScope.origin.lat), $rootScope.origin.lng);
+                $scope.markerd.coords.latitude = $rootScope.origin.lat;
+                $scope.markerd.coords.longitude = $rootScope.origin.lng;
+              }
+
+              var latlng = new google.maps.LatLng($rootScope.origin.lat, $rootScope.origin.lng);
+
+              foo(latlng, function (location) {
+                $('#origin').val(location);
+                $('#home-inputDestination').show();
+
+                if ($('#destination').val() === '') {
+                } else {
                   getDirections();
-                });
-                $scope.markerd.options = {
-                  draggable: true,
-                  labelAnchor: '100 0',
-                  icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                  labelClass: 'marker-labels'
-                };
-              }
-            }
-          };
-
-          $scope.marker = {
-            id: 0,
-            coords: {
-              latitude: $scope.positions.lat,
-              longitude: $scope.positions.lng
-            },
-            options: {
-              draggable: true,
-              icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-            },
-            events: {
-              dragend: function (marker, marked, eventName, args) {
-                $rootScope.origin = {
-                  lat: marker.getPosition().lat(),
-                  lon: marker.getPosition().lng()
-                };
-
-                if ($('#home-inputDestination').is(':hidden')) {
-                  var latlngd = new google.maps.LatLng(($rootScope.origin.lat), $rootScope.origin.lng);
-                  $scope.markerd.coords.latitude = $rootScope.origin.lat;
-                  $scope.markerd.coords.longitude = $rootScope.origin.lng;
                 }
-
-                var latlng = new google.maps.LatLng($rootScope.origin.lat, $rootScope.origin.lng);
-
-                foo(latlng, function (location) {
-                  $('#origin').val(location);
-                  $('#home-inputDestination').show();
-
-                  if ($('#destination').val() === '') {
-                  } else {
-                    getDirections();
-                  }
-                });
-                $scope.marker.options = {
-                  draggable: true,
-                  labelAnchor: '100 0',
-                  icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                  labelClass: 'marker-labels'
-                };
-              }
+              });
+              $scope.marker.options = {
+                draggable: true,
+                labelAnchor: '100 0',
+                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                labelClass: 'marker-labels'
+              };
             }
-          };
+          }
+        };
 
 
-          $scope.map = {
-            control: {},
-            center: { latitude: $scope.positions.lat, longitude: $scope.positions.lng },
-            zoom: 15,
-            options: {
-              panControl: false,
-              zoomControl: false,
-              mapTypeControl: false,
-              disableDefaultUI: true,
-              scrollwheel: false
-            }
-          };
-        });
+        $scope.map = {
+          control: {},
+          center: { latitude: $scope.positions.lat, longitude: $scope.positions.lng },
+          zoom: 15,
+          refresh: false,
+          options: {
+            panControl: false,
+            zoomControl: false,
+            mapTypeControl: false,
+            disableDefaultUI: true,
+            scrollwheel: false
+          }
+        };
       };
 
       // Confirmar participación en caravana
@@ -143,32 +142,11 @@ angular.module('app.controllers')
         });
       }
 
-      $scope.$on('$ionicView.loaded', function () {
-        if (window.cordova) {
-          cordova.plugins.diagnostic.isLocationEnabled(function (enabled) {
-            if (!enabled) {
-              alert('El GPS esta ' + (enabled ? 'enabled' : 'desactivado, por favor activalo'));
-              cordova.plugins.diagnostic.switchToLocationSettings();
-            }
-          }, function (error) {
-            alert('The following error occurred: ' + error);
-          });
-        }
-      });
-
-      // var directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
-      // var directionsService = new google.maps.DirectionsService();
-
       $scope.$on('$ionicView.enter', function () {
-        if (navigator.geolocation) {
-          $scope.options = {
-            enableHighAccuracy: true,
-            timeout: 50000,
-            maximumAge: 0
-          };
-          $scope.error = function (error) { };
-          navigator.geolocation.getCurrentPosition($scope.drawMap, $scope.error, $scope.options);
-        }
+        var options = { timeout: 10000, enableHighAccuracy: true };
+        $cordovaGeolocation.getCurrentPosition(options).then(function (position) {
+          $scope.drawMap(position);
+        });
       });
 
       $scope.enterPressed = function (event, callback) {
@@ -300,13 +278,12 @@ angular.module('app.controllers')
           if (wps.routes[0].pois) {
             $scope.getIncident();
           }
-          $scope.$apply();
+          // $scope.$apply();
         });
       }
 
       function getCoordinates(address, fn) {
         var geocoder = new google.maps.Geocoder();
-        console.log(geocoder);
         geocoder.geocode({ address: address }, function (results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             fn(results);
@@ -333,7 +310,7 @@ angular.module('app.controllers')
               };
               $scope.vm.markers.push(mark);
             }
-            $scope.$apply();
+            // $scope.$apply();
           }
         });
       };

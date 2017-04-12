@@ -1,9 +1,10 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
 require_once '../include/DbOperation.php';
 require '.././libs/Slim/Slim.php';
+
 header('Access-Control-Allow-Origin: *');
+
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
 

@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage'])
+angular.module('app.controllers', ['ngCordova', 'uiGmapgoogle-maps', 'ngOpenFB', 'ngStorage'])
   .controller('myRoutesCtrl', ['$scope', '$stateParams',
     function ($scope, $stateParams) {
 
