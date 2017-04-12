@@ -1,0 +1,95 @@
+#menu-page {
+  ion-side-menu {
+    height: 100vh;
+    .scroll {
+      display: flex;
+      flex-direction: column;
+
+      .header {
+        height: 44%;
+        flex: 0 0 44%;
+        display: block;
+        background: #223d75;
+        .buttons {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          align-content: center;
+          .menu-icon {
+            background: transparent;
+          }
+        }
+        .user-img-container {
+          .user_image {
+            width: 150px;
+            height: 150px;
+            line-height: 150px;
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+            border-radius: 50%;
+            overflow: hidden;
+            background: white;
+            #picture_text {
+              font-size: 26px;
+              color: #223d75;
+              text-align: center;
+              line-height: 1;
+              height: 150px;
+              vertical-align: middle;
+              position: relative;
+              top: 25%;
+            }
+          }
+        }
+        #user_name {
+          color: #fff;
+          font-family: "Avenir-roman";
+          font-weight: bold;
+          text-align: center;
+          padding: 10px 5px 0px 5px;
+        }
+      }
+
+      .navigation-list {
+        height: auto;
+        flex: 1 0 auto;
+        display: flex;
+        flex-direction: column;
+        .list {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          flex: 1 0 100%;
+          .menu-list-item.item-icon-left {
+            position: relative;
+            display: flex;
+            height: auto;
+            flex: 1 1 auto;
+            align-items: center;
+            align-content: center;
+            padding-right: 10px;
+            color: #fff;
+            background: #1b75ba;
+            border-top: 3px #fff solid;
+            font-family: "Avenir-roman";
+            font-weight: bold;
+            a {
+              background: transparent;
+              padding-right: 10px;
+              color: #fff;
+            }
+            &.background-odd {
+              background: #223d75;
+            }
+          }
+
+          .icon>img {
+            width: 35px;
+          }
+        }
+      }
+    }
+  }
+}

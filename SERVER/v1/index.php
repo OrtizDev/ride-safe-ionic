@@ -336,6 +336,35 @@ $app->get('/anuncio', function() use ($app){
   echoResponse(200,$anuncio);
 
 });
+
+$app ->get('/amigos/activos',function() use ($app){
+  $db = new DbOperation();
+  $response = array();
+  $amigos_activos = $db -> getUsariosActivos();
+  $response['error'] = false;
+  $response['message'] = json_encode($amigos_activos);
+  echoResponse(200,$amigos_activos)
+});
+
+$app ->get('/notificaciones',function() use ($app){
+  $db = new DbOperation();
+  $response = array();
+  $notificaciones = $db -> getNotificaciones();
+  $response['error'] = false;
+  $response['message'] = json_encode($notificaciones);
+  echoResponse(200,$notificaciones)
+  });
+
+$app ->post('/send/notificaciones',function() use ($app){
+  $query = $app->request->post('query');
+  
+  $db = new DbOperation();
+  $response = array();
+  $notificaciones = $db -> getNotificaciones();
+  $response['error'] = false;
+  $response['message'] = json_encode($notificaciones);
+  echoResponse(200,$notificaciones)
+  });
 $app->run();
 
 ?>

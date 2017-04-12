@@ -1,0 +1,57 @@
+<ion-view title="routeDetails" hide-nav-bar="true" class="route-details">
+  <ion-content padding="true" class="manual-ios-statusbar-padding">
+    <h3 id="route_details_title">DETALLES DE RUTA</h3>
+
+    <form id="route-form-details" class="list">
+      <label class="item item-input item-floating-label no-border register-input" id="route_name">
+        <span class="input-label">Nombre de tu ruta</span>
+        <input type="text" placeholder="Nombre de la ruta" name="routeName">
+      </label>
+
+      <label class="item item-input item-stacked-label no-border light-input" id="origin">
+        <span class="input-label">Origen</span>
+        <input type="text" placeholder="" name="origin">
+      </label>
+      <label class="item item-input item-stacked-label no-border light-input" id="destination">
+        <span class="input-label">Destino</span>
+        <input type="text" placeholder=""  name="destination">
+      </label>
+      <label class="item item-input item-stacked-label no-border light-input" id="kilometers">
+        <span class="input-label">Km</span>
+        <input type="text" placeholder="" name="kilometers">
+      </label>
+      <label class="item item-input item-stacked-label no-border light-input" id="time">
+        <span class="input-label">Tiempo de viaje</span>
+        <input type="text" placeholder="" name="time">
+      </label>
+      <label class="item item-input item-stacked-label no-border light-input" id="toll_cost">
+        <span class="input-label">Costo de peaje $</span>
+        <input type="text" placeholder="" name="tollCost">
+      </label>
+      <button class="button button-stable button-small row">Agregar imagenes</button>
+    </form>
+
+    <div class="row">
+      <button  ng-click="saveRoute()" class="button button-balanced button-small col">Guardar ruta</button>
+      <button class="button button-calm button-small col">Compartir</button>
+    </div>
+    <div class="row">
+      <button ui-sref="menu.home" class="button button-stable button-small col">No guardar</button>
+    </div>
+
+
+    <script id="saved-route-alert.html" type="text/ng-template">
+      <ion-popover-view id="popover_routedetails">
+        <ion-content class="popover-content">
+          <div class="text-popover">
+            <h4>Ruta guardada exitosamente</h4>
+          </div>
+          <div class="center-content">
+            <button ng-click="closePopover()" class="button button-light  button-block button-outline button-popover">Ok</button>
+          </div>
+        </ion-content>
+      </ion-popover-view>
+    </script>
+
+  </ion-content>
+</ion-view>

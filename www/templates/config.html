@@ -1,0 +1,119 @@
+<ion-view title="config" hide-nav-bar="true" hide-back-button="true">
+	<ion-content padding="false" class="manual-ios-statusbar-padding" style="height: 100%;">
+		<div class="tabs-top no-top-pos tab-navigation">
+			<li ng-class="{'actived': activeTab != 2}">
+				<a class="tab-item" ng-click="activeTab=1" style="border-right: 1px #3b3c3a solid;">
+					Usuario
+				</a>
+			</li>
+			<li ng-class="{'actived': activeTab == 2}">
+				<a class="tab-item" ng-click="activeTab=2">
+					Motocicleta
+				</a>
+			</li>
+		</div>
+		<div>
+
+      <div id="user-tag-content" class="tab-content" ng-class="{'actived': activeTab != 2}"> <!-- ng-class="{'active': activeTab != 2}" -->
+				<h3 id="userRegister-heading1" style="color:#FFFFFF;text-align:center;padding-top:10px;margin-bottom:0px;">USUARIO</h3>
+		    <form id="userRegister-form4" class="list" ng-submit="motoRegis()">
+		      <label class="item item-input item-floating-label no-border register-input" id="userRegister-input6" name="name">
+		        <span class="input-label">Nombre(s)</span>
+		        <input type="text" placeholder="Nombre(s)" name="username" ng-model="authorization.username" required>
+		      </label>
+		      <label class="item item-input item-floating-label register-input no-border col-5" id="userRegister-input7" name="lastname1">
+		        <span class="input-label">Apellido paterno</span>
+		        <input type="text" placeholder="Apellido paterno" name="apat" ng-model="authorization.apat" required>
+		      </label>
+		      <label class="item item-input item-floating-label register-input no-border col-5" id="userRegister-input8" name="lastname2">
+		        <span class="input-label">Apellido materno</span>
+		        <input type="text" placeholder="Apellido materno" name="amat" ng-model="authorization.amat" required>
+		      </label>
+		      <label class="item item-select black-font col-4 select-item" id="gender_select" name="gender" style="padding: 16px; margin-left: 0px; margin-bottom:0px;">
+		        <select class="select-input" name="gender_re" ng-model="gender" ng-options="genders.gender as genders.genderName for genders in typegender">
+		          <option value="" selected="selected" disabled hidden>Genero</option>
+		        </select>
+		      </label>
+		      <label class="item item-input item-floating-label register-input no-border col-5" id="userRegister-input9" name="phone">
+		        <span class="input-label">Celular</span>
+		        <input type="tel" placeholder="Celular" name="cellphone" ng-model="authorization.cellphone" size="10" required>
+		      </label>
+		      <label class="item item-input item-floating-label no-border register-input" id="input-birdth" name="birthdate">
+		        <span class="input-label">Fecha de nacimiento</span>
+		        <p id="dateHolder" style="position: absolute; bottom: 10px; text-align: center; width: 90%; color: #fff;">Fecha de nacimiento</p>
+		        <input type="date" placeholder="Fecha de nacimiento" name="bdate" max="{{max}}" ng-model="authorization.bdate" style="color: transparent !important;">
+		      </label>
+		      <label class="item item-input item-floating-label no-border register-input" id="userRegister-input11" name="emergency-number">
+		        <span class="input-label">Telefono de emergencia</span>
+		        <input type="tel" placeholder="Telefono de emergencia" name="telEmer" ng-model="authorization.telEmer" size="10" required>
+		      </label>
+		      <label class="item item-select black-font col-4 select-item" id="userRegister-select4" name="state" style="padding: 16px; margin-top: 25px; margin-left: 0px; margin-bottom:0px;">
+		        <select class="select-input" name="state_re" ng-model="state" id="states" ng-change="updateCi(state)" required>
+		          <option value="" selected="selected" disabled hidden>Estado</option>
+		        </select>
+		      </label>
+		      <label class="item item-select black-font col-4 select-item" id="userRegister-select5" name="city" style="padding: 16px; margin-left: 0px; margin-bottom:0px;">
+		        <select class="select-input"ng-model="city_re" id="city" required>
+		          <option value="">Ciudad</option>
+		        </select>
+		      </label>
+		      <label class="item item-input item-stacked-label no-border" id="userRegister-email" name="mail">
+		        <span class="input-label">Usuario (e-mail)</span>
+		        <input type="email" placeholder="" name="emailRe" ng-model="authorization.emailRe" ng-pattern="emailFormat" required>
+		      </label>
+		      <label class="item item-input item-stacked-label no-border" id="userRegister-pass" name="mail">
+		        <span class="input-label">Contraseña</span>
+		        <input type="password" placeholder="" name="pass" ng-model="authorization.pass" ng-minlenhth="minpassword" required>
+		      </label>
+		      <label class="item item-input item-stacked-label no-border" id="userRegister-repass" name="mail">
+		        <span class="input-label">Repetir contraseña</span>
+		        <input type="password" placeholder="" name="repass" ng-model="authorization.repass" ng-minlength="minpassword" required>
+		      </label>
+					<button ui-sref="menu.home" id="motoRegister-send" style="margin-left: 5%; margin-top: 30px;" class="button button-stable button-small col-4">MENU</button>
+					<button type="submit" id="motoRegister-cancel" style="margin-left: 10%; margin-top: 30px;" class="button button-balanced button-small col-4">GUARDAR</button>
+		    </form>
+      </div>
+
+      <div id="moto-tag-content" class="tab-content" ng-class="{'actived': activeTab == 2}" > <!-- ng-class="{'active': activeTab == 2}" -->
+				<h3 id="motoRegister-heading3">MOTOCICLETA</h3>
+				<form id="motoRegister-form5" class="list" ng-submit="register()" name="motoRe">
+					<label class="item item-select black-font select-item" id="motoRegister_brand" name="moto-brand">
+						<select class="select-input">
+							<option value="" selected="selected" disabled hidden>Marca de motocicleta</option>
+						</select>
+					</label>
+					<label class="item item-select black-font col-3 select-item" id="motoRegister_model" style="padding: 16px; margin: 25px 0px 0px 16%;">
+						<select class="select-input">
+							<option value="" selected="selected" disabled hidden>Modelo</option>
+						</select>
+					</label>
+					<label class="item item-select black-font col-3 select-item" id="motoRegister_year" style="padding: 16px; margin: 25px 0px 0px 5%;">
+						<select class="select-input">
+							<option value="" selected="selected" disabled hidden>Año</option>
+						</select>
+					</label>
+					<label class="item item-input item-floating-label register-input no-border" id="motoRegister-plates">
+						<span class="input-label">Placas</span>
+						<input type="number" placeholder="Placas">
+					</label>
+					<h4 id="motoRegister-heading4">¿Qué uso le das a tu motocicleta?</h4>
+					<ion-checkbox id="motoRegister-checkbox1" ng-model="ciudad.checked" class="check-odd checkbox-slim" style="margin-left: 10px; margin-right: -10px;">Ciudad</ion-checkbox>
+					<ion-checkbox id="motoRegister-checkbox2" ng-model="atv.checked" class="col-6 checkbox-slim">Atv off road</ion-checkbox>
+					<ion-checkbox id="motoRegister-checkbox3" ng-model="touring.checked" class="check-odd checkbox-slim" style="margin-left: 10px; margin-right: -10px;">Touring</ion-checkbox>
+					<ion-checkbox id="motoRegister-checkbox4" ng-model="trabajo.checked" class="col-6 checkbox-slim">De trabajo</ion-checkbox>
+					<ion-checkbox id="motoRegister-checkbox5" ng-model="circuitos.checked" class="check-odd checkbox-slim" style="margin-left: 10px; margin-right: -10px;">Circuitos</ion-checkbox>
+					<ion-checkbox id="motoRegister-checkbox6" ng-model="enduro.checked" class="col-6 checkbox-slim">Enduro</ion-checkbox>
+					<ion-checkbox id="motoRegister-checkbox7" ng-model="stunt.checked" class="check-odd checkbox-slim" style="margin-left: 10px; margin-right: -10px;">Stunt</ion-checkbox>
+					<ion-checkbox id="motoRegister-checkbox8" ng-model="carretera.checked" class="col-6 checkbox-slim">Carretera esporádica</ion-checkbox>
+					<ion-checkbox id="motoRegister-checkbox9" ng-model="otro.checked" class="check-odd checkbox-slim" style="margin-left: 10px; margin-right: -10px;">Otro, ¿Cuál?</ion-checkbox>
+					<label class="item item-input item-floating-label register-input col-6 no-border" id="motoRegister_other">
+						<input type="text" placeholder="" id="other">
+					</label>
+					<button ui-sref="menu.home" id="motoRegister-send" style="margin-left: 5%;" class="button button-stable button-small col-4">MENU</button>
+					<button type="submit" id="motoRegister-cancel" style="margin-left: 10%;" class="button button-balanced button-small col-4">GUARDAR</button>
+				</form>
+      </div>
+
+    </div>
+	</ion-content>
+</ion-view>

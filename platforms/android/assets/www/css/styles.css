@@ -1,0 +1,997 @@
+/* Custom styles */
+/*
+  File contents
+-------------------------------
+  - Avenir Font
+  - User Register view
+  - Moto Register view
+  - Home view
+  - Alert views
+  - Configutation view
+  - User Manual view
+  - Discover route view
+  - S2P view
+    - Modals
+  - My routes view
+  - On Route view
+    - Right alert-menu
+  - Route details view
+  - Popover alerts
+
+*/
+@font-face {
+  font-family: "Avenir-light";
+  src: url("../lib/ionic/fonts/avenir-light?v=2.0.1");
+  src: url("../lib/ionic/fonts/avenir-light.eot?v=2.0.1#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/avenir-light.ttf?v=2.0.1") format("truetype"), url("../lib/ionic/fonts/avenir-light.woff?v=2.0.1") format("woff"), url("../lib/ionic/fonts/avenir-light.woff") format("woff"), url("../lib/ionic/fonts/avenir-light.svg?v=2.0.1#Ionicons") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "Avenir-roman";
+  src: url("../lib/ionic/fonts/avenir-roman.eot?v=2.0.1");
+  src: url("../lib/ionic/fonts/avenir-roman.eot?v=2.0.1#iefix") format("embedded-opentype"), url("../lib/ionic/fonts/avenir-roman.ttf?v=2.0.1") format("truetype"), url("../lib/ionic/fonts/avenir-roman.woff?v=2.0.1") format("woff"), url("../lib/ionic/fonts/avenir-roman.woff") format("woff"), url("../lib/ionic/fonts/avenir-roman.svg?v=2.0.1#Ionicons") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+/*********** User Register view ************/
+#userRegister-heading1 {
+  font-family: "Avenir";
+  font-size: 6vw;
+  color: #FFFFFF;
+  text-align: center;
+  padding-top: 20px; }
+
+.input-label {
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  max-width: 308px; }
+
+.register-input {
+  padding: 6px 16px !important; }
+  .register-input input {
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: solid #fff 1px;
+    padding: 0 !important; }
+
+#gender_select {
+  left: 16px;
+  bottom: 3px;
+  margin-right: 9%;
+  padding: 16px !important; }
+
+#userRegister-select4,
+#userRegister-select5 {
+  left: 16px;
+  bottom: 3px;
+  margin-top: 10px;
+  padding: 16px !important;
+  width: 90%; }
+
+#input-birdth input,
+#userRegister-email input,
+#userRegister-pass input,
+#userRegister-repass input {
+  color: #fff;
+  font-size: 14px;
+  border-bottom: solid #fff 1px;
+  padding: 0 !important;
+  background: transparent;
+  border-radius: 0px;
+  text-align: center; }
+
+#userRegister-email span,
+#userRegister-pass span,
+#userRegister-repass span {
+  width: 45%;
+  display: inline-block;
+  text-align: left;
+  margin-bottom: -20px; }
+
+#userRegister-email input,
+#userRegister-pass input,
+#userRegister-repass input {
+  width: 50%;
+  display: inline-block; }
+
+#userRegister-button5 {
+  border-radius: 8px 8px 8px 8px;
+  width: 40%;
+  left: 30%;
+  font-size: 16px;
+  padding: 0px !important;
+  margin-top: 30px; }
+
+/*********** Moto Register view ************/
+#motoRegister-heading3 {
+  font-family: "Avenir";
+  font-size: 6vw;
+  color: #FFFFFF;
+  text-align: center;
+  padding-top: 20px; }
+
+#motoRegister_brand {
+  padding: 16px;
+  border-radius: 5px;
+  border-radius: 5px;
+  width: 90%;
+  margin-left: 5%;
+  bottom: 3px;
+  margin-top: 25px;
+  padding: 16px !important; }
+
+#motoRegister_model,
+#motoRegister_year {
+  bottom: 3px;
+  margin-top: 25px;
+  padding: 16px !important; }
+
+#motoRegister-plates {
+  width: 75%;
+  margin-left: 12.5%;
+  margin-bottom: 20px; }
+
+#motoRegister-heading4 {
+  color: #fff;
+  text-align: center;
+  font-family: 'Avenir';
+  font-size: 4.5vw;
+  padding: 10px 0px; }
+
+.checkbox-slim {
+  padding-right: 0px !important;
+  padding-left: 40px !important;
+  font-size: 3.5vw;
+  font-family: "Avenir";
+  background: transparent;
+  border: none;
+  color: #fff;
+  display: inline-block; }
+
+.check-odd {
+  width: 38%; }
+
+.checkbox-slim .checkbox {
+  padding: 7px 0px !important; }
+
+#motoRegister_other {
+  padding-top: 0px !important;
+  padding-bottom: 20px !important; }
+
+#motoRegister-send,
+#motoRegister-cancel {
+  font-size: 95%;
+  border-radius: 8px 8px 8px 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 4px; }
+
+/*********** HOME ************/
+.home-button {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 3;
+  min-height: 35px !important;
+  min-width: 35px !important; }
+
+#home-form9 {
+  position: absolute;
+  top: 85px;
+  left: 45px;
+  width: 75%; }
+  #home-form9 > label {
+    border-radius: 10px;
+    border: 1px solid #3b3c3a;
+    height: 40px;
+    margin: 1px 0px;
+    padding-left: 12px !important; }
+
+/*********** MENU ***********/
+.hidden-text {
+  display: none; }
+
+#menu-search2 {
+  width: 80%;
+  height: 30px;
+  margin-left: 10%;
+  margin-bottom: 3%;
+  border-radius: 8px;
+  padding: 0px 10px; }
+
+/*********** Alert views ************/
+.full-height > div {
+  height: 100%; }
+
+.half-height > div {
+  height: 50%; }
+
+.gray-bg {
+  background: #3b3c3a; }
+
+.center-img {
+  height: auto !important;
+  max-height: 70px !important;
+  width: auto !important;
+  max-width: auto !important;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 55%; }
+
+.alert-item > h2 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  margin: auto !important;
+  max-height: 40px;
+  font-size: 20px;
+  padding: 15px 0px;
+  font-weight: bold;
+  font-family: "Avenir-light";
+  color: #fff; }
+
+.alert-item.active {
+  background: #808284 !important; }
+
+.bottom-border {
+  border-bottom: 4px solid #fff; }
+
+.alert-item {
+  height: 34%;
+  border-bottom: 4px solid #fff;
+  padding-left: 160px; }
+
+/*********** CONFIGURATION VIEW ***********/
+/*tabs configuration */
+.tab-navigation {
+  padding: 0;
+  border-bottom: solid 1px #ddd;
+  height: 42px !important; }
+  .tab-navigation li {
+    display: inline-block;
+    margin-bottom: -1px; }
+    .tab-navigation li a {
+      display: inline-block;
+      border: solid 1px #ddd;
+      padding: 10px 15px;
+      text-decoration: none;
+      background: #3b3c3a !important;
+      color: #fff;
+      margin: 0px -2px;
+      opacity: 1 !important; }
+  .tab-navigation .actived a {
+    border-bottom-color: #fff;
+    border-bottom: 1px solid #3b3c3a; }
+
+.tab-content {
+  display: none; }
+  .tab-content.actived {
+    display: inline-block;
+    height: 100%;
+    background: #3b3c3a !important;
+    color: #fff;
+    padding-top: 20px; }
+
+.tab-item {
+  font-family: "Avenir-roman";
+  font-size: 20px; }
+
+.no-top-pos {
+  top: 0px !important; }
+
+/*********** USER MANUAL VIEW ***********/
+#manual_container {
+  min-height: 95%;
+  background: rgba(36, 96, 170, 0.8);
+  margin: 10px;
+  font-family: "Avenir"; }
+
+#close_manual {
+  background: transparent; }
+
+.manual-text {
+  padding: 0px 20px 10px 20px; }
+  .manual-text > h4 {
+    font-family: "Avenir";
+    font-size: 22px; }
+
+/*********** DISCOVER ROUTE VIEW ***********/
+.title-container {
+  background: #223d75;
+  height: 15vh; }
+  .title-container > h4 {
+    color: #fff !important;
+    text-align: center;
+    font-family: "Avenir";
+    font-size: 22px;
+    margin-bottom: 0px; }
+
+.input-box {
+  height: 50%;
+  width: 50%;
+  border: 2px solid #fff; }
+  .input-box h5 {
+    color: #ffffff;
+    font-family: 'Avenir';
+    font-size: 12px;
+    margin-top: 15% !important;
+    margin-bottom: 0px !important;
+    font-weight: bold; }
+
+.select-input {
+  direction: ltr !important;
+  width: 100%;
+  max-width: 100% !important;
+  left: 0;
+  padding-left: 15px !important;
+  padding-right: 2px !important; }
+  .select-input option {
+    font-size: 12px;
+    font-family: "Avenir"; }
+
+.item-select {
+  margin: 1px 10%;
+  border-radius: 5px;
+  padding: 10px 16px !important; }
+
+#discover_results_title {
+  color: #fff;
+  font-family: "Avenir";
+  text-decoration: underline; }
+
+#discover_results {
+  min-height: 24%;
+  height: 24%;
+  margin-top: 0;
+  padding-top: 10px; }
+
+.results-list-item {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  padding: 3px 10px;
+  text-decoration: none; }
+  .results-list-item.active {
+    background: #808284 !important; }
+
+.bottom-buttons {
+  height: 10vh;
+  margin-top: 4px; }
+  .bottom-buttons .cancel-button {
+    height: 100%;
+    width: 50%;
+    float: left; }
+  .bottom-buttons .go-button {
+    height: 100%;
+    width: 50%;
+    float: right; }
+
+/*********** S2P VIEW ***********/
+/*some style clases are shared with discover view ^^*/
+#protection-container p {
+  color: #fff;
+  font-family: "Avenir-roman"; }
+
+.config-text {
+  color: #fff;
+  text-decoration: underline;
+  font-family: "Avenir-roman";
+  font-size: 10px; }
+
+.protection-titles {
+  text-align: center;
+  padding-top: 20%; }
+  .protection-titles p {
+    margin: 0; }
+
+.secure-checkbox {
+  background: transparent;
+  border: none;
+  position: absolute;
+  top: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px; }
+  .secure-checkbox .toggle {
+    top: 25% !important; }
+
+.yes-tag {
+  float: right;
+  margin-right: 15%;
+  margin-top: 5%; }
+
+.no-tag {
+  float: left;
+  margin-left: 15%;
+  margin-top: 5%; }
+
+#caravan_container {
+  color: #fff;
+  font-family: "Avenir-roman"; }
+
+.blur-efect {
+  filter: blur(2px); }
+
+/*********** Modals ***********/
+.modal-1,
+.modal-5 {
+  height: 380px;
+  width: 80%;
+  background: rgba(16, 26, 75, 0.8);
+  top: 20%;
+  left: 10%;
+  border-radius: 25px; }
+
+.modal-2,
+.modal-3,
+.modal-4 {
+  height: 450px;
+  width: 80%;
+  background: rgba(16, 26, 75, 0.8);
+  top: 10%;
+  left: 10%;
+  border-radius: 25px; }
+
+#modal-title {
+  font-family: 'Avenir-roman';
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  text-decoration: underline; }
+
+.modal-text {
+  font-family: 'Avenir-roman';
+  color: #fff;
+  font-size: 14px;
+  text-align: center; }
+
+.centered-toggle {
+  color: transparent;
+  background: transparent;
+  width: 100%;
+  margin-left: -50%;
+  margin-top: -15px;
+  left: 15%;
+  display: inline-block;
+  border: none; }
+
+.left-toggle {
+  color: transparent;
+  background: transparent;
+  width: 30%;
+  margin-left: -50px;
+  left: 14%;
+  display: inline-block;
+  border: none; }
+
+.right-toggle {
+  color: transparent;
+  background: transparent;
+  width: 30%;
+  margin-left: -50px;
+  left: 40%;
+  display: inline-block;
+  border: none; }
+
+.social-icon {
+  width: 40px; }
+
+.fb-icon,
+.watsapp-icon {
+  display: inline-block;
+  width: 49%;
+  text-align: center; }
+
+.pick-km-text {
+  color: #fff;
+  font-family: "Avenir-roman";
+  margin-left: 5%;
+  text-align: right;
+  width: 40%;
+  display: inline-block; }
+
+/*********** MY ROUTES VIEW ***********/
+#myRoutes_container {
+  min-height: 87vh;
+  margin: 0px 20px 5px 20px;
+  padding: 20px;
+  border-radius: 5px;
+  background: rgba(35, 31, 32, 0.8); }
+
+#myRoutes-button-bar {
+  height: 10vh; }
+  #myRoutes-button-bar button {
+    margin-bottom: 0; }
+
+.routes-list-item {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  padding: 3px 10px; }
+  .routes-list-item.active {
+    background: #808284 !important; }
+
+.my-routes-imgs {
+  height: 50px;
+  margin: 10px 0px; }
+
+.my-routes-text {
+  color: #fff;
+  text-align: left;
+  margin-top: 10px; }
+
+/*********** ON ROUTE VIEW ***********/
+.filter-bar {
+  height: 9vh;
+  z-index: 2; }
+
+.filter-button {
+  height: 100%;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  border-color: #fff !important;
+  border-style: solid;
+  border-width: 0px 3px 3px 0px !important; }
+  .filter-button:nth-child(4n) {
+    border-width: 0px 0px 3px 0px !important; }
+  .filter-button > img {
+    height: 30px;
+    margin-top: 15%; }
+
+/** Right alert-menu **/
+.nav-trigger {
+  /* critical styles - hide the checkbox input */
+  position: absolute;
+  clip: rect(0, 0, 0, 0); }
+
+label[for="nav-trigger"] {
+  /* critical positioning styles */
+  position: absolute;
+  z-index: 5;
+  right: 10px;
+  /* non-critical apperance styles */
+  height: 40px;
+  width: 40px;
+  background: #223d75;
+  background-size: contain;
+  font-size: 40px;
+  font-family: serif;
+  line-height: 1;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0px 0px 0px 4px rgba(185, 185, 185, 0.86);
+  border-radius: 50%;
+  cursor: pointer; }
+
+.navigation {
+  /* critical sizing and position styles */
+  width: 140px;
+  height: 77%;
+  position: absolute;
+  top: 10%;
+  right: -150px;
+  display: none;
+  z-index: 5;
+  /* non-critical appearance styles */
+  list-style: none; }
+
+.nav-item {
+  width: 140px;
+  height: 18%;
+  background: #1b75ba;
+  border: 2px solid #fff; }
+
+.nav-title {
+  margin-top: 15%;
+  color: #fff;
+  text-align: center;
+  font-family: "Avenir-roman";
+  font-size: 18px;
+  font-weight: bold; }
+
+.nav-item a {
+  height: 100%;
+  display: block;
+  color: white;
+  font-size: 12px;
+  text-decoration: none;
+  transition: color 0.2s, background 0.5s;
+  padding-top: 25%;
+  padding-left: 5%; }
+
+.img-item {
+  display: inline-block;
+  width: 35%;
+  text-align: center; }
+
+.nav-item .img-item > img {
+  height: 25px;
+  width: auto;
+  vertical-align: middle; }
+
+.nav-item .title-item {
+  display: inline-block;
+  width: 50%;
+  margin-left: 5%;
+  font-family: "Avenir-roman";
+  font-size: 14px;
+  font-weight: bold; }
+
+/* Make the Magic Happen for the left menu */
+.navigation {
+  transition: left 0.2s; }
+
+.nav-trigger:checked + label {
+  right: 145px; }
+
+.nav-trigger:checked ~ .navigation {
+  right: 0px;
+  display: inline-block; }
+
+/*********** ROUTE DETAILS VIEW ***********/
+#route-form {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10%; }
+
+#route_name input {
+  font-size: 19px; }
+
+.light-input span {
+  display: inline-block;
+  text-align: left;
+  margin-bottom: -20px; }
+
+.light-input input {
+  display: inline-block;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  border-bottom: solid #fff 1px;
+  padding: 0 !important;
+  background: transparent;
+  border-radius: 0px; }
+
+#origin span,
+#destination span {
+  width: 20%; }
+
+#origin input,
+#destination input {
+  width: 75%; }
+
+#kilometers span {
+  width: 10%; }
+
+#kilometers input {
+  width: 85%; }
+
+#time span {
+  width: 45%; }
+
+#time input {
+  width: 50%; }
+
+#toll_cost span {
+  width: 50%; }
+
+#toll_cost input {
+  width: 45%; }
+
+#not_save_route,
+#save_route {
+  font-size: 4vw;
+  border-radius: 8px 8px 8px 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 4px; }
+
+/*********** POPOVER ALERTS ***********/
+#popover_onroute,
+#popover_routedetails {
+  height: 28%;
+  width: 75%;
+  left: 12.5% !important;
+  top: 30% !important;
+  background: transparent !important;
+  border-radius: 20px; }
+
+#popover_onroute .scroll,
+#popover_routedetails .scroll {
+  padding: 10% 1%; }
+
+#popover_onroute .popover-content {
+  background: rgba(59, 60, 58, 0.95) !important;
+  margin: 0px !important;
+  border-radius: 20px; }
+
+#popover_routedetails .popover-content {
+  background: #223d75 !important;
+  margin: 0px !important;
+  border-radius: 20px; }
+
+.text-popover {
+  text-align: center; }
+  .text-popover > h4 {
+    color: #fff;
+    font-family: "Avenir-roman";
+    font-weight: bold; }
+
+#popover_routedetails .text-popover > h4 {
+  padding: 0px 5px; }
+
+.center-content {
+  text-align: center; }
+
+.button-popover {
+  width: 40% !important;
+  margin: 0px 2%;
+  border-radius: 0px;
+  font-family: "Avenir-roman";
+  font-weight: bold;
+  display: inline-block; }
+
+.login-page .background {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(../img/KEtoAt4XQeeko098Dbft_moto.jpg) no-repeat center;
+  background-size: cover; }
+
+.login-page .logo {
+  display: block;
+  width: 60%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto; }
+
+.login-page #login-form2 {
+  background: none; }
+  .login-page #login-form2 .border-radius-large {
+    border-radius: 8px; }
+
+.login-page .loggin-button {
+  font-size: 25px;
+  border-radius: 8px 8px 8px 8px; }
+
+.login-page .signup-button {
+  font-weight: 600;
+  color: #000000;
+  text-align: right; }
+
+.signup-page {
+  background-color: #3B3C3A; }
+  .signup-page h3.header {
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px; }
+  .signup-page .user-form .row {
+    padding: 0; }
+  .signup-page .user-form label {
+    padding-left: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid white;
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-radius: 0; }
+    .signup-page .user-form label .input-label {
+      color: white; }
+    .signup-page .user-form label input {
+      color: #f8f8f8;
+      padding-right: 0 !important; }
+    .signup-page .user-form label.select-label {
+      border-bottom: 0; }
+      .signup-page .user-form label.select-label .select-input {
+        padding: 10px;
+        margin-top: 10px;
+        background: #fff;
+        border-radius: 3px;
+        width: 100%; }
+    .signup-page .user-form label #dateHolder {
+      position: absolute;
+      bottom: 10px;
+      text-align: center;
+      width: 100%;
+      color: #fff; }
+    .signup-page .user-form label.item-border {
+      border-bottom: none; }
+      .signup-page .user-form label.item-border .input-label {
+        width: 50%;
+        text-align: left; }
+      .signup-page .user-form label.item-border input {
+        border-bottom: 1px solid white; }
+  .signup-page .user-form .next-button {
+    border-radius: 8px;
+    width: auto;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 0 20px; }
+  .signup-page .user-form .login-button {
+    width: auto;
+    position: absolute;
+    right: 0;
+    font-weight: 600; }
+
+#menu-page ion-side-menu {
+  height: 100vh; }
+  #menu-page ion-side-menu .scroll {
+    display: flex;
+    flex-direction: column; }
+    #menu-page ion-side-menu .scroll .header {
+      height: 44%;
+      flex: 0 0 44%;
+      display: block;
+      background: #223d75; }
+      #menu-page ion-side-menu .scroll .header .buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center; }
+        #menu-page ion-side-menu .scroll .header .buttons .menu-icon {
+          background: transparent; }
+      #menu-page ion-side-menu .scroll .header .user-img-container .user_image {
+        width: 150px;
+        height: 150px;
+        line-height: 150px;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+        border-radius: 50%;
+        overflow: hidden;
+        background: white; }
+        #menu-page ion-side-menu .scroll .header .user-img-container .user_image #picture_text {
+          font-size: 26px;
+          color: #223d75;
+          text-align: center;
+          line-height: 1;
+          height: 150px;
+          vertical-align: middle;
+          position: relative;
+          top: 25%; }
+      #menu-page ion-side-menu .scroll .header #user_name {
+        color: #fff;
+        font-family: "Avenir-roman";
+        font-weight: bold;
+        text-align: center;
+        padding: 10px 5px 0px 5px; }
+    #menu-page ion-side-menu .scroll .navigation-list {
+      height: auto;
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column; }
+      #menu-page ion-side-menu .scroll .navigation-list .list {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 100%; }
+        #menu-page ion-side-menu .scroll .navigation-list .list .menu-list-item.item-icon-left {
+          position: relative;
+          display: flex;
+          height: auto;
+          flex: 1 1 auto;
+          align-items: center;
+          align-content: center;
+          padding-right: 10px;
+          color: #fff;
+          background: #1b75ba;
+          border-top: 3px #fff solid;
+          font-family: "Avenir-roman";
+          font-weight: bold; }
+          #menu-page ion-side-menu .scroll .navigation-list .list .menu-list-item.item-icon-left a {
+            background: transparent;
+            padding-right: 10px;
+            color: #fff; }
+          #menu-page ion-side-menu .scroll .navigation-list .list .menu-list-item.item-icon-left.background-odd {
+            background: #223d75; }
+        #menu-page ion-side-menu .scroll .navigation-list .list .icon > img {
+          width: 35px; }
+
+#home-page .angular-google-map, #home-page .angular-google-map-container {
+  height: 100%; }
+
+#caravana-destination-page ion-content {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh; }
+
+#caravana-destination-page .title-container {
+  height: 15vh;
+  flex: 0 0 15vh; }
+  #caravana-destination-page .title-container .spacer {
+    width: 300px;
+    height: 30%; }
+  #caravana-destination-page .title-container #heading {
+    color: #000000;
+    text-align: center; }
+  #caravana-destination-page .title-container .selected {
+    text-align: center;
+    color: white; }
+
+#caravana-destination-page .caravana-container {
+  height: auto;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+  background: #2a429f; }
+  #caravana-destination-page .caravana-container .button {
+    width: 80%;
+    height: 100px; }
+
+#caravana-destination-page .caravana-footer {
+  padding: 0;
+  height: auto;
+  flex: 0 0 auto;
+  flex-grow: nogrow; }
+  #caravana-destination-page .caravana-footer .button {
+    border-radius: 0; }
+
+#selects-container {
+  height: 50vh;
+  display: flex;
+  flex-flow: wrap row; }
+  #selects-container .discover-container {
+    width: 50%;
+    flex: 0 0 50%; }
+
+.background-blue {
+  background: #2a429f; }
+
+.background-odd {
+  background: #3871c2; }
+
+#caravana-page ion-content {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh; }
+
+#caravana-page .title-container {
+  height: 15vh;
+  flex: 0 0 15vh; }
+  #caravana-page .title-container .spacer {
+    width: 300px;
+    height: 30%; }
+  #caravana-page .title-container #heading {
+    color: #000000;
+    text-align: center; }
+  #caravana-page .title-container .selected {
+    text-align: center;
+    color: white; }
+
+#caravana-page .caravana-container {
+  height: auto;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden; }
+  #caravana-page .caravana-container .users .user[disabled] {
+    color: grey; }
+
+#caravana-page .caravana-footer {
+  padding: 0;
+  height: auto;
+  flex: 0 0 auto;
+  flex-grow: nogrow; }
+  #caravana-page .caravana-footer .button {
+    border-radius: 0; }
+
+.angular-google-map, .angular-google-map-container {
+  height: 100%; }

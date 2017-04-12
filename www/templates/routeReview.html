@@ -1,0 +1,36 @@
+<ion-view title="routeReview" hide-nav-bar="true" hide-back-button="true">
+	<ion-content padding="false" class="manual-ios-statusbar-padding" scroll="false">
+		<div class="buttons-bar filter-bar">
+      <button ng-click="getGas()" class="button button-calm filter-button button-block">
+      	<img src="img/gasolina.png" alt="gas-filter">
+      </button>
+      <button ng-click="getWeather()" class="button button-positive filter-button button-block">
+      	<img src="img/clima.png" alt="gas-filter">
+      </button>
+      <button ng-click="getToll()" class="button button-calm filter-button button-block">
+      	<img src="img/caseta.png" alt="gas-filter">
+      </button>
+      <button ng-click="" class="button button-positive filter-button button-block">
+      	<img src="img/check.png" alt="gas-filter">
+      </button>
+    </div>
+    <ui-gmap-google-map control="mapr.control" ng-if="mapr.center" center="mapr.center" zoom="mapr.zoom" options="mapr.options">
+      <ui-gmap-marker coords="markerr.coords" options="markerr.options" events="markerr.events" idkey="markerr.id" ></ui-gmap-marker>
+      <ui-gmap-marker coords="markerdr.coords" options="markerdr.options" events="markerdr.events" idkey="markerdr.id" ></ui-gmap-marker>
+      <ui-gmap-markers models="vmr.markers" coords="'self'" icon="'icon'">
+        <ui-gmap-windows show="show">
+          <div>
+            <div>
+              <label class="markerToolTipLabel" ng-non-bindable>{{name}}</label>
+            </div>
+          </div>
+        </ui-gmap-windows>
+      </ui-gmap-markers>
+      <ui-gmap-polyline ng-repeat="pr in polylinesr" path="pr.path" stroke="pr.stroke" visible='pr.visible' geodesic='pr.geodesic'></ui-gmap-polyline>
+    </ui-gmap-google-map>
+    <div class="buttons-bottom">
+			<button ng-click="back()" class="button button-dark button-large col-5 cancel-button">Cancelar</button>
+		  <button ui-sref="onRoute" class="button button-balanced button-large col-5 go-button">A rodar!</button>
+    </div>
+  </ion-content>
+</ion-view>

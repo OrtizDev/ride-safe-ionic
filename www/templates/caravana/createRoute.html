@@ -1,0 +1,38 @@
+<ion-view title="Crear ruta" hide-nav-bar="true" class="translucid">
+  <ion-content padding="false" class="manual-ios-statusbar-padding" scroll="false">
+    <button menu-toggle="left" class="button button-positive home-button icon ion-android-menu"></button>
+    <form id="route-form" class="list">
+      <label class="item item-input" id="home-inputOrigin" name="origin">
+        <span style="width: 15%; font-size: 12px;"><i class="icon ion-record calm"></i></span>
+        <input type="text" placeholder="Origen de ruta" id="inputOrigin" ng-blur="markerOriginChanged()" ng-keyup="enterPressed($event, markerOriginChanged)">
+      </label>
+      <label class="item item-input" id="home-inputDestination" name="origin">
+        <span style="width: 15%; font-size: 16px;"><i class="icon ion-android-search"></i></span>
+        <input type="text" placeholder="Destino" id="inputDestination" ng-blur="markerDestinationChanged()" ng-keyup="enterPressed($event, markerDestinationChanged)">
+      </label>
+    </form>
+    <ui-gmap-google-map control="map.control" ng-if="map.center" center="map.center"
+        zoom="map.zoom" options="map.options">
+      <ui-gmap-marker coords="markerOrigin.coords" options="markerOrigin.options" events="markerOrigin.events"
+          idkey="markerOrigin.id"></ui-gmap-marker>
+      <ui-gmap-marker coords="markerDestination.coords" options="markerDestination.options" events="markerDestination.events"
+          idkey="markerDestination.id"></ui-gmap-marker>
+      <ui-gmap-markers models="vm.markers" coords="'self'" icon="'icon'">
+        <ui-gmap-windows show="show">
+          <div>
+            <div>
+              <label class="markerToolTipLabel" ng-non-bindable>{{name}}</label>
+            </div>
+          </div>
+        </ui-gmap-windows>
+      </ui-gmap-markers>
+      <ui-gmap-polyline ng-repeat="p in polylines" path="p.path" stroke="p.stroke" visible='p.visible'
+          geodesic='p.geodesic'></ui-gmap-polyline>
+    </ui-gmap-google-map>
+
+    <div class="buttons-bottom">
+      <button ng-click="goBack()" class="button button-dark button-large button-full">Atras</button>
+      <button ui-sref="menu.caravanaReviewRoute" class="button button-balanced button-large button-full" ng-disabled="disabled" >Revisar ruta</button>
+    </div>
+  </ion-content>
+</ion-view>

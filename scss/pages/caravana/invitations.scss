@@ -1,0 +1,27 @@
+.title-results {
+  color: white;
+  text-decoration: underline;
+  text-align: center;
+}
+
+#caravana-page {
+  .users-list {
+    text-align: center;
+    .user {
+      margin: 5px 0;
+      background: transparent;
+      color: white;
+      border: none;
+      .status {
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        border-radius: 50%;
+        background: red;
+        &.accepted {
+          background: green;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@import 'colors';
+@import 'custom';
+@import 'pages/login';
+@import 'pages/signup';
+@import 'pages/menu';
+@import 'pages/home';
+
+@import 'pages/route-details';
+
+
+@import 'pages/caravana/caravana';
+
+.angular-google-map, .angular-google-map-container {
+  height: 100%;
+}
+
+.background-blue {
+  background: #2a429f;
+  color: white;
+}
+.background-odd {
+  background: #3871c2;
+  color: white;
+}
+
+.row-center {
+  justify-content: center;
+}

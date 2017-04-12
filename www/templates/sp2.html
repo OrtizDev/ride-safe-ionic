@@ -1,0 +1,347 @@
+<ion-view title="sp2" hide-nav-bar="true" id="page16">
+  <ion-content id="sp2_content" padding="false" class="manual-ios-statusbar-padding" style="margin-bottom: -5px;">
+    <div class="title-container">
+      <div class="spacer" style="width: 300px; height: 30%;"></div>
+      <h4 id="sp2-heading9" style="color:#000000;text-align:center;">S2P</h4>
+      <div id="sp2-markdown21" style="text-align:center;font-size: 14px; color: #fff;" class="show-list-numbers-and-dots">
+        <p>(Secure 2 Protection)</p>
+      </div>
+    </div>
+    <div id="protection-container" style="height: 50vh;">
+      <div id="sp2-container10" class="background-blue input-box" style="float:left; border-top: 4px solid #fff; border-left: none;">
+        <div id="sp2-markdown11" class="show-list-numbers-and-dots protection-titles">
+          <p>impactos y caídas</p>
+        </div>
+        <form id="sp2-form23" class="list form-items">
+          <ion-toggle ng-model="pushNotiIC.checked" toggle-class="toggle-balanced" id="sp2-toggle4" class="secure-checkbox"></ion-toggle>
+          <div id="sp2-markdown16" ng-click="openModal(1)" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
+            <p class="config-text">Configurar</p>
+          </div>
+        </form>
+      </div>
+      <div id="sp2-container11" class="background-odd input-box" style="float:right; border-top: 4px solid #fff; border-right: none;">
+        <div id="sp2-markdown12" class="show-list-numbers-and-dots protection-titles">
+          <p>Desvio de rutas</p>
+        </div>
+        <form id="sp2-form22" class="list form-items">
+          <ion-toggle ng-model="pushNotiDR.checked" toggle-class="toggle-balanced" id="sp2-toggle3" class="secure-checkbox"></ion-toggle>
+          <div id="sp2-markdown17" ng-click="openModal(2)" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
+            <p class="config-text">Configurar</p>
+          </div>
+        </form>
+      </div>
+      <div id="sp2-container12" class="background-blue input-box" style="float:left; border-bottom: 4px solid #fff; border-left: none;">
+        <div id="sp2-markdown13" class="show-list-numbers-and-dots protection-titles">
+          <p>Avisos de riesgo</p>
+        </div>
+        <form id="sp2-form20" class="list form-items">
+          <ion-toggle ng-model="pushNotiAR.checked" toggle-class="toggle-balanced" ng-checked="true" id="sp2-toggle1" class="secure-checkbox"></ion-toggle>
+          <div id="sp2-markdown19" ng-click="openModal(3)" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
+            <p class="config-text">Configurar</p>
+          </div>
+        </form>
+      </div>
+      <div id="sp2-container13" class="background-odd input-box" style="float:right; border-bottom: 4px solid #fff; border-right: none;">
+        <div id="sp2-markdown14" class="show-list-numbers-and-dots protection-titles">
+          <p>live tracking</p>
+        </div>
+        <form id="sp2-form21" class="list form-items">
+          <ion-toggle ng-model="pushNotiLT.checked" toggle-class="toggle-balanced" ng-checked="true" id="sp2-toggle2" class="secure-checkbox"></ion-toggle>
+          <div id="sp2-markdown18" ng-click="openModal(4)" style="text-align:right; margin: 40px 10% 0px 40%;" class="show-list-numbers-and-dots button button-dark button-small button-block button-clear">
+            <p class="config-text">Configurar</p>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="caravan_container" class="background-odd" style="height: 25vh;">
+      <div class="spacer" style="width: 300px; height: 25%;"></div>
+      <div class="row row-center"> 
+        <button ng-click="facebookLink()" id="sp2-buttonFb" style="" ng-disabled="fbButtonDisabled" class="button button-balanced button-large col-12 facebook-button">{{ textFbLink }}</button>
+      </div>
+      <div class="spacer" style="width: 300px; height: 20px;"></div>
+    </div>
+    <div class="bottom-buttons">
+      <button ng-click="backS2R()" id="sp2-button26" style="border-radius:0px 0px 0px 0px;" class="button button-dark button-large col-5 cancel-button">Cancelar</button>
+      <button ng-click="saveNoti()" id="sp2-button27" style="border-radius:0px 0px 0px 0px;" class="button button-balanced button-large col-5 go-button">Guardar</button>
+    </div>
+
+    <script id="modal-1.html" type="text/ng-template">
+      <ion-modal-view style="background: transparent;">
+        <ion-content padding="true" class="manual-ios-statusbar-padding modal-1" scroll="false">
+      		<div class="modal-header">
+            <div style="height:20px;">
+              <button id="close-button10" ng-click="closeModal(1)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+            </div>
+            <div class="spacer" style="width: 300px; height: 30%; top: 25%; left: 25%;"></div>
+            <h4 id="modal-title">IMPACTOS Y CAÍDAS</h4>
+            <div class="modal-text" class="show-list-numbers-and-dots">
+              <p>Permitir publicar en:</p>
+            </div>
+          </div>
+          <div style="margin-top: 25px;">
+            <div class="fb-icon">
+              <img class="social-icon" src="img/facebook.png">
+            </div>
+            <div class="watsapp-icon">
+              <img class="social-icon" src="img/whatsapp.png">
+            </div>
+            <div>
+              <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookImpacts.status" ng-change="facebookImpacts()">Facebook</ion-toggle>
+              <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="smsImpacts.status" ng-change="smsImpacts()">SMS</ion-toggle>
+            </div>
+          </div>
+          <div>
+            <div class="modal-text" class="show-list-numbers-and-dots">
+              <p>Configurar message</p>
+              <label class="item item-input" style="width: 90%; margin-left: 5%;">
+                <textarea placeholder="" style="min-height: 70px;" ng-model="msg.Impacts"></textarea>
+              </label>
+            </div>
+            <div style="margin-right:-20px;">
+              <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveImpacts(msg)">GUARDAR</button>
+            </div>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+     </script>
+
+     <script id="modal-2.html" type="text/ng-template">
+       <ion-modal-view style="background: transparent;">
+         <ion-content padding="true" class="manual-ios-statusbar-padding modal-2" scroll="false">
+       		<div class="modal-header">
+             <div style="height:20px;">
+               <button id="close-button10" ng-click="closeModal(2)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+             </div>
+             <div class="spacer" style="width: 300px; height: 30%; top: 25%; left: 25%;"></div>
+             <h4 id="modal-title">DESVÍO DE RUTA</h4>
+             <div class="modal-text" class="show-list-numbers-and-dots">
+               <p>Permitir publicar en:</p>
+             </div>
+           </div>
+           <div>
+             <div class="fb-icon">
+               <img class="social-icon" src="img/facebook.png">
+             </div>
+             <div class="watsapp-icon">
+               <img class="social-icon" src="img/whatsapp.png">
+             </div>
+             <div>
+               <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookDetour.status" ng-change="facebookDetour()">Facebook</ion-toggle>
+               <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="smsDetour.status" ng-change="smsDetour()">SMS</ion-toggle>
+             </div>
+           </div>
+           <div style="margin: 15px 0px;">
+             <div class="pick-km-text">
+               <p>Después de cuántos km</p>
+             </div>
+             <label class="item item-select black-font col-3 select-item" id="gender_select" name="gender" style="padding: 16px; margin:0px;">
+               <select class="select-input" name="kilometers" ng-model="kmDetour" ng-change="updateKmSelectedDetour(kmDetour)">
+                 <option value="1" selected="selected">1</option>
+                 <option value="2">2</option>
+                 <option value="3">3</option>
+                 <option value="4">4</option>
+                 <option value="5">5</option>
+                 <option value="6">6</option>
+                 <option value="7">7</option>
+                 <option value="8">8</option>
+                 <option value="9">9</option>
+                 <option value="10">10</option>
+                 <option value="11">11</option>
+                 <option value="12">12</option>
+                 <option value="13">13</option>
+                 <option value="14">14</option>
+                 <option value="15">15</option>
+                 <option value="16">16</option>
+                 <option value="17">17</option>
+                 <option value="18">18</option>
+                 <option value="19">19</option>
+                 <option value="20">20</option>
+                 <option value="21">21</option>
+                 <option value="22">22</option>
+                 <option value="23">23</option>
+                 <option value="24">24</option>
+                 <option value="25">25</option>
+               </select>
+             </label>
+           </div>
+           <div>
+             <div class="modal-text" class="show-list-numbers-and-dots">
+               <p>Configurar message</p>
+               <label class="item item-input" style="width: 90%; margin-left: 5%;">
+                 <textarea placeholder="" style="min-height: 70px;" ng-model="msg.Detour"></textarea>
+               </label>
+             </div>
+             <div style="margin-right:-20px;">
+               <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveDetour(msg)">GUARDAR</button>
+             </div>
+           </div>
+         </ion-content>
+       </ion-modal-view>
+      </script>
+
+      <script id="modal-3.html" type="text/ng-template">
+        <ion-modal-view style="background: transparent;">
+          <ion-content padding="true" class="manual-ios-statusbar-padding modal-3" scroll="false">
+        		<div class="modal-header">
+              <div style="height:20px;">
+                <button id="close-button10" ng-click="closeModal(3)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+              </div>
+              <div class="spacer" style="width: 300px; height: 30%; top: 25%; left: 25%;"></div>
+              <h4 id="modal-title">AVISOS DE RIESGO</h4>
+            </div>
+            <div style="margin: 15px 0px;">
+              <div class="pick-km-text">
+                <p>Después de cuántos km</p>
+              </div>
+              <label class="item item-select black-font col-3 select-item" id="gender_select" name="gender" style="padding: 16px; margin:0px;">
+                <select class="select-input" name="kilometers" ng-model="kmRisk" ng-change="updateKmSelectedRisk(kmRisk)">
+                  <option value="1" selected="selected">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                </select>
+              </label>
+            </div>
+            <div>
+              <div>
+                <div class="modal-text" style="margin: 0px 15px;">
+                  <p>Avisar de aproximación a zona de accidentes frecuentes</p>
+                </div>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle" ng-model="accidentToggle.status" ng-change="accidentToggle()">Accident</ion-toggle>
+              </div>
+              <div>
+                <div class="modal-text" style="margin: 0px 15px;">
+                  <p>Avisar de aproximacion a zona de robos frecuentes</p>
+                </div>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle" ng-model="theftsToggle.status" ng-change="theftsToggle()">Thefts</ion-toggle>
+              </div>
+              <div>
+                <div class="modal-text" style="margin: 0px 15px;">
+                  <p>Aviso de exceso de velocidad</p>
+                </div>
+                <ion-toggle toggle-class="toggle-balanced" class="centered-toggle" ng-model="speedToggle.status" ng-change="speedToggle()">Speed</ion-toggle>
+              </div>
+            </div>
+            <div>
+              <div style="margin-right:-20px;">
+                <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveRisks()">GUARDAR</button>
+              </div>
+            </div>
+          </ion-content>
+        </ion-modal-view>
+       </script>
+
+       <script id="modal-4.html" type="text/ng-template">
+         <ion-modal-view style="background: transparent;">
+           <ion-content padding="true" class="manual-ios-statusbar-padding modal-4" scroll="false">
+         		<div class="modal-header">
+               <div style="height:20px;">
+                 <button id="close-button10" ng-click="closeModal(4)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+               </div>
+               <div class="spacer" style="width: 300px; height: 30%; top: 25%; left: 25%;"></div>
+               <h4 id="modal-title">LIVE TRACKING</h4>
+             </div>
+             <div style="margin: 15px 0px;">
+               <div class="pick-km-text">
+                 <p>Después de cuántos km</p>
+               </div>
+               <label class="item item-select black-font col-3 select-item" id="gender_select" name="gender" style="padding: 16px; margin:0px;">
+                 <select class="select-input" name="kilometers" ng-model="kmTracking" ng-change="updateKmSelectedTracking(kmTracking)">
+                   <option value="1" selected="selected">1</option>
+                   <option value="2">2</option>
+                   <option value="3">3</option>
+                   <option value="4">4</option>
+                   <option value="5">5</option>
+                   <option value="6">6</option>
+                   <option value="7">7</option>
+                   <option value="8">8</option>
+                   <option value="9">9</option>
+                   <option value="10">10</option>
+                   <option value="11">11</option>
+                   <option value="12">12</option>
+                   <option value="13">13</option>
+                   <option value="14">14</option>
+                   <option value="15">15</option>
+                   <option value="16">16</option>
+                   <option value="17">17</option>
+                   <option value="18">18</option>
+                   <option value="19">19</option>
+                   <option value="20">20</option>
+                   <option value="21">21</option>
+                   <option value="22">22</option>
+                   <option value="23">23</option>
+                   <option value="24">24</option>
+                   <option value="25">25</option>
+                 </select>
+               </label>
+             </div>
+             <div style="margin-top: 25px;">
+               <div class="modal-text" class="show-list-numbers-and-dots">
+                 <p>Permitir publicar en:</p>
+               </div>
+               <div class="fb-icon">
+                 <img class="social-icon" src="img/facebook.png">
+               </div>
+               <div class="watsapp-icon">
+                 <img class="social-icon" src="img/whatsapp.png">
+               </div>
+               <div>
+                 <ion-toggle toggle-class="toggle-balanced" class="left-toggle" ng-model="facebookTracking.status" ng-change="facebookTracking()">Facebook</ion-toggle>
+                 <ion-toggle toggle-class="toggle-balanced" class="right-toggle" ng-model="smsTracking.status" ng-change="smsTracking()">SMS</ion-toggle>
+               </div>
+             </div>
+             <div>
+               <div class="modal-text" class="show-list-numbers-and-dots">
+                 <p>Configurar message</p>
+                 <label class="item item-input" style="width: 90%; margin-left: 5%;">
+                    <textarea placeholder="" style="min-height: 70px;" ng-model="msg.Tracking"></textarea>
+                 </label>
+               </div>
+               <div style="margin-right:-20px;">
+                 <button style="left:-10px;" class="button button-light  button-full button-clear" ng-click="saveTracking(msg)">GUARDAR</button>
+               </div>
+             </div>
+           </ion-content>
+         </ion-modal-view>
+        </script>
+
+        <script id="modal-5.html" type="text/ng-template">
+          <ion-modal-view style="background: transparent;">
+            <ion-content padding="true" class="manual-ios-statusbar-padding modal-5">
+          		<div class="modal-header">
+                <div style="height:20px;">
+                  <button id="close-button10" ng-click="closeModal(5)" style="color:#FFFFFF; padding-right: 20px; margin:0;width: 20px; position: absolute; right: 0; height: 10%;" class="button button-light  button-block button-clear icon-right ion-android-cancel"></button>
+                </div>
+                <div class="spacer" style="width: 300px; height: 30%; top: 25%; left: 25%;"></div>
+                <h4 id="modal-title">CARAVANA</h4>
+                <div class="modal-text" class="show-list-numbers-and-dots">
+                  <p>SE DESCONOCE EL CONTENIDO</p>
+                </div>
+              </div>
+            </ion-content>
+          </ion-modal-view>
+         </script>
+
+  </ion-content>
+</ion-view>

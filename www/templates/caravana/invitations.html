@@ -1,0 +1,27 @@
+<ion-view title="Esperando usuarios" hide-nav-bar="true" id="caravana-page">
+  <ion-content padding="false" class="manual-ios-statusbar-padding" scroll="false">
+    <div class="title-container">
+      <div class="spacer"></div>
+      <h4 id="heading">Espaerando usuarios</h4>
+    </div>
+    <ion-scroll direction="y" class="background-blue caravana-container">
+      <div>
+        <h5 class="title-results">
+          <strong>RESULTADOS</strong>
+        </h5>
+        <ion-list class="users-list">
+          <ion-item class="user" ng-repeat="user in users">
+            <span class="status" ng-class="{'accepted': user.status}"></span>
+            <span class"name">{{user.name}}</span>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-scroll>
+    <div class="caravana-footer row">
+      <button ui-sref="menu.home" class="col button button-dark button-large cancel-button">Cancelar</button>
+      <button ui-sref="onRoute" class="col button button-balanced button-large go-button" ng-disabled="chrono !== 0">
+        {{chrono === 0 ? 'Iniciar Caravana' : chrono}}</button>
+    </div>
+
+  </ion-content>
+</ion-view>

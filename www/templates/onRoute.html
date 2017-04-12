@@ -1,0 +1,102 @@
+<ion-view title="onRoute" hide-nav-bar="true" hide-back-button="true">
+	<ion-content padding="false" class="manual-ios-statusbar-padding" style="margin-bottom: -4%;" scroll="false">
+		<div class="buttons-bar filter-bar">
+      <button class="button button-calm filter-button button-block">
+      	<img src="img/gasolina.png" alt="gas-filter">
+      </button>
+      <button class="button button-positive filter-button button-block">
+      	<img src="img/clima.png" alt="gas-filter">
+      </button>
+      <button class="button button-calm filter-button button-block">
+      	<img src="img/caseta.png" alt="gas-filter">
+      </button>
+      <button class="button button-positive filter-button button-block">
+      	<img src="img/check.png" alt="gas-filter">
+      </button>
+    </div>
+
+		<div style="display:block;position:relative;width:100%;height:calc(100vh - 19vh);">
+			<ui-gmap-google-map control="mapo.control" ng-if="mapo.center" center="mapo.center" zoom="mapo.zoom" options="mapo.options">
+				<ui-gmap-marker coords="markero.coords" options="markero.options" events="markero.events" idkey="markero.id" ></ui-gmap-marker>
+				<ui-gmap-marker coords="markerdo.coords" options="markerdo.options" events="markerdo.events" idkey="markerdo.id" ></ui-gmap-marker>
+				<ui-gmap-markers models="vmo.markers" coords="'self'" icon="'icon'">
+					<ui-gmap-windows show="show">
+						<div>
+							<div>
+								<label class="markerToolTipLabel" ng-non-bindable>{{name}}</label>
+							</div>
+						</div>
+					</ui-gmap-windows>
+				</ui-gmap-markers>
+				<ui-gmap-polyline ng-repeat="po in polylineso" path="po.path" stroke="po.stroke" visible='po.visible' geodesic='po.geodesic'></ui-gmap-polyline>
+			</ui-gmap-google-map>
+		</div>
+
+		<input name="nav-trigger" type="checkbox" id="nav-trigger" class="nav-trigger">
+    <label for="nav-trigger" style="margin-top: -50px;">!</label>
+    <ul class="navigation">
+      <li class="nav-item background-odd" style="height: 10%;">
+        <p class="nav-title">¡ALERTAS!</p>
+      </li>
+      <li class="nav-item" ui-sref="traficAlert">
+        <a>
+          <div class="img-item">
+            <img src="img/kd9ajAu2RyGZ6nL6cFYr_cono.png">
+          </div>
+          <p class="title-item">Tráfico</p>
+        </a>
+      </li>
+      <li class="nav-item background-odd" ui-sref="policeAlert">
+        <a>
+          <div class="img-item">
+            <img src="img/KknK8IW8RGOIr4j5o75W_policia.png" class="img-item">
+          </div>
+          <p class="title-item">Policía</p>
+        </a>
+      </li>
+      <li class="nav-item" ui-sref="accidentAlert">
+        <a>
+          <div class="img-item">
+            <img src="img/4ozhParQtW7oP2Q9yBXZ_accidente.png" class="img-item" style="height: 20px;">
+          </div>
+          <p class="title-item">Accidente</p>
+        </a>
+      </li>
+      <li class="nav-item background-odd" ui-sref="closedAlert">
+        <a>
+          <div class="img-item">
+            <img src="img/Zf3qdVorSj2c5nP4jCWL_cierre.png" class="img-item">
+          </div>
+          <p class="title-item">Cierres</p>
+        </a>
+      </li>
+      <li class="nav-item" ui-sref="dangerAlert">
+        <a>
+          <div class="img-item">
+            <img src="img/fAqInCCS2SiuMtnPV1KK_peligro.png" class="img-item">
+          </div>
+          <p class="title-item">Peligros</p>
+        </a>
+      </li>
+    </ul>
+
+    <div style="margin-right:-20px;">
+      <button ng-show="!canStop" ng-click="openPopover($event)" style="left:-10px;font-size:20px; margin:0; height:10vh;" class="button button-assertive  button-full">Detener</button>
+    </div>
+
+		<script id="stops-route-confirm.html" type="text/ng-template">
+			<ion-popover-view id="popover_onroute">
+				<ion-content class="popover-content">
+					<div class="text-popover">
+						<h4>¿Quieres detener tu viaje?</h4>
+					</div>
+					<div class="center-content">
+						<button ui-sref="routeDetails" ng-click="closePopover()" class="button button-light  button-block button-outline button-popover">Si</button>
+						<button ng-click="closePopover()" class="button button-light  button-block button-outline button-popover">No</button>
+					</div>
+				</ion-content>
+			</ion-popover-view>
+		</script>
+
+  </ion-content>
+</ion-view>
