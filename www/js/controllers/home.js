@@ -8,9 +8,9 @@ angular.module('app.controllers')
       };
 
       $scope.disabled = true;
+      $scope.watcher = null;
 
       $scope.drawMap = function (position) {
-        console.log(position);
         $scope.positions.lat = position.coords.latitude;
         $scope.positions.lng = position.coords.longitude;
 
@@ -94,8 +94,8 @@ angular.module('app.controllers')
 
         $scope.map = {
           control: {},
-          center: { 
-            latitude: $scope.positions.lat, 
+          center: {
+            latitude: $scope.positions.lat,
             longitude: $scope.positions.lng
           },
           zoom: 15,
@@ -146,35 +146,64 @@ angular.module('app.controllers')
         });
       }
 
-      $scope.$on('$ionicView.enter', function () {
-        var options = { maximumAge: 0, timeout: 5000, enableHighAccuracy: true };
+      function watchLocation() {
+        var options = { maximumAge: 5000, timeout: 5000, enableHighAccuracy: false };
         $cordovaGeolocation.getCurrentPosition(options)
-        .then(function (position) {
-          $scope.drawMap(position);
-        }, function (error) {
-          console.log(error.code);
-          console.log(error.message);
-        });
+          .then(function (position) {
+            console.log(position);
+            $scope.drawMap(position);
+            $scope.markerPosition = {
+              id: 10,
+              coords: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+              }
+            };
+          }, function (error) {
+            console.log(error.code);
+            console.log(error.message);
+          });
+        $scope.watcher = setInterval(function () {
+          $cordovaGeolocation.getCurrentPosition(options)
+            .then(function (position) {
+              console.log(position);
+              $scope.drawMap(position);
+              $scope.markerPosition = {
+                id: 10,
+                coords: {
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude
+                }
+              };
+            }, function (error) {
+              console.log(error.code);
+              console.log(error.message);
+            });
+        }, 5000);
+      }
+
+      $scope.$on('$ionicView.enter', function () {
+        watchLocation();
+
+      });
+
+      $scope.$on('$ionicView.leave', function () {
+        clearInterval($scope.watcher);
+        $scope.watcher = null;
       });
 
       $ionicPlatform.ready(function () {
-
-        // var watchOptions = { timeout: 3000, enableHighAccuracy: false };
-        // $cordovaGeolocation.watchPosition(watchOptions).then(null,
+        // var watchOptions = { maximumAge: 3000, timeout: 3000, enableHighAccuracy: false };
+        // $scope.watcher = $cordovaGeolocation.watchPosition(watchOptions).then(null,
         //   function (error) {
         //     console.log(error);
         //   },
         //   function (position) {
-        //     console.log(position);
         //     $scope.markerPosition = {
         //       id: 10,
         //       coords: {
         //         latitude: position.coords.latitude,
         //         longitude: position.coords.longitude
-        //       },
-        //       options: {
-        //         draggable: true,
-        //         icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         //       }
         //     };
         //   });

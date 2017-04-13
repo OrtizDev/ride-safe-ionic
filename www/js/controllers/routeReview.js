@@ -210,26 +210,44 @@ angular.module('app.controllers')
 
       $scope.polylinesr = [];
 
-      $ionicPlatform.ready(function () {
-        var watchOptions = { timeout: 3000, enableHighAccuracy: false };
-        $cordovaGeolocation.watchPosition(watchOptions).then(null,
-          function (err) {
-            console.log("watch error", err);
-          },
-          function (position) {
+      function watchLocation() {
+        var options = { maximumAge: 0, timeout: 5000, enableHighAccuracy: true };
+        $cordovaGeolocation.getCurrentPosition(options)
+          .then(function (position) {
             console.log(position);
+            $scope.drawMap(position);
             $scope.markerPosition = {
               id: 10,
               coords: {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
-              },
-              options: {
-                draggable: true,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
               }
             };
+          }, function (error) {
+            console.log(error.code);
+            console.log(error.message);
           });
+        $scope.watcher = setInterval(function () {
+          $cordovaGeolocation.getCurrentPosition(options)
+            .then(function (position) {
+              console.log(position);
+              $scope.drawMap(position);
+              $scope.markerPosition = {
+                id: 10,
+                coords: {
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude
+                }
+              };
+            }, function (error) {
+              console.log(error.code);
+              console.log(error.message);
+            });
+        }, 5000);
+      }
+
+      $ionicPlatform.ready(function () {
+        watchLocation();
       });
 
     }]);

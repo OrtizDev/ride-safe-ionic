@@ -1,31 +1,6 @@
 angular.module('app.controllers')
   .controller('caravanaCtrl', ['$scope', '$state',
     function ($scope, $state) {
-      // $scope.users = [
-      //   { name: 'Carlos Barranco', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      //   { name: 'Arturo Caballero', selected: false },
-      // ];
 
       $.ajax({
         type: 'GET',

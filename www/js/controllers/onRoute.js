@@ -1,11 +1,11 @@
 angular.module('app.controllers')
   .controller('onRouteCtrl', ['$scope', '$stateParams', '$ionicPopover', '$rootScope', '$ionicPlatform', '$cordovaGeolocation',
     function ($scope, $stateParams, $ionicPopover, $rootScope, $ionicPlatform, $cordovaGeolocation) {
-      
+
       $scope.vmo = [];
       $scope.vmo.markers = [];
       $scope.polylineso = [];
-      
+      $scope.watcher = null;
 
       $scope.$on('$ionicView.enter', function () {
         $scope.map = {
@@ -70,28 +70,28 @@ angular.module('app.controllers')
 
       });
 
+      $scope.$on('$ionicView.leave', function () {
+        $cordovaGeolocation.clearWatch($scope.watcher);
+        $scope.watcher = null;
+      });
+
       $ionicPlatform.ready(function () {
-        var watchOptions = { timeout: 3000, enableHighAccuracy: false };
-        $cordovaGeolocation.watchPosition(watchOptions).then(null,
-          function (err) {
-            console.log("watch error", err);
+        var watchOptions = { maximumAge: 3000, timeout: 3000, enableHighAccuracy: false };
+        $scope.watcher = $cordovaGeolocation.watchPosition(watchOptions).then(null,
+          function (error) {
+            console.log(error);
           },
           function (position) {
-            console.log(position);
             $scope.markerPosition = {
               id: 10,
               coords: {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
-              },
-              options: {
-                draggable: true,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
               }
             };
           });
       });
-      
+
 
       // Function to close the alerts menu if clicked anywhere in the view
       $(document).click(function (evt) {

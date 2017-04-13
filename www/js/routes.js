@@ -210,6 +210,7 @@ angular.module('app.routes', [])
 
       .state('onRoute', {
         url: '/on-route',
+        cache: false,
         templateUrl: 'templates/onRoute.html',
         controller: 'onRouteCtrl'
       })
