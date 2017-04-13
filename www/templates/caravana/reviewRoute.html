@@ -15,6 +15,7 @@
       </button>
     </div>
     <ui-gmap-google-map control="mapr.control" ng-if="mapr.center" center="mapr.center" zoom="mapr.zoom" options="mapr.options">
+      <ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>
       <ui-gmap-marker coords="markerr.coords" options="markerr.options" events="markerr.events" idkey="markerr.id" ></ui-gmap-marker>
       <ui-gmap-marker coords="markerdr.coords" options="markerdr.options" events="markerdr.events" idkey="markerdr.id" ></ui-gmap-marker>
       <ui-gmap-markers models="vmr.markers" coords="'self'" icon="'icon'">

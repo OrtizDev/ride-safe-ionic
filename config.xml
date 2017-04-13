@@ -4,7 +4,8 @@
   <description>An Ionic Framework and Cordova project for Visual Studio</description>
   <author email="vscordovatools@microsoft.com" href="http://taco.visualstudio.com">Visual Studio JS Mobile Tooling</author>
   <content src="index.html" />
-  <access origin="*" />
+  <access origin="*"/>
+  <allow-navigation href="*://*.googleapis.com/*"/>
   <preference name="webviewbounce" value="false" />
   <preference name="UIWebViewBounce" value="false" />
   <preference name="DisallowOverscroll" value="true" />

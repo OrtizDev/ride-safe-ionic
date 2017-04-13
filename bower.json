@@ -11,8 +11,8 @@
     "ngstorage": "^0.3.11",
     "ngOpenFB": "*",
     "lodash": "^4.17.4",
-    "jquery": "^3.2.1",
     "angular-simple-logger": "^0.1.7",
-    "ngCordova": "^0.1.27-alpha"
+    "ngCordova": "^0.1.27-alpha",
+    "jquery": "^2"
   }
 }

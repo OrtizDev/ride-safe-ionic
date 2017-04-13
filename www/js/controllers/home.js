@@ -158,6 +158,17 @@ angular.module('app.controllers')
           },
           function (position) {
             console.log(position);
+            $scope.markerPosition = {
+              id: 10,
+              coords: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+              },
+              options: {
+                draggable: true,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+              }
+            };
           });
       });
 

@@ -22,7 +22,7 @@ angular.module('app.controllers', ['ngCordova', 'uiGmapgoogle-maps', 'ngOpenFB',
           if (data.error) {
             alert(data.message);
           } else if (!data.error) {
-            let estados = JSON.parse(data.message);
+            var estados = JSON.parse(data.message);
             var toAppend = '';
             $.each(estados, function (i, item) {
               toAppend += '<option value="' + item.id_estado + '">' + item.nombre + '</option>';
@@ -60,7 +60,7 @@ angular.module('app.controllers', ['ngCordova', 'uiGmapgoogle-maps', 'ngOpenFB',
             if (data.error) {
               alert(data.message);
             } else if (!data.error) {
-              let estados = JSON.parse(data.message);
+              var estados = JSON.parse(data.message);
               var toAppend = '';
               $.each(estados, function (i, item) {
                 toAppend += '<option value="' + item.id_municipio + '">' + item.nombre + '</option>';
@@ -123,7 +123,7 @@ angular.module('app.controllers', ['ngCordova', 'uiGmapgoogle-maps', 'ngOpenFB',
           if (data.error) {
             alert(data.message);
           } else if (!data.error) {
-            let estados = JSON.parse(data.message);
+            var estados = JSON.parse(data.message);
             var toAppend = '';
             $.each(estados, function (i, item) {
               toAppend += '<option value="' + item.id_marca_moto + '">' + item.nombre + '</option>';
@@ -159,7 +159,7 @@ angular.module('app.controllers', ['ngCordova', 'uiGmapgoogle-maps', 'ngOpenFB',
             if (data.error) {
               alert(data.message);
             } else if (!data.error) {
-              let estados = JSON.parse(data.message);
+              var estados = JSON.parse(data.message);
               var toAppend = '';
               $.each(estados, function (i, item) {
                 toAppend += '<option value="' + item.id_modelo + '">' + item.nombre + '</option>';
@@ -779,7 +779,7 @@ angular.module('app.controllers', ['ngCordova', 'uiGmapgoogle-maps', 'ngOpenFB',
                   if (!error) {
                     alert('Alerta exitosa');
                     setTimeout(function () {
-                      let $backView = $ionicHistory.backView();
+                      var $backView = $ionicHistory.backView();
                       $backView.go();
                     }, 1000);
                   } else {
@@ -821,7 +821,7 @@ angular.module('app.controllers', ['ngCordova', 'uiGmapgoogle-maps', 'ngOpenFB',
                   if (!error) {
                     alert('Alerta exitosa');
                     setTimeout(function () {
-                      let $backView = $ionicHistory.backView();
+                      var $backView = $ionicHistory.backView();
                       $backView.go();
                     }, 1000);
                   } else {
@@ -863,7 +863,7 @@ angular.module('app.controllers', ['ngCordova', 'uiGmapgoogle-maps', 'ngOpenFB',
                   if (!error) {
                     alert('Alerta exitosa');
                     setTimeout(function () {
-                      let $backView = $ionicHistory.backView();
+                      var $backView = $ionicHistory.backView();
                       $backView.go();
                     }, 1000);
                   } else {
@@ -904,7 +904,7 @@ angular.module('app.controllers', ['ngCordova', 'uiGmapgoogle-maps', 'ngOpenFB',
                   if (!error) {
                     alert('Alerta exitosa');
                     setTimeout(function () {
-                      let $backView = $ionicHistory.backView();
+                      var $backView = $ionicHistory.backView();
                       $backView.go();
                     }, 1000);
                   } else {
@@ -953,7 +953,7 @@ angular.module('app.controllers', ['ngCordova', 'uiGmapgoogle-maps', 'ngOpenFB',
                   if (!error) {
                     alert('Alerta exitosa');
                     setTimeout(function () {
-                      let $backView = $ionicHistory.backView();
+                      var $backView = $ionicHistory.backView();
                       $backView.go();
                     }, 1000);
                   } else {
@@ -1044,4 +1044,4 @@ angular.module('app.controllers', ['ngCordova', 'uiGmapgoogle-maps', 'ngOpenFB',
       }
 
 
-    }]);
+    }])

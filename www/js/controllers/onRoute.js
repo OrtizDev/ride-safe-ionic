@@ -70,7 +70,6 @@ angular.module('app.controllers')
 
       });
 
-
       $ionicPlatform.ready(function () {
         var watchOptions = { timeout: 3000, enableHighAccuracy: false };
         $cordovaGeolocation.watchPosition(watchOptions).then(null,
@@ -79,9 +78,20 @@ angular.module('app.controllers')
           },
           function (position) {
             console.log(position);
+            $scope.markerPosition = {
+              id: 10,
+              coords: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+              },
+              options: {
+                draggable: true,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+              }
+            };
           });
       });
-
+      
 
       // Function to close the alerts menu if clicked anywhere in the view
       $(document).click(function (evt) {

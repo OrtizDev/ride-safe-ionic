@@ -8,6 +8,7 @@ angular.module('app.routes', [])
 
       .state('menu.home', {
         url: '/home',
+        cache: false,
         views: {
           'side-menu21': {
             templateUrl: 'templates/home.html',
@@ -202,6 +203,7 @@ angular.module('app.routes', [])
 
       .state('routeReview', {
         url: '/route-review',
+        cache: false,
         templateUrl: 'templates/routeReview.html',
         controller: 'routeReviewCtrl'
       })
@@ -220,7 +222,7 @@ angular.module('app.routes', [])
       .state('ads', {
         cache: false,
         url: '/ads',
-        templateUrl: 'templates/ads.html',
+        templateUrl: 'templates/adwares.html',
         controller: 'adsCtrl'
       });
 

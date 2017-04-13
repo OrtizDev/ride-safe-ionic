@@ -12,8 +12,8 @@ angular.module('app.controllers')
       $scope.type_poi = 0;
 
 
-      let directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
-      let directionsService = new google.maps.DirectionsService();
+      var directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
+      var directionsService = new google.maps.DirectionsService();
 
       function foo(latlng, fn) {
         var geocoder = new google.maps.Geocoder();

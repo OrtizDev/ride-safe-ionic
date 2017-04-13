@@ -17,7 +17,8 @@
 
 		<div style="display:block;position:relative;width:100%;height:calc(100vh - 19vh);">
 			<ui-gmap-google-map control="map.control" ng-if="map.center" center="map.center" zoom="map.zoom" options="mapo.options">
-				<ui-gmap-marker coords="markerOrigin.coords" options="markerOrigin.options" events="markerOrigin.events" idkey="markerOrigin.id" ></ui-gmap-marker>
+				<ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>
+        <ui-gmap-marker coords="markerOrigin.coords" options="markerOrigin.options" events="markerOrigin.events" idkey="markerOrigin.id" ></ui-gmap-marker>
 				<ui-gmap-marker coords="markerDestination.coords" options="markerDestination.options" events="markerDestination.events" idkey="markerDestination.id" ></ui-gmap-marker>
 				<ui-gmap-markers models="vmo.markers" coords="'self'" icon="'icon'">
 					<ui-gmap-windows show="show">

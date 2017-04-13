@@ -18,7 +18,7 @@ angular.module('app.controllers')
           if (data.error) {
             alert(data.message);
           } else if (!data.error) {
-            let estados = JSON.parse(data.message);
+            var estados = JSON.parse(data.message);
             var toAppend = '';
             $.each(estados, function (i, item) {
               toAppend += '<option value="' + item.id_estado + '">' + item.nombre + '</option>';

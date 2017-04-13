@@ -31,8 +31,8 @@ angular.module('app.controllers')
         type: 'GET',
         url: 'http://startbluesoft.com/rideSafeApp/v1/index.php/amigos/activos',
         // dataType: 'json',
-        success: (users) => {
-          $.each(users, (index, user) => {
+        success: function(users){
+          $.each(users, function(index, user) {
             $scope.users.push({
               name: user.name,
               selected: false,
@@ -46,7 +46,7 @@ angular.module('app.controllers')
       $scope.seleccionados = 0;
 
       $scope.changedUser = function () {
-        $scope.seleccionados = $scope.users.filter((user) => {
+        $scope.seleccionados = $scope.users.filter(function(user) {
           return user.selected;
         }).length;
         if ($scope.seleccionados >= 20) {

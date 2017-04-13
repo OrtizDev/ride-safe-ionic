@@ -11,12 +11,16 @@
         <input type="text" placeholder="Destino" id="destination" ng-blur="blurredd()" ng-keyup="enterPressed($event, blurredd)">
       </label>
     </form>
+
     <ui-gmap-google-map control="map.control" ng-if="map.center" center="map.center"
         zoom="map.zoom" options="map.options" refresh="map.refresh">
+      <ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>
+      <ui-gmap-marker coords="markerDestination.coords" options="markerDestination.options"
+          events="markerDestination.events" idkey="markerDestination.id"></ui-gmap-marker>
       <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events"
           idkey="marker.id"></ui-gmap-marker>
-      <ui-gmap-marker coords="markerd.coords" options="markerd.options" events="markerd.events"
-          idkey="markerd.id"></ui-gmap-marker>
+
+
       <ui-gmap-markers models="vm.markers" coords="'self'" icon="'icon'">
         <ui-gmap-windows show="show">
           <div>
@@ -31,7 +35,8 @@
     </ui-gmap-google-map>
 
     <div class="buttons-bottom">
-      <button ui-sref="routeReview" class="button button-balanced button-large button-full" ng-disabled="disabled">Revisar ruta</button>
+      <button ui-sref="routeReview" class="button button-balanced button-large button-full"
+          ng-disabled="disabled">Revisar ruta</button>
     </div>
   </ion-content>
 </ion-view>

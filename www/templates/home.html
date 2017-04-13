@@ -14,12 +14,13 @@
 
     <ui-gmap-google-map control="map.control" ng-if="map.center" center="map.center"
         zoom="map.zoom" options="map.options" refresh="map.refresh">
-      <ui-gmap-marker coords="markerDestination.coords" options="markerDestination.options" events="markerDestination.events"
-          idkey="markerDestination.id"></ui-gmap-marker>
-
+      <ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>
+      <ui-gmap-marker coords="markerDestination.coords" options="markerDestination.options"
+          events="markerDestination.events" idkey="markerDestination.id"></ui-gmap-marker>
       <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events"
           idkey="marker.id"></ui-gmap-marker>
-          
+
+
       <ui-gmap-markers models="vm.markers" coords="'self'" icon="'icon'">
         <ui-gmap-windows show="show">
           <div>

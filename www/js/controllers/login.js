@@ -59,4 +59,4 @@ angular.module('app.controllers')
         $state.go('userRegister');
       };
 
-    }])
+    }]);

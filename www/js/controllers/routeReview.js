@@ -1,6 +1,6 @@
 angular.module('app.controllers')
-  .controller('routeReviewCtrl', ['$scope', '$stateParams', '$rootScope', '$state',
-    function ($scope, $stateParams, $rootScope, $state) {
+  .controller('routeReviewCtrl', ['$scope', '$stateParams', '$rootScope', '$state', '$ionicPlatform', '$cordovaGeolocation',
+    function ($scope, $stateParams, $rootScope, $state, $ionicPlatform, $cordovaGeolocation) {
 
       $scope.type_poi = 0;
 
@@ -210,5 +210,26 @@ angular.module('app.controllers')
 
       $scope.polylinesr = [];
 
+      $ionicPlatform.ready(function () {
+        var watchOptions = { timeout: 3000, enableHighAccuracy: false };
+        $cordovaGeolocation.watchPosition(watchOptions).then(null,
+          function (err) {
+            console.log("watch error", err);
+          },
+          function (position) {
+            console.log(position);
+            $scope.markerPosition = {
+              id: 10,
+              coords: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+              },
+              options: {
+                draggable: true,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+              }
+            };
+          });
+      });
 
     }]);

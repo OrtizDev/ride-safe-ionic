@@ -222,7 +222,7 @@ angular.module('app.routes', [])
       .state('ads', {
         cache: false,
         url: '/ads',
-        templateUrl: 'templates/ads.html',
+        templateUrl: 'templates/adwares.html',
         controller: 'adsCtrl'
       });
 
