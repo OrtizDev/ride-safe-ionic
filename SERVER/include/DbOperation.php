@@ -1,6 +1,6 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-class DbOperation{
+
+class DbOperation {
 
     private $con;
 
@@ -286,8 +286,4 @@ class DbOperation{
         return 0;
       }
     }
-
-
-}
-
-?>
+} ?>

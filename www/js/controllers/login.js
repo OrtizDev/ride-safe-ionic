@@ -40,7 +40,7 @@ angular.module('app.controllers')
                 },
                 error: function (xhr, status, error) {
                   console.log(xhr.responseText);
-                  alert('No se pudo iniciar sesi&oactue;n, int&eacute;ntalo m&aacute;s tarde');
+                  alert('No se pudo iniciar sesión, inténtalo más tarde');
                 }
               });
             }
