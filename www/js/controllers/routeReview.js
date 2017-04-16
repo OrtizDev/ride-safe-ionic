@@ -1,11 +1,13 @@
 angular.module('app.controllers')
-  .controller('routeReviewCtrl', ['$scope', '$stateParams', '$rootScope', '$state', '$ionicPlatform', '$cordovaGeolocation',
-    function ($scope, $stateParams, $rootScope, $state, $ionicPlatform, $cordovaGeolocation) {
+  .controller('routeReviewCtrl', ['$scope', '$stateParams', '$rootScope', '$state', '$ionicPlatform',
+    function ($scope, $stateParams, $rootScope, $state, $ionicPlatform) {
 
       $scope.type_poi = 0;
+      $scope.vmr = [];
+      $scope.vmr.markers = []; 
+      $scope.polylinesr = [];
 
-      $scope.$on('$ionicView.enter', function () {
-
+      function drawMap() {
         $scope.mapr = {
           control: {},
           center: { latitude: $rootScope.origin.lat, longitude: $rootScope.origin.lng },
@@ -64,21 +66,27 @@ angular.module('app.controllers')
             geodesic: true,
             visible: true
           }];
-          //$scope.vmr.markers = [];
-          // if(wps.routes[0].pois){
-          //   if($scope.type_poi == 1){
-          //     $scope.getToll();
-          //   }
-          //   else if($scope.type_poi == 2){
-          //     $scope.getGas();
-          //   }
-          //   else {
-          //     $scope.getIncident();
-          //   }
-          // }
           $scope.$apply();
         });
+      }
 
+      $rootScope.$watch('currentPosition', function (newValue, oldValue) {
+        if (newValue) {
+          if ($scope.map === undefined) {
+            drawMap(newValue);
+          }
+          $scope.markerPosition = {
+            id: 100,
+            coords: {
+              latitude: newValue.latitude,
+              longitude: newValue.longitude
+            }
+          };
+        }
+      });
+
+      $scope.$on('$ionicView.loaded', function () {
+        drawMap();
       });
 
       function getRoute(fn) {
@@ -189,9 +197,7 @@ angular.module('app.controllers')
         });
       };
 
-      $scope.vmr = [];
 
-      $scope.vmr.markers = [];
 
       function gasType(status) {
         if (status == 'Con anomalías' || status == 'Se negó a verificación') {
@@ -208,46 +214,6 @@ angular.module('app.controllers')
         $state.go('menu.home');
       };
 
-      $scope.polylinesr = [];
 
-      function watchLocation() {
-        var options = { maximumAge: 0, timeout: 5000, enableHighAccuracy: true };
-        $cordovaGeolocation.getCurrentPosition(options)
-          .then(function (position) {
-            console.log(position);
-            $scope.drawMap(position);
-            $scope.markerPosition = {
-              id: 10,
-              coords: {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude
-              }
-            };
-          }, function (error) {
-            console.log(error.code);
-            console.log(error.message);
-          });
-        $scope.watcher = setInterval(function () {
-          $cordovaGeolocation.getCurrentPosition(options)
-            .then(function (position) {
-              console.log(position);
-              $scope.drawMap(position);
-              $scope.markerPosition = {
-                id: 10,
-                coords: {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude
-                }
-              };
-            }, function (error) {
-              console.log(error.code);
-              console.log(error.message);
-            });
-        }, 5000);
-      }
-
-      $ionicPlatform.ready(function () {
-        watchLocation();
-      });
 
     }]);

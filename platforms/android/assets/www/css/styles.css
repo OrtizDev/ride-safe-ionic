@@ -902,10 +902,6 @@ ion-content {
   margin: 0;
   overflow: hidden;
   justify-content: flex-end; }
-  ion-content ui-gmap-google-map {
-    flex: 1;
-    flex-shrink: 0;
-    height: auto !important; }
 
 .buttons-bar {
   margin: 0;
@@ -1106,8 +1102,13 @@ ion-content {
   #caravana-page .caravana-footer .button {
     border-radius: 0; }
 
-.angular-google-map, .angular-google-map-container {
-  height: 500px; }
+ui-gmap-google-map {
+  display: flex;
+  flex: 1 1 100%;
+  height: 100%; }
+  ui-gmap-google-map .angular-google-map, ui-gmap-google-map .angular-google-map-container {
+    height: 100%;
+    flex: 1; }
 
 .background-blue {
   background: #2a429f;

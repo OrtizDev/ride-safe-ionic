@@ -1,6 +1,6 @@
 angular.module('app.controllers')
-  .controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', '$ionicPopup', '$ionicPlatform', '$state', '$cordovaGeolocation',
-    function ($scope, $stateParams, $log, $rootScope, $ionicPopup, $ionicPlatform, $state, $cordovaGeolocation) {
+  .controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', '$ionicPopup', '$ionicPlatform', '$state',
+    function ($scope, $stateParams, $log, $rootScope, $ionicPopup, $ionicPlatform, $state) {
 
       $scope.positions = {
         lat: 0,
@@ -8,11 +8,10 @@ angular.module('app.controllers')
       };
 
       $scope.disabled = true;
-      $scope.watcher = null;
 
       $scope.drawMap = function (position) {
-        $scope.positions.lat = position.coords.latitude;
-        $scope.positions.lng = position.coords.longitude;
+        $scope.positions.lat = position.latitude;
+        $scope.positions.lng = position.longitude;
 
         $scope.markerDestination = {
           id: 1,
@@ -25,16 +24,18 @@ angular.module('app.controllers')
             icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
           },
           events: {
-            dragend: function (markerDestination, eventName, args) {
+            dragend: function (markerDestination) {
               $rootScope.destination = {
                 lat: markerDestination.getPosition().lat(),
                 lng: markerDestination.getPosition().lng()
               };
 
               var latlngd = new google.maps.LatLng($rootScope.destination.lat, $rootScope.destination.lng);
+              
+              $scope.disabled = false;
 
-              foo(latlngd, function (locationd) {
-                $('#destination').val(locationd);
+              geocodePlace(latlngd, function (locationd) {
+                $('input#destination').val(locationd);
                 getDirections();
               });
               $scope.markerDestination.options = {
@@ -47,7 +48,7 @@ angular.module('app.controllers')
           }
         };
 
-        $scope.marker = {
+        $scope.markerOrigin = {
           id: 0,
           coords: {
             latitude: $scope.positions.lat,
@@ -58,30 +59,27 @@ angular.module('app.controllers')
             icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
           },
           events: {
-            dragend: function (marker, marked, eventName, args) {
+            dragend: function (marker) {
               $rootScope.origin = {
                 lat: marker.getPosition().lat(),
-                lon: marker.getPosition().lng()
+                lng: marker.getPosition().lng()
               };
 
               if ($('#home-inputDestination').is(':hidden')) {
-                var latlngd = new google.maps.LatLng(($rootScope.origin.lat), $rootScope.origin.lng);
                 $scope.markerDestination.coords.latitude = $rootScope.origin.lat;
-                $scope.markerDestination.coords.longitude = $rootScope.origin.lng;
+                $scope.markerDestination.coords.longitude = $rootScope.origin.lng + 0.0009;
               }
 
               var latlng = new google.maps.LatLng($rootScope.origin.lat, $rootScope.origin.lng);
 
-              foo(latlng, function (location) {
-                $('#origin').val(location);
+              geocodePlace(latlng, function (location) {
+                $('input#origin').val(location);
                 $('#home-inputDestination').show();
-
-                if ($('#destination').val() === '') {
-                } else {
+                if ($('input#destination').val() !== '') {
                   getDirections();
                 }
               });
-              $scope.marker.options = {
+              $scope.markerOrigin.options = {
                 draggable: true,
                 labelAnchor: '100 0',
                 icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
@@ -90,7 +88,6 @@ angular.module('app.controllers')
             }
           }
         };
-
 
         $scope.map = {
           control: {},
@@ -146,87 +143,37 @@ angular.module('app.controllers')
         });
       }
 
-      function watchLocation() {
-        var options = { maximumAge: 5000, timeout: 5000, enableHighAccuracy: false };
-        $cordovaGeolocation.getCurrentPosition(options)
-          .then(function (position) {
-            console.log(position);
-            $scope.drawMap(position);
-            $scope.markerPosition = {
-              id: 10,
-              coords: {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude
-              }
-            };
-          }, function (error) {
-            console.log(error.code);
-            console.log(error.message);
-          });
-        $scope.watcher = setInterval(function () {
-          $cordovaGeolocation.getCurrentPosition(options)
-            .then(function (position) {
-              console.log(position);
-              $scope.drawMap(position);
-              $scope.markerPosition = {
-                id: 10,
-                coords: {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude
-                }
-              };
-            }, function (error) {
-              console.log(error.code);
-              console.log(error.message);
-            });
-        }, 5000);
-      }
-
-      $scope.$on('$ionicView.enter', function () {
-        watchLocation();
-
-      });
-
-      $scope.$on('$ionicView.leave', function () {
-        clearInterval($scope.watcher);
-        $scope.watcher = null;
-      });
-
-      $ionicPlatform.ready(function () {
-        // var watchOptions = { maximumAge: 3000, timeout: 3000, enableHighAccuracy: false };
-        // $scope.watcher = $cordovaGeolocation.watchPosition(watchOptions).then(null,
-        //   function (error) {
-        //     console.log(error);
-        //   },
-        //   function (position) {
-        //     $scope.markerPosition = {
-        //       id: 10,
-        //       coords: {
-        //         latitude: position.coords.latitude,
-        //         longitude: position.coords.longitude
-        //       }
-        //     };
-        //   });
+      $rootScope.$watch('currentPosition', function (newValue, oldValue) {
+        if (newValue) {
+          if ($scope.map === undefined) {
+            $scope.drawMap(newValue);
+          }
+          $scope.markerPosition = {
+            id: 100,
+            coords: {
+              latitude: newValue.latitude,
+              longitude: newValue.longitude
+            }
+          };
+        }
       });
 
       $scope.enterPressed = function (event, callback) {
         if (event.keyCode === 13) {
           callback();
         }
-        if ($('#origin').val() !== '' && $('#destination').val() !== '') {
+        if ($('input#origin').val() !== '' && $('input#destination').val() !== '') {
           $scope.disabled = false;
         } else {
           $scope.disabled = true;
         }
       };
 
-
-
       $scope.blurred = function () {
-        if ($('#origin').val() != '') {
-          getCoordinates($('#origin').val(), function (coord) {
-            $scope.marker.coords.latitude = coord[0].geometry.location.lat();
-            $scope.marker.coords.longitude = coord[0].geometry.location.lng();
+        if ($('input#origin').val() != '') {
+          getCoordinates($('input#origin').val(), function (coord) {
+            $scope.markerOrigin.coords.latitude = coord[0].geometry.location.lat();
+            $scope.markerOrigin.coords.longitude = coord[0].geometry.location.lng();
             $rootScope.origin = {
               lat: coord[0].geometry.location.lat(),
               lng: coord[0].geometry.location.lng()
@@ -243,7 +190,7 @@ angular.module('app.controllers')
               $scope.markerDestination.coords.longitude = coord[0].geometry.location.lng();
             }
 
-            if ($('#destination').val() != '') {
+            if ($('input#destination').val() != '') {
               getDirections();
             }
           });
@@ -253,8 +200,8 @@ angular.module('app.controllers')
       };
 
       $scope.blurredd = function () {
-        if ($('#destination').val() != '') {
-          getCoordinates($('#destination').val(), function (coord) {
+        if ($('input#destination').val() != '') {
+          getCoordinates($('input#destination').val(), function (coord) {
             $scope.markerDestination.coords.latitude = coord[0].geometry.location.lat();
             $scope.markerDestination.coords.longitude = coord[0].geometry.location.lng();
             $rootScope.destination = {
@@ -279,7 +226,7 @@ angular.module('app.controllers')
 
       $scope.polylines = [];
 
-      function foo(latlng, fn) {
+      function geocodePlace(latlng, fn) {
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({ 'latLng': latlng }, function (results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
@@ -314,7 +261,7 @@ angular.module('app.controllers')
       }
 
       function getDirections() {
-        getRoute($scope.marker.coords.latitude + ',' + $scope.marker.coords.longitude, $scope.markerDestination.coords.latitude + ',' + $scope.markerDestination.coords.longitude, $scope.type_poi, function (wps) {
+        getRoute($scope.markerOrigin.coords.latitude + ',' + $scope.markerOrigin.coords.longitude, $scope.markerDestination.coords.latitude + ',' + $scope.markerDestination.coords.longitude, $scope.type_poi, function (wps) {
           var wp = [];
           for (var i = 0; i < wps.routes[0].geometry.coordinates.length; i++) {
             wp.push({
@@ -356,7 +303,7 @@ angular.module('app.controllers')
 
       $scope.getIncident = function () {
         $scope.type_poi = 3;
-        getRoute($scope.marker.coords.latitude + ',' + $scope.marker.coords.longitude, $scope.markerDestination.coords.latitude + ',' + $scope.markerDestination.coords.longitude, $scope.type_poi, function (wps) {
+        getRoute($scope.markerOrigin.coords.latitude + ',' + $scope.markerOrigin.coords.longitude, $scope.markerDestination.coords.latitude + ',' + $scope.markerDestination.coords.longitude, $scope.type_poi, function (wps) {
           $scope.vm.markers = [];
           if (wps.routes[0].pois) {
             for (var i = 0; i < wps.routes[0].pois.incidents.length; i++) {

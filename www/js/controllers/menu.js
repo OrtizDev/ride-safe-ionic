@@ -1,44 +1,39 @@
 angular.module('app.controllers')
-  .controller('menuCtrl', ['$scope', '$stateParams', '$state', 'UserSession', '$ionicPlatform', '$cordovaGeolocation',
-    function ($scope, $stateParams, $state, UserSession, $ionicPlatform, $cordovaGeolocation) {
+  .controller('menuCtrl', ['$scope', '$stateParams', '$state', 'UserSession', '$cordovaGeolocation', '$rootScope', '$ionicPlatform',
+    function ($scope, $stateParams, $state, UserSession, $cordovaGeolocation, $rootScope, $ionicPlatform) {
       // if (!UserSession.getData()) {
       //   $state.go('login');
       //   return;
       // }
       $scope.name = '';
+      $scope.watcher = null;
 
       $scope.logout = function () {
         UserSession.clearUserData();
         $state.go('login');
       };
 
+      $ionicPlatform.ready(function() {
+        watchLocation();
+      });
+
       $scope.$on('$ionicView.enter', function () {
         $scope.name = UserSession.getName();
-
-        // setTimeout(() => {
-        //   showConfirmPopup();
-        // }, 3000);  
-
       });
 
-      $ionicPlatform.ready(function () {
-        var watchOptions = { maximumAge: 3000, timeout: 3000, enableHighAccuracy: false };
-        $cordovaGeolocation.watchPosition(watchOptions).then(null,
-          function (error) {
-            console.log(error);
-          },
-          function (position) {
-            $scope.markerPosition = {
-              id: 10,
-              coords: {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude
-              }
-            };
-          });
+      $scope.$on('$ionicView.leave', function () {
+        $scope.watcher.clearWatch();
       });
 
-      
-
-
+      function watchLocation() {
+        var options = { timeout: 3000, enableHighAccuracy: false };
+        $scope.watcher = $cordovaGeolocation.watchPosition(options);
+        $scope.watcher.then(null, function (error) {
+        }, function (position) {
+          $rootScope.currentPosition = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          };
+        });
+      }
     }]);

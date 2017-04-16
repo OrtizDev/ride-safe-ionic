@@ -3,8 +3,11 @@ angular.module('app.routes', [])
   .config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
-
-
+      .state('menu', {
+        url: '/left-menu',
+        templateUrl: 'templates/menu.html',
+        controller: 'menuCtrl'
+      })
 
       .state('menu.home', {
         url: '/home',
@@ -14,8 +17,7 @@ angular.module('app.routes', [])
             templateUrl: 'templates/home.html',
             controller: 'homeCtrl'
           }
-        },
-        
+        }
       })
 
       .state('menu.myRoutes', {
@@ -26,12 +28,6 @@ angular.module('app.routes', [])
             controller: 'myRoutesCtrl'
           }
         }
-      })
-
-      .state('menu', {
-        url: '/left-menu',
-        templateUrl: 'templates/menu.html',
-        controller: 'menuCtrl'
       })
 
       .state('login', {
@@ -129,7 +125,6 @@ angular.module('app.routes', [])
         }
       })
 
-
       // End of caravana's routes
       // -----------------------------------------------------------
 
@@ -210,6 +205,7 @@ angular.module('app.routes', [])
 
       .state('onRoute', {
         url: '/on-route',
+        cache: false,
         templateUrl: 'templates/onRoute.html',
         controller: 'onRouteCtrl'
       })

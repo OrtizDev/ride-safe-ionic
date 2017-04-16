@@ -1,39 +1,45 @@
 <ion-view title="onRoute" hide-nav-bar="true" hide-back-button="true">
-	<ion-content padding="false" class="manual-ios-statusbar-padding" style="margin-bottom: -4%;" scroll="false">
-		<div class="buttons-bar filter-bar">
-      <button class="button button-calm filter-button button-block">
+  <ion-content padding="false" class="manual-ios-statusbar-padding" style="margin-bottom: -4%;"
+      scroll="false">
+    <div class="buttons-bar filter-bar">
+      <button ng-click="getGas()" class="button button-calm filter-button button-block">
       	<img src="img/gasolina.png" alt="gas-filter">
       </button>
-      <button class="button button-positive filter-button button-block">
+      <button ng-click="getWeather()" class="button button-positive filter-button button-block">
       	<img src="img/clima.png" alt="gas-filter">
       </button>
-      <button class="button button-calm filter-button button-block">
+      <button ng-click="getToll()" class="button button-calm filter-button button-block">
       	<img src="img/caseta.png" alt="gas-filter">
       </button>
-      <button class="button button-positive filter-button button-block">
+      <button ng-click="" class="button button-positive filter-button button-block">
       	<img src="img/check.png" alt="gas-filter">
       </button>
     </div>
 
-		<div style="display:block;position:relative;width:100%;height:calc(100vh - 19vh);">
-			<ui-gmap-google-map control="map.control" ng-if="map.center" center="map.center" zoom="map.zoom" options="mapo.options">
-				<ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>
-        <ui-gmap-marker coords="markerOrigin.coords" options="markerOrigin.options" events="markerOrigin.events" idkey="markerOrigin.id" ></ui-gmap-marker>
-				<ui-gmap-marker coords="markerDestination.coords" options="markerDestination.options" events="markerDestination.events" idkey="markerDestination.id" ></ui-gmap-marker>
-				<ui-gmap-markers models="vmo.markers" coords="'self'" icon="'icon'">
-					<ui-gmap-windows show="show">
-						<div>
-							<div>
-								<label class="markerToolTipLabel" ng-non-bindable>{{name}}</label>
-							</div>
-						</div>
-					</ui-gmap-windows>
-				</ui-gmap-markers>
-				<ui-gmap-polyline ng-repeat="po in polylineso" path="po.path" stroke="po.stroke" visible='po.visible' geodesic='po.geodesic'></ui-gmap-polyline>
-			</ui-gmap-google-map>
-		</div>
+    <div style="display:block;position:relative;width:100%;height:calc(100vh - 19vh);">
+      <ui-gmap-google-map control="map.control" ng-if="map.center" center="map.center"
+          zoom="map.zoom" options="mapo.options">
+        <ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>
+        <ui-gmap-marker coords="markerOrigin.coords" options="markerOrigin.options" events="markerOrigin.events"
+            idkey="markerOrigin.id"></ui-gmap-marker>
+        <ui-gmap-marker coords="markerDestination.coords" options="markerDestination.options"
+            events="markerDestination.events" idkey="markerDestination.id"></ui-gmap-marker>
+        <ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>
+        <ui-gmap-markers models="vmo.markers" coords="'self'" icon="'icon'">
+          <ui-gmap-windows show="show">
+            <div>
+              <div>
+                <label class="markerToolTipLabel" ng-non-bindable>{{name}}</label>
+              </div>
+            </div>
+          </ui-gmap-windows>
+        </ui-gmap-markers>
+        <ui-gmap-polyline ng-repeat="po in polylineso" path="po.path" stroke="po.stroke"
+            visible='po.visible' geodesic='po.geodesic'></ui-gmap-polyline>
+      </ui-gmap-google-map>
+    </div>
 
-		<input name="nav-trigger" type="checkbox" id="nav-trigger" class="nav-trigger">
+    <input name="nav-trigger" type="checkbox" id="nav-trigger" class="nav-trigger">
     <label for="nav-trigger" style="margin-top: -50px;">!</label>
     <ul class="navigation">
       <li class="nav-item background-odd" style="height: 10%;">
@@ -82,22 +88,23 @@
     </ul>
 
     <div style="margin-right:-20px;">
-      <button ng-show="!canStop" ng-click="openPopover($event)" style="left:-10px;font-size:20px; margin:0; height:10vh;" class="button button-assertive  button-full">Detener</button>
+      <button ng-show="!canStop" ng-click="openPopover($event)" style="left:-10px;font-size:20px; margin:0; height:10vh;"
+          class="button button-assertive  button-full">Detener</button>
     </div>
 
-		<script id="stops-route-confirm.html" type="text/ng-template">
-			<ion-popover-view id="popover_onroute">
-				<ion-content class="popover-content">
-					<div class="text-popover">
-						<h4>¿Quieres detener tu viaje?</h4>
-					</div>
-					<div class="center-content">
-						<button ui-sref="routeDetails" ng-click="closePopover()" class="button button-light  button-block button-outline button-popover">Si</button>
-						<button ng-click="closePopover()" class="button button-light  button-block button-outline button-popover">No</button>
-					</div>
-				</ion-content>
-			</ion-popover-view>
-		</script>
+    <script id="stops-route-confirm.html" type="text/ng-template">
+      <ion-popover-view id="popover_onroute">
+        <ion-content class="popover-content">
+          <div class="text-popover">
+            <h4>¿Quieres detener tu viaje?</h4>
+          </div>
+          <div class="center-content">
+            <button ui-sref="routeDetails" ng-click="closePopover()" class="button button-light  button-block button-outline button-popover">Si</button>
+            <button ng-click="closePopover()" class="button button-light  button-block button-outline button-popover">No</button>
+          </div>
+        </ion-content>
+      </ion-popover-view>
+    </script>
 
   </ion-content>
 </ion-view>

@@ -1,24 +1,16 @@
 angular.module('app.controllers')
-  .controller('caravanaCtrl', ['$scope', '$state',
-    function ($scope, $state) {
-
-      $.ajax({
-        type: 'GET',
-        url: 'http://startbluesoft.com/rideSafeApp/v1/index.php/amigos/activos',
-        // dataType: 'json',
-        success: function(users){
-          $.each(users, function(index, user) {
-            $scope.users.push({
-              name: user.name,
-              selected: false,
-              id: user.id
-            });
-
-          });
-        }
-      });
-
+  .controller('caravanaCtrl', ['$scope', '$state', '$http',
+    function ($scope, $state, $http) {
+      var url = 'http://startbluesoft.com/rideSafeApp/v1/index.php/userActive';
+      $scope.users = null;
       $scope.seleccionados = 0;
+
+      $http.get(url).then(function (data) {
+        $scope.users = data.data.message;
+      }, function (error) {
+        alert('No se pudieron obtener los usuarios');
+        console.log(error);
+      });
 
       $scope.changedUser = function () {
         $scope.seleccionados = $scope.users.filter(function(user) {
@@ -35,6 +27,5 @@ angular.module('app.controllers')
       $scope.sendInvitations = function () {
         $state.go('menu.caravanaDestination');
       };
-
 
     }]);

@@ -33,11 +33,6 @@ ion-content {
   margin: 0;
   overflow: hidden;
   justify-content: flex-end;
-  ui-gmap-google-map {
-    flex: 1;
-    flex-shrink: 0;
-    height: auto !important;
-  }
 }
 
 .buttons-bar {

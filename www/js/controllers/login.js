@@ -1,6 +1,8 @@
 angular.module('app.controllers')
-  .controller('loginCtrl', ['$scope', '$stateParams', '$state', 'UserSession',
-    function ($scope, $stateParams, $state, UserSession) {
+  .controller('loginCtrl', ['$scope', '$stateParams', '$state', 'UserSession', '$http',
+    function ($scope, $stateParams, $state, UserSession, $http) {
+      var urlLogin = "http://startbluesoft.com/rideSafeApp/v1/index.php/userlogin";
+
       if (UserSession.getData()) {
         $state.go('menu.home');
         return;
@@ -25,24 +27,18 @@ angular.module('app.controllers')
                 'email': email,
                 'password': password
               };
-              $.ajax({
-                type: 'POST',
-                url: 'http://startbluesoft.com/rideSafeApp/v1/index.php/userlogin',
-                data: parametros,
-                dataType: 'json',
-                success: function (data) {
+              $http.post(urlLogin, parametros)
+                .then(function (data) {
                   if (data.error) {
                     alert(data.message);
                   } else if (!data.error) {
                     UserSession.setData(data.id, data.nombre);
                     $state.go('menu.home');
                   }
-                },
-                error: function (xhr, status, error) {
-                  console.log(xhr.responseText);
+                }, function (error) {
+                  console.log(error.responseText);
                   alert('No se pudo iniciar sesión, inténtalo más tarde');
-                }
-              });
+                });
             }
           }
         }
