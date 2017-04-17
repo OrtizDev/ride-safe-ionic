@@ -16,28 +16,27 @@
       </button>
     </div>
 
-    <div style="display:block;position:relative;width:100%;height:calc(100vh - 19vh);">
-      <ui-gmap-google-map control="map.control" ng-if="map.center" center="map.center"
-          zoom="map.zoom" options="mapo.options">
-        <ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>
-        <ui-gmap-marker coords="markerOrigin.coords" options="markerOrigin.options" events="markerOrigin.events"
-            idkey="markerOrigin.id"></ui-gmap-marker>
-        <ui-gmap-marker coords="markerDestination.coords" options="markerDestination.options"
-            events="markerDestination.events" idkey="markerDestination.id"></ui-gmap-marker>
-        <ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>
-        <ui-gmap-markers models="vmo.markers" coords="'self'" icon="'icon'">
-          <ui-gmap-windows show="show">
+    <ion-spinner ng-if="loading" icon="spiral" class="spinner-energized"></ion-spinner>
+    <ui-gmap-google-map control="map.control" ng-if="map.center" center="map.center"
+        zoom="map.zoom" options="mapo.options">
+      <ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>
+      <ui-gmap-marker coords="markerOrigin.coords" options="markerOrigin.options" events="markerOrigin.events"
+          idkey="markerOrigin.id"></ui-gmap-marker>
+      <ui-gmap-marker coords="markerDestination.coords" options="markerDestination.options"
+          events="markerDestination.events" idkey="markerDestination.id"></ui-gmap-marker>
+      <ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>
+      <ui-gmap-markers models="vmo.markers" coords="'self'" icon="'icon'">
+        <ui-gmap-windows show="show">
+          <div>
             <div>
-              <div>
-                <label class="markerToolTipLabel" ng-non-bindable>{{name}}</label>
-              </div>
+              <label class="markerToolTipLabel" ng-non-bindable>{{name}}</label>
             </div>
-          </ui-gmap-windows>
-        </ui-gmap-markers>
-        <ui-gmap-polyline ng-repeat="po in polylineso" path="po.path" stroke="po.stroke"
-            visible='po.visible' geodesic='po.geodesic'></ui-gmap-polyline>
-      </ui-gmap-google-map>
-    </div>
+          </div>
+        </ui-gmap-windows>
+      </ui-gmap-markers>
+      <ui-gmap-polyline ng-repeat="po in polylineso" path="po.path" stroke="po.stroke"
+          visible='po.visible' geodesic='po.geodesic'></ui-gmap-polyline>
+    </ui-gmap-google-map>
 
     <input name="nav-trigger" type="checkbox" id="nav-trigger" class="nav-trigger">
     <label for="nav-trigger" style="margin-top: -50px;">!</label>

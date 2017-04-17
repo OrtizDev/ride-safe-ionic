@@ -4,14 +4,15 @@
     <form id="route-form" class="list">
       <label class="item item-input" id="home-inputOrigin" name="origin">
         <span style="width: 15%; font-size: 12px;"><i class="icon ion-record calm"></i></span>
-        <input type="text" placeholder="Origen de ruta" id="origin" ng-blur="blurred()" ng-keyup="enterPressed($event, blurred)">
+        <input type="text" placeholder="Origen de ruta" id="origin" ng-blur="searchOrigin()" ng-keyup="enterPressed($event, searchOrigin)">
       </label>
       <label class="item item-input" id="home-inputDestination" name="origin">
         <span style="width: 15%; font-size: 16px;"><i class="icon ion-android-search"></i></span>
-        <input type="text" placeholder="Destino" id="destination" ng-blur="blurredd()" ng-keyup="enterPressed($event, blurredd)">
+        <input type="text" placeholder="Destino" id="destination" ng-blur="searchDestination()" ng-keyup="enterPressed($event, searchDestination)">
       </label>
     </form>
 
+    <ion-spinner ng-if="loading" icon="spiral" class="spinner-energized" ></ion-spinner>
     <ui-gmap-google-map control="map.control" ng-if="map.center" center="map.center"
         zoom="map.zoom" options="map.options" refresh="map.refresh">
       <ui-gmap-marker coords="markerPosition.coords" idkey="markerPosition.id"></ui-gmap-marker>

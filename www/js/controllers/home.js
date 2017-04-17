@@ -1,13 +1,42 @@
 angular.module('app.controllers')
-  .controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', '$ionicPopup', '$ionicPlatform', '$state',
-    function ($scope, $stateParams, $log, $rootScope, $ionicPopup, $ionicPlatform, $state) {
+  .controller('homeCtrl', ['$scope', '$stateParams', '$log', '$rootScope', '$ionicPopup', '$ionicPlatform', '$state', '$http',
+    function ($scope, $stateParams, $log, $rootScope, $ionicPopup, $ionicPlatform, $state, $http) {
 
       $scope.positions = {
         lat: 0,
         lng: 0
       };
-
+      $scope.loading = true;
       $scope.disabled = true;
+      $scope.vm = [];
+      $scope.vm.markers = [];
+      $scope.type_poi = 0;
+      $scope.polylines = [];
+
+      $scope.$on('$ionicView.loaded', function () {
+        var windowHeight = $(window).height();
+        $('ui-gmap-google-map').height(windowHeight - 60);
+      });
+
+      $scope.$on('$ionicView.enter', function () {
+        $('#home-inputDestination').hide();
+        $scope.loading = false;
+      });
+
+      $rootScope.$watch('currentPosition', function (newValue, oldValue) {
+        if (newValue) {
+          if ($scope.map === undefined) {
+            $scope.drawMap(newValue);
+          }
+          $scope.markerPosition = {
+            id: 100,
+            coords: {
+              latitude: newValue.latitude,
+              longitude: newValue.longitude
+            }
+          };
+        }
+      });
 
       $scope.drawMap = function (position) {
         $scope.positions.lat = position.latitude;
@@ -31,7 +60,7 @@ angular.module('app.controllers')
               };
 
               var latlngd = new google.maps.LatLng($rootScope.destination.lat, $rootScope.destination.lng);
-              
+
               $scope.disabled = false;
 
               geocodePlace(latlngd, function (locationd) {
@@ -143,21 +172,6 @@ angular.module('app.controllers')
         });
       }
 
-      $rootScope.$watch('currentPosition', function (newValue, oldValue) {
-        if (newValue) {
-          if ($scope.map === undefined) {
-            $scope.drawMap(newValue);
-          }
-          $scope.markerPosition = {
-            id: 100,
-            coords: {
-              latitude: newValue.latitude,
-              longitude: newValue.longitude
-            }
-          };
-        }
-      });
-
       $scope.enterPressed = function (event, callback) {
         if (event.keyCode === 13) {
           callback();
@@ -169,8 +183,8 @@ angular.module('app.controllers')
         }
       };
 
-      $scope.blurred = function () {
-        if ($('input#origin').val() != '') {
+      $scope.searchOrigin = function () {
+        if ($('input#origin').val() !== '') {
           getCoordinates($('input#origin').val(), function (coord) {
             $scope.markerOrigin.coords.latitude = coord[0].geometry.location.lat();
             $scope.markerOrigin.coords.longitude = coord[0].geometry.location.lng();
@@ -199,7 +213,7 @@ angular.module('app.controllers')
         }
       };
 
-      $scope.blurredd = function () {
+      $scope.searchDestination = function () {
         if ($('input#destination').val() != '') {
           getCoordinates($('input#destination').val(), function (coord) {
             $scope.markerDestination.coords.latitude = coord[0].geometry.location.lat();
@@ -219,12 +233,26 @@ angular.module('app.controllers')
         }
       };
 
-      $('#home-inputDestination').hide();
-
-      $scope.type_poi = 0;
-
-
-      $scope.polylines = [];
+      $scope.getIncident = function () {
+        $scope.type_poi = 3;
+        getRoute($scope.markerOrigin.coords.latitude + ',' + $scope.markerOrigin.coords.longitude, $scope.markerDestination.coords.latitude + ',' + $scope.markerDestination.coords.longitude, $scope.type_poi, function (wps) {
+          $scope.vm.markers = [];
+          if (wps.routes[0].pois) {
+            for (var i = 0; i < wps.routes[0].pois.incidents.length; i++) {
+              var mark = {
+                id: i,
+                latitude: wps.routes[0].pois.incidents[i].geometry.coordinates[1],
+                longitude: wps.routes[0].pois.incidents[i].geometry.coordinates[0],
+                name: wps.routes[0].pois.incidents[i].description + '<br /	>' + wps.routes[0].pois.incidents[i].address,
+                show: false,
+                icon: './img/pines/accidente-grave.png'
+              };
+              $scope.vm.markers.push(mark);
+            }
+            // $scope.$apply();
+          }
+        });
+      };
 
       function geocodePlace(latlng, fn) {
         var geocoder = new google.maps.Geocoder();
@@ -249,44 +277,50 @@ angular.module('app.controllers')
         data.poi_in = [poi];
         data.weather = true;
         $.ajax({
-          crossDomain: true,
           type: 'GET',
           url: 'https://api.sintrafico.com/route',
           data: data,
           headers: { 'X-Requested-With': 'f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc' },
           success: function (e) {
-            fn(e);
+            $scope.$apply(function () {
+              fn(e);
+            });
           }
         });
       }
 
       function getDirections() {
-        getRoute($scope.markerOrigin.coords.latitude + ',' + $scope.markerOrigin.coords.longitude, $scope.markerDestination.coords.latitude + ',' + $scope.markerDestination.coords.longitude, $scope.type_poi, function (wps) {
-          var wp = [];
-          for (var i = 0; i < wps.routes[0].geometry.coordinates.length; i++) {
-            wp.push({
-              latitude: wps.routes[0].geometry.coordinates[i][1],
-              longitude: wps.routes[0].geometry.coordinates[i][0]
-            });
-          }
-          $scope.polylines = [{
-            id: 1,
-            path: wp,
-            stroke: {
-              color: '#223D75',
-              weight: 5
-            },
-            editable: true,
-            draggable: true,
-            geodesic: true,
-            visible: true
-          }];
-          $scope.vm.markers = [];
-          if (wps.routes[0].pois) {
-            $scope.getIncident();
-          }
-          // $scope.$apply();
-        });
+        $scope.loading = true;
+        getRoute(
+          $scope.markerOrigin.coords.latitude + ',' + $scope.markerOrigin.coords.longitude,
+          $scope.markerDestination.coords.latitude + ',' + $scope.markerDestination.coords.longitude,
+          $scope.type_poi,
+          function (wps) {
+            var wp = [];
+            for (var i = 0; i < wps.routes[0].geometry.coordinates.length; i++) {
+              wp.push({
+                latitude: wps.routes[0].geometry.coordinates[i][1],
+                longitude: wps.routes[0].geometry.coordinates[i][0]
+              });
+            }
+            $scope.polylines = [{
+              id: 1,
+              path: wp,
+              stroke: {
+                color: '#223D75',
+                weight: 5
+              },
+              editable: true,
+              draggable: true,
+              geodesic: true,
+              visible: true
+            }];
+            $scope.vm.markers = [];
+            if (wps.routes[0].pois) {
+              $scope.getIncident();
+            }
+            $scope.loading = false;
+          });
       }
 
       function getCoordinates(address, fn) {
@@ -300,34 +334,5 @@ angular.module('app.controllers')
           }
         });
       }
-
-      $scope.getIncident = function () {
-        $scope.type_poi = 3;
-        getRoute($scope.markerOrigin.coords.latitude + ',' + $scope.markerOrigin.coords.longitude, $scope.markerDestination.coords.latitude + ',' + $scope.markerDestination.coords.longitude, $scope.type_poi, function (wps) {
-          $scope.vm.markers = [];
-          if (wps.routes[0].pois) {
-            for (var i = 0; i < wps.routes[0].pois.incidents.length; i++) {
-              var mark = {
-                id: i,
-                latitude: wps.routes[0].pois.incidents[i].geometry.coordinates[1],
-                longitude: wps.routes[0].pois.incidents[i].geometry.coordinates[0],
-                name: wps.routes[0].pois.incidents[i].description + '<br /	>' + wps.routes[0].pois.incidents[i].address,
-                show: false,
-                icon: './img/pines/accidente-grave.png'
-              };
-              $scope.vm.markers.push(mark);
-            }
-            // $scope.$apply();
-          }
-        });
-      };
-
-      $scope.vm = [];
-
-      $scope.vm.markers = [];
-
-      $scope.back = function () { }
-
-
 
     }]);

@@ -14,6 +14,7 @@
       	<img src="img/check.png" alt="gas-filter">
       </button>
     </div>
+    <ion-spinner ng-if="loading" icon="spiral" class="spinner-energized" ></ion-spinner>
     <ui-gmap-google-map control="mapr.control" ng-if="mapr.center" center="mapr.center" zoom="mapr.zoom" options="mapr.options">
       <ui-gmap-marker coords="markerr.coords" options="markerr.options" events="markerr.events" idkey="markerr.id" ></ui-gmap-marker>
       <ui-gmap-marker coords="markerdr.coords" options="markerdr.options" events="markerdr.events" idkey="markerdr.id" ></ui-gmap-marker>

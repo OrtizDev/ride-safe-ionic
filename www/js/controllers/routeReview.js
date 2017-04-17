@@ -1,11 +1,129 @@
 angular.module('app.controllers')
-  .controller('routeReviewCtrl', ['$scope', '$stateParams', '$rootScope', '$state', '$ionicPlatform',
-    function ($scope, $stateParams, $rootScope, $state, $ionicPlatform) {
+  .controller('routeReviewCtrl', ['$scope', '$stateParams', '$rootScope', '$state', '$ionicPlatform', 'SinTrafico',
+    function ($scope, $stateParams, $rootScope, $state, $ionicPlatform, SinTrafico) {
+      if ($rootScope.origin === undefined || $rootScope.destination === undefined) {
+        $state.go('menu.home');
+        return;
+      }
 
       $scope.type_poi = 0;
       $scope.vmr = [];
-      $scope.vmr.markers = []; 
+      $scope.vmr.markers = [];
       $scope.polylinesr = [];
+      $scope.loading = true;
+
+      $rootScope.$watch('currentPosition', function (newValue, oldValue) {
+        if (newValue) {
+          if ($scope.map === undefined) {
+            drawMap(newValue);
+          }
+          $scope.markerPosition = {
+            id: 100,
+            coords: {
+              latitude: newValue.latitude,
+              longitude: newValue.longitude
+            }
+          };
+        }
+      });
+
+      $scope.$on('$ionicView.loaded', function () {
+        drawMap();
+      });
+
+      $scope.getGas = function () {
+        $scope.loading = true;
+        SinTrafico.getGas(function (wps) {
+          $scope.vmr.markers = [];
+          if (wps.routes[0].pois) {
+            for (var i = 0; i < wps.routes[0].pois.gas_stations.length; i++) {
+              var mark = {
+                id: i,
+                latitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[1],
+                longitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[0],
+                name: wps.routes[0].pois.gas_stations[i].description + '<br /	>' + wps.routes[0].pois.gas_stations[i].address + '<br /	>' + wps.routes[0].pois.gas_stations[i].status,
+                show: false,
+                icon: gasType(wps.routes[0].pois.gas_stations[i].status)
+              };
+              $scope.vmr.markers.push(mark);
+            }
+          }
+          $scope.loading = false;
+        });
+      };
+
+      $scope.getIncident = function () {
+        $scope.loading = true;
+        SinTrafico.getIncident(function (wps) {
+          $scope.vmr.markers = [];
+          if (wps.routes[0].pois) {
+            for (var i = 0; i < wps.routes[0].pois.incidents.length; i++) {
+              var mark = {
+                id: i,
+                latitude: wps.routes[0].pois.incidents[i].geometry.coordinates[1],
+                longitude: wps.routes[0].pois.incidents[i].geometry.coordinates[0],
+                name: wps.routes[0].pois.incidents[i].description + '<br /	>' + wps.routes[0].pois.incidents[i].address,
+                show: false,
+                icon: './img/pines/accidente-grave.png'
+              };
+              $scope.vmr.markers.push(mark);
+            }
+          }
+          $scope.loading = false;
+        });
+      };
+
+      $scope.getToll = function () {
+        $scope.loading = true;
+        SinTrafico.getIncident(function (wps) {
+          $scope.vmr.markers = [];
+          if (wps.routes[0].pois.tolls) {
+            for (var i = 0; i < wps.routes[0].pois.tolls.length; i++) {
+              var cost = 'Costo: ';
+              wps.routes[0].pois.tolls[i].rates[0][4] ? cost = cost + wps.routes[0].pois.tolls[i].rates[0][4] : cost = cost + '-';
+              var mark = {
+                id: i,
+                latitude: wps.routes[0].pois.tolls[i].geometry.coordinates[1],
+                longitude: wps.routes[0].pois.tolls[i].geometry.coordinates[0],
+                name: wps.routes[0].pois.tolls[i].description + '<br /	>' + wps.routes[0].pois.tolls[i].address + '<br /	>' + 'Costo: ' + wps.routes[0].pois.tolls[i].rates[4],
+                show: false,
+                icon: './img/pines/caseta.png'
+              };
+              $scope.vmr.markers.push(mark);
+            }
+          }
+          $scope.loading = false;
+        });
+      };
+
+      $scope.getWeather = function () {
+        $scope.loading = true;
+        SinTrafico.getIncident(function (wps) {
+          $scope.vmr.markers = [];
+          if (wps.routes[0].legs) {
+            console.log(wps.routes[0].legs[0].steps);
+            for (var i = 1; i < wps.routes[0].legs[0].steps.length; i++) {
+              //console.log(wps.routes[0].legs[0].steps[i].weather.main.temp);
+              if (wps.routes[0].legs[0].steps[i].weather) {
+                var mark = {
+                  id: i,
+                  latitude: wps.routes[0].legs[0].steps[i].geometry.coordinates[0][1],
+                  longitude: wps.routes[0].legs[0].steps[i].geometry.coordinates[0][0],
+                  name: 'Temperatura: ' + (wps.routes[0].legs[0].steps[i].weather.main.temp - 273.15) + '°C' + '<br />' + 'Clima: ' + wps.routes[0].legs[0].steps[i].weather.weather[0].description,
+                  show: false,
+                  icon: './img/pines/soleado.png'
+                };
+                $scope.vmr.markers.push(mark);
+              }
+            }
+          }
+          $scope.loading = false;
+        });
+      };
+
+      $scope.back = function () {
+        $state.go('menu.home');
+      };
 
       function drawMap() {
         $scope.mapr = {
@@ -45,8 +163,7 @@ angular.module('app.controllers')
           }
         };
 
-        getRoute(function (wps) {
-          console.log(wps);
+        SinTrafico.getRoute(function (wps) {
           var wp = [];
           for (var i = 0; i < wps.routes[0].geometry.coordinates.length; i++) {
             wp.push({
@@ -66,138 +183,9 @@ angular.module('app.controllers')
             geodesic: true,
             visible: true
           }];
-          $scope.$apply();
+          $scope.loading = false;
         });
       }
-
-      $rootScope.$watch('currentPosition', function (newValue, oldValue) {
-        if (newValue) {
-          if ($scope.map === undefined) {
-            drawMap(newValue);
-          }
-          $scope.markerPosition = {
-            id: 100,
-            coords: {
-              latitude: newValue.latitude,
-              longitude: newValue.longitude
-            }
-          };
-        }
-      });
-
-      $scope.$on('$ionicView.loaded', function () {
-        drawMap();
-      });
-
-      function getRoute(fn) {
-        var data = {};
-        data.start = $rootScope.origin.lat + ',' + $rootScope.origin.lng;
-        data.end = $rootScope.destination.lat + ',' + $rootScope.destination.lng;
-        data.poi_in = [$scope.type_poi];
-        data.weather = true;
-        $.ajax({
-          crossDomain: true,
-          type: 'GET',
-          url: 'https://api.sintrafico.com/route',
-          data: data,
-          headers: { 'X-Requested-With': 'f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc' },
-          success: function (e) {
-            fn(e);
-          }
-        });
-      }
-
-      $scope.getGas = function () {
-        $scope.type_poi = 2;
-        getRoute(function (wps) {
-          $scope.vmr.markers = [];
-          if (wps.routes[0].pois) {
-            for (var i = 0; i < wps.routes[0].pois.gas_stations.length; i++) {
-              var mark = {
-                id: i,
-                latitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[1],
-                longitude: wps.routes[0].pois.gas_stations[i].geometry.coordinates[0],
-                name: wps.routes[0].pois.gas_stations[i].description + '<br /	>' + wps.routes[0].pois.gas_stations[i].address + '<br /	>' + wps.routes[0].pois.gas_stations[i].status,
-                show: false,
-                icon: gasType(wps.routes[0].pois.gas_stations[i].status)
-              };
-              $scope.vmr.markers.push(mark);
-            }
-            $scope.$apply();
-          }
-        });
-      };
-
-      $scope.getIncident = function () {
-        $scope.type_poi = 3;
-        getRoute(function (wps) {
-          $scope.vmr.markers = [];
-          if (wps.routes[0].pois) {
-            for (var i = 0; i < wps.routes[0].pois.incidents.length; i++) {
-              var mark = {
-                id: i,
-                latitude: wps.routes[0].pois.incidents[i].geometry.coordinates[1],
-                longitude: wps.routes[0].pois.incidents[i].geometry.coordinates[0],
-                name: wps.routes[0].pois.incidents[i].description + '<br /	>' + wps.routes[0].pois.incidents[i].address,
-                show: false,
-                icon: './img/pines/accidente-grave.png'
-              };
-              $scope.vmr.markers.push(mark);
-            }
-            $scope.$apply();
-          }
-        });
-      };
-
-      $scope.getToll = function () {
-        $scope.type_poi = 1;
-        getRoute(function (wps) {
-          console.log(wps);
-          $scope.vmr.markers = [];
-          if (wps.routes[0].pois.tolls) {
-            for (var i = 0; i < wps.routes[0].pois.tolls.length; i++) {
-              var cost = 'Costo: ';
-              wps.routes[0].pois.tolls[i].rates[0][4] ? cost = cost + wps.routes[0].pois.tolls[i].rates[0][4] : cost = cost + '-';
-              var mark = {
-                id: i,
-                latitude: wps.routes[0].pois.tolls[i].geometry.coordinates[1],
-                longitude: wps.routes[0].pois.tolls[i].geometry.coordinates[0],
-                name: wps.routes[0].pois.tolls[i].description + '<br /	>' + wps.routes[0].pois.tolls[i].address + '<br /	>' + 'Costo: ' + wps.routes[0].pois.tolls[i].rates[4],
-                show: false,
-                icon: './img/pines/caseta.png'
-              };
-              $scope.vmr.markers.push(mark);
-            }
-            $scope.$apply();
-          }
-        });
-      };
-
-      $scope.getWeather = function () {
-        getRoute(function (wps) {
-          $scope.vmr.markers = [];
-          if (wps.routes[0].legs) {
-            console.log(wps.routes[0].legs[0].steps);
-            for (var i = 1; i < wps.routes[0].legs[0].steps.length; i++) {
-              //console.log(wps.routes[0].legs[0].steps[i].weather.main.temp);
-              if (wps.routes[0].legs[0].steps[i].weather) {
-                var mark = {
-                  id: i,
-                  latitude: wps.routes[0].legs[0].steps[i].geometry.coordinates[0][1],
-                  longitude: wps.routes[0].legs[0].steps[i].geometry.coordinates[0][0],
-                  name: 'Temperatura: ' + (wps.routes[0].legs[0].steps[i].weather.main.temp - 273.15) + '°C' + '<br />' + 'Clima: ' + wps.routes[0].legs[0].steps[i].weather.weather[0].description,
-                  show: false,
-                  icon: './img/pines/soleado.png'
-                };
-                $scope.vmr.markers.push(mark);
-              }
-            }
-            $scope.$apply();
-          }
-        });
-      };
-
-
 
       function gasType(status) {
         if (status == 'Con anomalías' || status == 'Se negó a verificación') {
@@ -209,11 +197,5 @@ angular.module('app.controllers')
         }
         return url;
       }
-
-      $scope.back = function () {
-        $state.go('menu.home');
-      };
-
-
 
     }]);

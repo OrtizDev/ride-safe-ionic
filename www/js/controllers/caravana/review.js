@@ -1,26 +1,15 @@
 angular.module('app.controllers')
   .controller('CaravanaReviewRouteCtrl', ['$scope', '$stateParams', '$rootScope', '$state',
     function ($scope, $stateParams, $rootScope, $state) {
+      if($rootScope.origin === undefined || $rootScope.destination === undefined) {
+        $state.go('menu.home');
+      }
 
       $scope.type_poi = 0;
-
-      function getRoute(fn) {
-        var data = {};
-        data.start = $rootScope.origin.lat + ',' + $rootScope.origin.lng;
-        data.end = $rootScope.destination.lat + ',' + $rootScope.destination.lng;
-        data.poi_in = [$scope.type_poi];
-        data.weather = true;
-        $.ajax({
-          crossDomain: true,
-          type: 'GET',
-          url: 'https://api.sintrafico.com/route',
-          data: data,
-          headers: { 'X-Requested-With': 'f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc' },
-          success: function (e) {
-            fn(e);
-          }
-        });
-      }
+      $scope.loading = true;
+      $scope.vmr = [];
+      $scope.vmr.markers = [];
+      $scope.polylinesr = [];
 
       $scope.$on('$ionicView.enter', function () {
         $scope.mapr = {
@@ -62,6 +51,7 @@ angular.module('app.controllers')
 
         getRoute(function (wps) {
           console.log(wps);
+          $scope.loading = true;
           var wp = [];
           for (var i = 0; i < wps.routes[0].geometry.coordinates.length; i++) {
             wp.push({
@@ -81,15 +71,15 @@ angular.module('app.controllers')
             geodesic: true,
             visible: true
           }];
+          $scope.loading = false;
           $scope.$apply();
         });
-
+        $scope.loading = false;
       });
-
-
 
       $scope.getGas = function () {
         $scope.type_poi = 2;
+        $scope.loading = true;
         getRoute(function (wps) {
           $scope.vmr.markers = [];
           if (wps.routes[0].pois) {
@@ -104,13 +94,14 @@ angular.module('app.controllers')
               };
               $scope.vmr.markers.push(mark);
             }
-            $scope.$apply();
           }
+          $scope.loading = false;
         });
       };
 
       $scope.getIncident = function () {
         $scope.type_poi = 3;
+        $scope.loading = true;
         getRoute(function (wps) {
           $scope.vmr.markers = [];
           if (wps.routes[0].pois) {
@@ -125,15 +116,14 @@ angular.module('app.controllers')
               };
               $scope.vmr.markers.push(mark);
             }
-            $scope.$apply();
           }
+          $scope.loading = false;
         });
       };
 
       $scope.getToll = function () {
         $scope.type_poi = 1;
         getRoute(function (wps) {
-          console.log(wps);
           $scope.vmr.markers = [];
           if (wps.routes[0].pois.tolls) {
             for (var i = 0; i < wps.routes[0].pois.tolls.length; i++) {
@@ -149,8 +139,8 @@ angular.module('app.controllers')
               };
               $scope.vmr.markers.push(mark);
             }
-            $scope.$apply();
           }
+          $scope.loading = false;
         });
       };
 
@@ -173,14 +163,31 @@ angular.module('app.controllers')
                 $scope.vmr.markers.push(mark);
               }
             }
-            $scope.$apply();
           }
+          $scope.loading = false;
         });
       };
 
-      $scope.vmr = [];
 
-      $scope.vmr.markers = [];
+      function getRoute(fn) {
+        var data = {};
+        data.start = $rootScope.origin.lat + ',' + $rootScope.origin.lng;
+        data.end = $rootScope.destination.lat + ',' + $rootScope.destination.lng;
+        data.poi_in = [$scope.type_poi];
+        data.weather = true;
+        $.ajax({
+          crossDomain: true,
+          type: 'GET',
+          url: 'https://api.sintrafico.com/route',
+          data: data,
+          headers: { 'X-Requested-With': 'f057f3a4c8b3fcb6584ee22046626c36afc8f3edc682aed5c7ca1d575953d1cc' },
+          success: function (e) {
+            $scope.$apply(function () {
+              fn(e);
+            });
+          }
+        });
+      }
 
       function gasType(status) {
         if (status == 'Con anomalías' || status == 'Se negó a verificación') {
@@ -196,8 +203,5 @@ angular.module('app.controllers')
       $scope.back = function () {
         $state.go('menu.home');
       };
-
-      $scope.polylinesr = [];
-
 
     }]);

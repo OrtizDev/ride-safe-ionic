@@ -1,10 +1,10 @@
 angular.module('app.controllers')
   .controller('menuCtrl', ['$scope', '$stateParams', '$state', 'UserSession', '$cordovaGeolocation', '$rootScope', '$ionicPlatform',
     function ($scope, $stateParams, $state, UserSession, $cordovaGeolocation, $rootScope, $ionicPlatform) {
-      // if (!UserSession.getData()) {
-      //   $state.go('login');
-      //   return;
-      // }
+      if (!UserSession.getData()) {
+        $state.go('login');
+        return;
+      }
       $scope.name = '';
       $scope.watcher = null;
 
