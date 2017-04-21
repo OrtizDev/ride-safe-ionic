@@ -15,8 +15,8 @@ class DbOperation {
 
 
     public function userLogin($mail,$pass){
-
       $password = sha1($pass);
+      
       $stmt = $this -> con -> prepare("SELECT * FROM usuario WHERE correo = ? AND contrasena = ?");
       $stmt -> bind_param("ss",$mail,$password);
       $stmt -> execute();
@@ -27,7 +27,6 @@ class DbOperation {
     }
 
     public function getUser($mail){
-
       $stmt = $this -> con -> prepare("SELECT * FROM usuario WHERE correo = ?");
       $stmt -> bind_param("s",$mail);
       $stmt -> execute();
@@ -173,6 +172,18 @@ class DbOperation {
       return $user;
     }
 
+    public function updateUserStatus($id,$status){
+      $stmt = $this -> con -> prepare("UPDATE usuario SET status = ".$status." WHERE id_usuario = ".$id);
+      // $stmt -> bind_param("s",$status);
+      $result = $stmt -> execute();
+      $stmt -> close();
+      if($result){
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+
     public function updateUser($nam,$apa,$apm,$mai,$pas,$bir,$gen,$cel,$eme,$ciu,$id,$est){
 
       if($est==1){
@@ -201,7 +212,7 @@ class DbOperation {
 
     public function updateMoto($marca,$modelo,$anio,$placas,$id){
 
- 
+
       $stmt = $this -> con -> prepare("UPDATE moto SET marca = ?, anio = ?, modelo = ?, placas = ? WHERE id_moto = ?");
       $stmt -> bind_param("sssss",$marca,$modelo,$anio,$placas,$id);
       $result = $stmt -> execute();
@@ -246,9 +257,19 @@ class DbOperation {
       return $post;
     }
 
-    public function getImgAnuncio(){
+    public function getImgAnuncio($imganun){
 
-      $query = "SELECT * FROM img_anuncios WHERE id_img_anuncio=".$imganun;
+      $query = "SELECT imagen FROM img_anuncios WHERE id_img_anuncio = ".$imganun;
+      $result = mysqli_query($this -> con, $query);
+      while ($row =  mysqli_fetch_assoc($result)) {
+        $post[] = array_map('utf8_encode', $row);
+      }
+      return $post;
+    }
+
+    public function getImgRuta($imganun){
+
+      $query = "SELECT * FROM ruta_imagen WHERE id_ruta = ".$imganun;
       $result = mysqli_query($this -> con, $query);
       while ($row =  mysqli_fetch_assoc($result)) {
         $post[] = array_map('utf8_encode', $row);
@@ -257,7 +278,7 @@ class DbOperation {
     }
 
      public function getUsuariosActivos(){
-      $query = "SELECT usuario.nombre FROM usuario, usuario_amigo WHERE usuario.id_usuario = usuario_amigo.id_usuario AND usuario.status = '1' GROUP BY usuario.nombre";
+      $query = "SELECT usuario.nombre, usuario.id_usuario FROM usuario, usuario_amigo WHERE usuario.id_usuario = usuario_amigo.id_usuario AND usuario.status = '1' GROUP BY usuario.nombre";
       $result = mysqli_query($this -> con, $query);
       while ($row = mysqli_fetch_assoc($result)) {
         $post[] = array_map('utf8_encode',$row);
@@ -267,23 +288,37 @@ class DbOperation {
 
 
     public function getNotificaciones(){
-      $query = "SELECT usuario.nombre, notificaciones.descripcion_notificacion FROM notificaciones,usuario,usuario_amigo WHERE usuario.id_usuario = notificaciones.id_usuario AND notificaciones.id_usuario = usuario_amigo.id_usuario GROUP BY notificaciones.descripcion_notificacion";
+      $query = "SELECT usuario.nombre, usuario.id_usuario, notificaciones.descripcion_notificacion, notificaciones.id_notificacion
+      FROM notificaciones, usuario, usuario_amigo 
+      WHERE notificaciones.id_amigo = 17 && usuario.id_usuario = notificaciones.id_usuario
+      GROUP BY notificaciones.descripcion_notificacion";
       $result = mysqli_query($this -> con, $query);
       while ($row = mysqli_fetch_assoc($result)){
         $post[] = array_map('utf8_encode', $row);
       }
       return $post;
     }
-	
-   public function postNotificacion($id_notificacion,$id_usuario,$id_amigo,$descripcion_notificacion){
-    $stmt = $this -> con ->prepare("INSERT INTO notificaciones(id_notificacion, id_usuario, id_amigo, descripcion_notificacion) VALUES(?,?,?,?)");
-      $stmt -> bind_param('iiis',$id_notificacion,$id_usuario,$id_amigo,$descripcion_notificacion);
-      $result = $stmt -> execute();
-      $stmt -> close();
-      if($result){
-        return 1;
-      } else {
-        return 0;
-      }
+
+  public function postNotificacion($id_notificacion,$id_usuario,$id_amigo,$descripcion_notificacion) {
+    $stmt = $this -> con ->prepare("INSERT INTO notificaciones(id_usuario, id_amigo, descripcion_notificacion) VALUES(?,?,?)");
+    $stmt -> bind_param('iis',$id_usuario,$id_amigo,$descripcion_notificacion);
+    $result = $stmt -> execute();
+    $stmt -> close();
+
+    if($result) {
+      return 1;
+    } else {
+      return 0;
     }
+  }
+
+  public function deleteNotificacion($id_notificacion) {
+    $query = "DELETE FROM notificaciones WHERE id_notificacion = $id_notificacion";
+    $result = mysqli_query($this->con, $query);
+    if($result) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
 } ?>

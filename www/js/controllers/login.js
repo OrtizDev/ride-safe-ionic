@@ -27,18 +27,19 @@ angular.module('app.controllers')
                 'email': email,
                 'password': password
               };
-              $http.post(urlLogin, parametros)
-                .then(function (data) {
-                  if (data.error) {
-                    alert(data.message);
-                  } else if (!data.error) {
-                    UserSession.setData(data.id, data.nombre);
-                    $state.go('menu.home');
-                  }
-                }, function (error) {
-                  console.log(error.responseText);
-                  alert('No se pudo iniciar sesión, inténtalo más tarde');
-                });
+              $http.post(urlLogin, parametros).then(function (data) {
+                console.log(data);
+                data = data.data;
+                if (data.error) {
+                  alert(data.message);
+                } else if (!data.error) {
+                  UserSession.setData(data.id, data.nombre);
+                  $state.go('menu.home');
+                }
+              }, function (error) {
+                console.log(error.responseText);
+                alert('No se pudo iniciar sesión, inténtalo más tarde');
+              });
             }
           }
         }

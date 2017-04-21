@@ -1,7 +1,7 @@
 angular.module('app.services')
   .factory('SinTrafico', ['$rootScope',
     function ($rootScope) {
-      function getRoute(fn, type_poi = 0) {
+      function getRoute(fn, type_poi) {
         var data = {};
         data.start = $rootScope.origin.lat + ',' + $rootScope.origin.lng;
         data.end = $rootScope.destination.lat + ',' + $rootScope.destination.lng;

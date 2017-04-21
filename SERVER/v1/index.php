@@ -1,10 +1,12 @@
 ﻿<?php
 header('Access-Control-Allow-Origin: *');
 
+header('Access-Control-Allow-Methods: GET, POST');
+
+header("Access-Control-Allow-Headers: X-Requested-With");
+
 require_once '../include/DbOperation.php';
 require '.././libs/Slim/Slim.php';
-
-header('Access-Control-Allow-Origin: *');
 
 \Slim\Slim::registerAutoloader();
 $app = new \Slim\Slim();
@@ -26,27 +28,104 @@ function echoResponse($status_code, $response)
 }
 
 $app->post('/userlogin',function() use ($app){
+  $body = (array) json_decode($app->request->getBody());
 
-  $mail = $app->request->post('email');
-  $pass = $app->request->post('password');
+  $mail = $body['email'];
+  $pass = $body['password'];
 
   $db =  new DbOperation();
 
   $response = array();
 
   if($db -> userLogin($mail,$pass)){
-
     $user = $db -> getUser($mail);
+    $db -> updateUserStatus(1, $user['id_usuario']);
     $response['error'] = false;
     $response['id'] = $user['id_usuario'];
-    $response['nombre'] = $user['nombre'] . " " . $user['apPat'] . " ". $user['apMat']; 
+    $response['nombre'] = $user['nombre'] . " " . $user['apPat'] . " ". $user['apMat'];
   } else {
     $response['error'] = true;
     $response['message'] = "Usuario o Contraseña Erronea";
   }
 
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
+});
+
+$app->post('/userlogout',function() use ($app){
+  $response = array();
+  $idUser = $app->request->post('id');
+  $db =  new DbOperation();
+  if ($db -> updateUserStatus($idUser,0)) {
+    $response['error'] = false;
+    $response['message'] = "Estado de usuario actualizado";
+  } else {
+    $response['error'] = true;
+    $response['message'] = "Estado de usuario no actualizado";
+  }
+
+  return echoResponse(200,$response);
+
+});
+
+$app->get('/userActive', function() use ($app){
+
+  $db =  new DbOperation();
+  $response = array();
+  $users = $db -> getUsuariosActivos();
+  $response['error'] = false;
+  $response['message'] = $users;
+  return echoResponse(200,$response);
+
+});
+
+$app->get('/notificaciones', function() use ($app){
+
+  $db =  new DbOperation();
+  $response = array();
+  $notificaciones = $db -> getNotificaciones();
+  $response['error'] = false;
+  $response['message'] = $notificaciones;
+  return echoResponse(200,$response);
+
+});
+
+$app->post('/notificaciones', function() use ($app){
+  $body = (array) json_decode($app->request->getBody());
+  $id_notificacion = $body['idnotificacion'];
+  $id_usuario = $body['idUsuario'];
+  $id_amigo = $body['idAmigo'];
+  $descripcion_notificacion = json_encode($body['descripcion']);
+
+  $db =  new DbOperation();
+  $response = array();
+  if ($db -> postNotificacion($id_notificacion,$id_usuario,$id_amigo,$descripcion_notificacion) ) {
+    $response['error'] = false;
+    $response['message'] = "Notificacion creada";
+  } else {
+    $response['error'] = true;
+    $response['message'] = "Notificacion no creada";
+  }
+
+  return echoResponse(200,$response);
+});
+
+$app->delete('/notificaciones', function() use ($app){
+  $body = (array) json_decode($app->request->getBody());
+  $id_notificacion = $body['idNotificacion'];
+
+  $db =  new DbOperation();
+  $response = array();
+  if ($db -> deleteNotificacion($id_notificacion) ) {
+    $response['error'] = false;
+    $response['message'] = "Notificacion eliminada";
+  } else {
+    $response['error'] = true;
+    $response['message'] = "Notificacion no eliminada";
+    $response['body'] = $app->request->getBody();
+  }
+
+  return echoResponse(200,$response);
 });
 
 $app->get('/thematic', function() use ($app){
@@ -56,7 +135,7 @@ $app->get('/thematic', function() use ($app){
   $thematics = $db -> getThematic();
   $response['error'] = false;
   $response['message'] = json_encode($thematics);
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
 
@@ -67,7 +146,7 @@ $app->get('/state', function() use ($app){
   $states = $db -> getStates();
   $response['error'] = false;
   $response['message'] = json_encode($states);
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
 
@@ -80,7 +159,7 @@ $app->post('/cities', function() use ($app){
   $cities = $db -> getCities($town);
   $response['error'] = false;
   $response['message'] = json_encode($cities);
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
 
@@ -113,7 +192,7 @@ $app->post('/registuser',function() use ($app){
     $response['error'] = false;
   else
     $response['error'] = true;
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
 
@@ -131,7 +210,7 @@ $app->post('/registmoto', function() use ($app) {
     $response['error'] = false;
   else
     $response['error'] = true;
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
 
@@ -149,7 +228,7 @@ $app->post('/alert', function() use ($app) {
   $response =  array();
   $res = $db -> postAlert($type_alert,$id_trip,$lat,$lon,$validation,$state,$date);
   $res == 1? $response['error'] = false: $response['error'] = true;
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
 
@@ -160,7 +239,7 @@ $app->get('/brand', function() use ($app) {
   $brands = $db -> getBrands();
   $response['error'] = false;
   $response['message'] = json_encode($brands);
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
 
@@ -173,7 +252,7 @@ $app->post('/models', function() use ($app){
   $models = $db -> getModels($brand);
   $response['error'] = false;
   $response['message'] = json_encode($models);
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
 
@@ -186,7 +265,7 @@ $app->post('/filter', function() use ($app){
   $results = $db -> getFilter($query);
   $response['error'] = false;
   $response['message'] = json_encode($results);
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
 
@@ -227,7 +306,7 @@ $app->post('/confUser', function() use ($app) {
   $response['enduro']= $moto['enduro'];
   $response['carretera']= $moto['carretera'];
   $response['otro'] = $moto['otro'];
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
 
@@ -253,7 +332,7 @@ $app->post('/updateUser',function() use ($app){
     $response['error'] = false;
   else
     $response['error'] = true;
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
 
@@ -287,9 +366,21 @@ $app->post('/updateMoto',function() use ($app){
       $response['error'] = true;
   }else
     $response['error'] = true;
-  echoResponse(200,$response);
+  return echoResponse(200,$response);
 
 });
+
+function getFileImagenRuta($images){
+  $images['imagen'] = base64_encode(file_get_contents('./img/rutas/' . $images['nombre']));
+  return $images;
+}
+
+function getNameImages($ruta){
+  $db =  new DbOperation();
+  $ruta['imagenes'] = $db -> getImgRuta($ruta['id_ruta']);
+  $ruta['imagenes'] = array_map('getFileImagenRuta',$ruta['imagenes']);
+  return $ruta;
+}
 
 $app->get('/routes', function() use ($app){
 
@@ -297,9 +388,10 @@ $app->get('/routes', function() use ($app){
   $db =  new DbOperation();
   $response = array();
   $route = $db -> getRoutes();
+  $route2 = array_map('getNameImages',$route);
   $response['error'] = false;
-  $response['message'] = json_encode($route);
-  echoResponse(200,$route);
+  $response['message'] = $route2;
+  return echoResponse(200,$response);
 
 });
 
@@ -311,7 +403,7 @@ $app->get('/emergencia', function() use ($app){
   $emergencias = $db -> getEme();
   $response['error'] = false;
   $response['message'] = json_encode($emergencias);
-  echoResponse(200,$emergencias);
+  return echoResponse(200,$emergencias);
 
 });
 
@@ -323,9 +415,22 @@ $app->get('/establecimiento', function() use ($app){
   $establecimiento = $db -> getEsta();
   $response['error'] = false;
   $response['message'] = json_encode($establecimiento);
-  echoResponse(200,$establecimiento);
+  return echoResponse(200,$establecimiento);
 
 });
+
+function getFileImagen($images){
+  $images['nombre'] = $images['imagen'];
+  $images['imagen'] = base64_encode(file_get_contents('./img/anuncios/' . $images['imagen']));
+  return $images;
+}
+
+function getImagesAnucios($anun){
+  $db =  new DbOperation();
+  $anun['imagenes'] = $db -> getImgAnuncio($anun['id_img_anuncio']);
+  $anun['imagenes'] = array_map('getFileImagen',$anun['imagenes']);
+  return $anun;
+}
 
 $app->get('/anuncio', function() use ($app){
 
@@ -333,9 +438,10 @@ $app->get('/anuncio', function() use ($app){
   $db =  new DbOperation();
   $response = array();
   $anuncio = $db -> getAnuncio();
+  $anuncio2 = array_map('getImagesAnucios',$anuncio);
   $response['error'] = false;
-  $response['message'] = json_encode($anuncio);
-  echoResponse(200,$anuncio);
+  $response['message'] = $anuncio2;
+  return echoResponse(200,$response);
 
 });
 
